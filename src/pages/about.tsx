@@ -87,7 +87,7 @@ export default function AboutPage({ data }) {
             <SubTitle>In case you're wondering, this site </SubTitle>
             <ul>
               <li>Hosted proudly through <a href="https://www.netlify.com/" target="_blank">Netlify</a>.</li>
-              <li>Designed and developed on a <a href="" target="_blank">Mac</a></li>
+              <li>Designed and developed on a <a href="" target="_blank">M1 Macbook Pro</a></li>
               <li>Written using my favorite text-editor <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.</li>
               <li>Handcrafted using the awesome <a href="https://www.gatsbyjs.com/" target="_blank">Gatsby</a>.</li>
               <li>Uses the beautiful <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>.</li>

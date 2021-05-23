@@ -68,7 +68,7 @@ const socials = [
   },
   {
     name: "Medium",
-    link: "https://medium.com/@thecaffeinedev",
+    link: "https://medium.com/@caffeinedev",
     renderIcon: () => <MediumIcon />
   }
 
