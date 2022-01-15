@@ -1,0 +1,75 @@
+[
+  
+    {
+      "title"    : "Building and Installing OpenCV on M1 Macbook",
+      "description" : "OpenCV M1 Mac Build",
+      "tags"     : "opencv, apple-silicon",
+      "url"      : "/Building-and-Installing-OpenCV-on-M1-Macbook/",
+      "date"     : "2021-05-28 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Setting up TensorFlow on M1 Mac",
+      "description" : "Tensorflow M1 Mac",
+      "tags"     : "apple-silicon, tensorflow",
+      "url"      : "/Setting-up-TensorFlow-on-M1-Mac/",
+      "date"     : "2021-05-27 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Try Django Part-2",
+      "description" : "Part-2 Of Django Tutorial",
+      "tags"     : "django, python",
+      "url"      : "/try-django-part-2/",
+      "date"     : "2020-05-06 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Try Django Part-1",
+      "description" : "Part-1 Of Django Tutorial",
+      "tags"     : "django, python",
+      "url"      : "/try-django-part-1/",
+      "date"     : "2020-04-23 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "How to run VS Code in the browser",
+      "description" : "vscode on browser",
+      "tags"     : "vscode",
+      "url"      : "/how-to-run-vs-code-in-browser/",
+      "date"     : "2020-01-27 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Customize Your Terminal On Ubuntu",
+      "description" : "customize your terminal on Ubuntu",
+      "tags"     : "ubuntu, terminal",
+      "url"      : "/customize-your-terminal-on-ubuntu/",
+      "date"     : "2020-01-04 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Custom Object Detection With YoloV3",
+      "description" : "Learn how to train a custom object detection with yolov3",
+      "tags"     : "yolov3, object-detection",
+      "url"      : "/Custom-Object-Detection-With-YoloV3/",
+      "date"     : "2019-12-22 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Custom Object Detection With Tensorflow Object Detection API",
+      "description" : "Learn how to train a custom object detection with TF Object detection API",
+      "tags"     : "tensorflow, object-detection",
+      "url"      : "/Custom-Object-Detection-With-Tensorflow-Object-Detection-API/",
+      "date"     : "2019-12-08 16:04:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Javascript Notes",
+      "description" : "JS Notes",
+      "tags"     : "javascript",
+      "url"      : "/javascript-notes/",
+      "date"     : "2018-07-05 00:00:00 +0000"
+    } 
+  
+]

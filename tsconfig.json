@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "typeRoots": ["src/custom.d.ts"],
-    "esModuleInterop": true,
-    "jsx": "react",
-    "strict": true
-  }
-}

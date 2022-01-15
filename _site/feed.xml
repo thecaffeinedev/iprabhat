@@ -1,0 +1,2696 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-15T15:17:21+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Building and Installing OpenCV on M1 Macbook</title><link href="http://localhost:4000/Building-and-Installing-OpenCV-on-M1-Macbook/" rel="alternate" type="text/html" title="Building and Installing OpenCV on M1 Macbook" /><published>2021-05-28T00:00:00+00:00</published><updated>2021-05-28T00:00:00+00:00</updated><id>http://localhost:4000/Building-and-Installing-OpenCV-on-M1-Macbook</id><content type="html" xml:base="http://localhost:4000/Building-and-Installing-OpenCV-on-M1-Macbook/"><![CDATA[<p><img src="./cvm1.png" alt="Cover image" />
+In this blog post, we are going to build and install OpenCV on anM1 Mac.</p>
+
+<p>Last year in November 2020 apple releases their first ARM64-based M1 chip. It got a lot of attention from everyone.</p>
+
+<p>Being a tech enthusiast and a programmer, I was amazed to see the performance of the new apple M1 chip. The benchmarks were really good.</p>
+
+<p>Recently only some months back, I bought myself an M1 Macbook Pro with 8Gigs of RAM and 512GB of SSD.
+Let’s get started.</p>
+
+<p>Here are the things that we are going to do.</p>
+
+<p>Here are the things that we are going to do.</p>
+
+<ul>
+  <li>Step 1: Homebrew and Xcode Command Line Tools Installation</li>
+  <li>Step2: Install Miniforge</li>
+  <li>Step3: Create a virtual environment with python3.8</li>
+  <li>Step4: Install necessary dependencies</li>
+  <li>Step5: Compile and Build OpenCV</li>
+  <li>Step6: Test OpenCV</li>
+</ul>
+
+<h1 id="step1-homebrew-and-xcode-cli-installation">Step1: Homebrew and XCode CLI Installation</h1>
+
+<p>If Homebrew is not already installed in your system you can install it by running the following in your terminal.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+</code></pre></div></div>
+
+<p>After it gets installed, install wget and CMake.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install wget cmake
+</code></pre></div></div>
+
+<p>I have already installed Xcode Command Line Tools on my mac. If it’s not already installed in your system, you can install it by running the following command below in your terminal.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select --install
+</code></pre></div></div>
+
+<h2 id="step2-install-miniforge">Step2: Install Miniforge</h2>
+
+<p>Install miniforge for arm64 (Apple Silicon) from <a href="https://github.com/conda-forge/miniforge">miniforge GitHub</a>.</p>
+
+<p>Miniforge enables installing python packages natively compiled for Apple Silicon.</p>
+
+<p>After the installation of miniforge, by default, it gives us one base environment. You can turn off the default base env by running</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda config --set auto_activate_base false
+</code></pre></div></div>
+
+<h2 id="step3-create-a-virtual-environment">Step3: Create a virtual environment</h2>
+
+<p>Let’s create a virtual environment named mlp with python3.8 installed.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create --name testcv python=3.8
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/700/1*NIKNl9-7FvfL3go-NPR8uQ.png" alt="" /></p>
+
+<p>And activate it by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate testcv
+
+</code></pre></div></div>
+
+<h2 id="step4-installing-some-dependencies">Step4: Installing Some Dependencies</h2>
+
+<p>As we are going to install OpenCV natively we have to install the compatible version of Numpy which Apple provides for M1.</p>
+
+<p>Run the following commands below on a terminal to install Numpy</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha3/tensorflow_macos-0.1alpha3.tar.gz
+
+tar -xvf tensorflow_macos-0.1alpha3.tar.gzcd tensorflow_macos/arm64
+
+cd tensorflow_macos/arm64
+
+pip install --upgrade --no-dependencies --force numpy-1.18.5-cp38-cp38-macosx_11_0_arm64.whl
+
+cd ~
+
+</code></pre></div></div>
+
+<h2 id="step5-compile-and-build-opencv">Step5: Compile and Build OpenCV</h2>
+
+<p>We have to download OpenCV and OpenCV Contrib first.</p>
+
+<p>I have created one folder named test_opencv where I will be downloading files and build there.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.0.zip
+
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.0.zip
+
+unzip opencv.zip &amp;&amp; unzip opencv_contrib.zip
+
+cd opencv-4.5.0
+
+mkdir build &amp;&amp; cd build
+
+</code></pre></div></div>
+
+<p>Let’s Set up the OpenCV build with CMake:</p>
+
+<p>Make sure to put your own PATH on OPENCV_EXTRA_MODULES</p>
+
+<p>Also, make sure to activate your conda environment before running make.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate testcv
+
+</code></pre></div></div>
+
+<p>You have to put your Python3 executable path also. You can get it by running</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $CONDA_PREFIX
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/700/1*IZc7yOIpjLtfaj4KlRU1DA.png" alt="" /></p>
+
+<p>For eg: My path is</p>
+
+<p><em>/opt/homebrew/Caskroom/miniforge/base/envs/testcv/</em></p>
+
+<p>So I have put</p>
+
+<p><em>/opt/homebrew/Caskroom/miniforge/base/envs/testcv/bin/python3</em></p>
+
+<p>You have to change and put your own path there.</p>
+
+<p>Now you can run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+cmake \
+ DCMAKE_SYSTEM_PROCESSOR=arm64 \
+-DCMAKE_OSX_ARCHITECTURES=arm64 \
+-DWITH_OPENJPEG=OFF \
+-DWITH_IPP=OFF \
+-D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D OPENCV_EXTRA_MODULES_PATH=/Users/caffeinedev/Prabhat/Workspace/test_opencv/opencv_contrib-4.5.0/modules \
+-D PYTHON3_EXECUTABLE=/opt/homebrew/Caskroom/miniforge/base/envs/testcv/bin/python3 \
+-D BUILD_opencv_python2=OFF \
+-D BUILD_opencv_python3=ON \
+-D INSTALL_PYTHON_EXAMPLES=ON \
+-D INSTALL_C_EXAMPLES=OFF \
+-D OPENCV_ENABLE_NONFREE=ON \
+-D BUILD_EXAMPLES=ON ..
+
+</code></pre></div></div>
+
+<p>Snapshots</p>
+
+<p><img src="https://miro.medium.com/max/700/1*7ERmg-sL7tL5SGQfAAcwMg.png" alt="" /></p>
+
+<p>You will see the screen below after Cmake. The compilation doesn’t take that much time.</p>
+
+<p><img src="https://miro.medium.com/max/700/1*QgSSYmqBrJ3MP4S7wYjvQA.png" alt="" /></p>
+
+<p>Now we have the run the make command.</p>
+
+<p>Here j8 stands for 8 cores. You can do either make or you can adjust the j option. So let’s run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make -j8
+
+</code></pre></div></div>
+
+<p>You will get an output like the below. It took around 10 minutes for me.</p>
+
+<p><img src="https://miro.medium.com/max/700/1*GLl6bTvsk8yjqx-yHORpWQ.png" alt="" /></p>
+
+<p>Then the last step is to run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo make install
+
+</code></pre></div></div>
+<p><img src="https://miro.medium.com/max/700/1*nqZVMgbuGbe3AKqBCTJ08w.png" alt="" /></p>
+
+<p>You will get the above after sudo make install.</p>
+
+<h4 id="sym-link-opencv-4-on-macos-to-virtual-environment-site-packages">Sym-link OpenCV 4 on macOS to virtual environment site-packages</h4>
+
+<p>We need to first locate the .so file, which has been generated during the compilation of OpenCV.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mdfind cv2.cpython
+</code></pre></div></div>
+<p><img src="https://miro.medium.com/max/700/1*98ZgMVdER2yyTYpADnRLXg.png" alt="" /></p>
+
+<p>Now, we need to execute the following to sym-link one of the .so files in our current Python virtual environment.</p>
+
+<p>You can see this from the screenshot. There’s one so file that has been generated inside the build folder. The path to the .so file in my system is</p>
+
+<p>Also, Please double-check the paths before executing the commands.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/caffeinedev/Prabhat/Workspace/test_opencv/opencv-4.5.0/build/lib/python3/cv2.cpython-38-darwin.so
+</code></pre></div></div>
+
+<p>Open up another terminal and go to your python environment site-packages directory. 
+In my case it’s</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt/homebrew/Caskroom/miniforge/base/envs/testcv/lib/python3.8/site-packages
+
+</code></pre></div></div>
+
+<p>And execute the sym-link</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s /Users/caffeinedev/Prabhat/Workspace/test_opencv/opencv-4.5.0/build/lib/python3/cv2.cpython-38-darwin.so
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/700/1*aMaG42tkpAiEQ1KTpWS8_A.png" alt="" /></p>
+
+<p>This I ran on my second terminal.</p>
+
+<p>And that’s it. Now we are good to go.</p>
+
+<p>Open a separate terminal if you want and activate your virtual environment</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate testcv
+</code></pre></div></div>
+<p>And just run the below</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3
+</code></pre></div></div>
+<p>And</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import cv2
+cv2.__version__
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/700/1*m-6LenCf8cwKBHyQm0gU-A.png" alt="" /></p>
+
+<h2 id="step6-test-opencv-by-running-a-program">Step6: Test OpenCV by running a program</h2>
+
+<p>Create a new file named main.py and paste the code below. Put a dummy photo for test purposes in the third line.
+ The code just converts the image to a black-white image.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import cv2
+image = cv2.imread('grogu.jpeg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imshow('Original image',image)
+cv2.imshow('Gray image', gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+</code></pre></div></div>
+
+<p>And run python3 main.py. Here’s the output</p>
+
+<p><img src="https://miro.medium.com/max/700/1*TNiqztLHSSofkScKHTjFkw.png" alt="" /></p>
+
+<h4 id="additional-step">Additional Step</h4>
+
+<p>If you want to uninstall OpenCV, you can go inside the build folder and run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo make uninstall
+</code></pre></div></div>
+<p><img src="https://miro.medium.com/max/700/1*xH8rWQEkKNgIzvbJtqzLZQ.png" alt="" /></p>
+
+<p>It will remove OpenCV 4.5.0 from your system. Also, you can delete your conda environment.</p>
+
+<p>First, deactivate if it’s activated</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda deactivate
+conda remove --name testcv --all
+</code></pre></div></div>
+
+<p>It will remove completely.</p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>We were able to build and install OpenCV 4.5.0 successfully in our M1 Mac and we are able to run some code also.</p>
+
+<p>If you have any questions, recommendations, or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
+
+<p>Thanks</p>
+
+<h3 id="references">References:</h3>
+
+<ul>
+  <li>https://sayak.dev/install-opencv-m1/</li>
+  <li>https://caffeinedev.medium.com/setting-up-tensorflow-on-m1-mac-36fe017ce284</li>
+  <li>https://moeenv.blog/?p=209&amp;lang=en</li>
+  <li>https://github.com/apple/tensorflow_macos/</li>
+</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="opencv" /><category term="apple-silicon" /><summary type="html"><![CDATA[OpenCV M1 Mac Build]]></summary></entry><entry><title type="html">Setting up TensorFlow on M1 Mac</title><link href="http://localhost:4000/Setting-up-TensorFlow-on-M1-Mac/" rel="alternate" type="text/html" title="Setting up TensorFlow on M1 Mac" /><published>2021-05-27T00:00:00+00:00</published><updated>2021-05-27T00:00:00+00:00</updated><id>http://localhost:4000/Setting-up-TensorFlow-on-M1-Mac</id><content type="html" xml:base="http://localhost:4000/Setting-up-TensorFlow-on-M1-Mac/"><![CDATA[<p><img src="./m1.jpeg" alt="Cover image" />
+This blog is all about setting up Tensorflow on M1 Mac.</p>
+
+<p>Last year in November 2020 apple releases their first ARM64-based M1 chip. It got a lot of attention from everyone.
+Being a tech enthusiast and a programmer, I was amazed to see the performance of the new apple M1 chip. The benchmarks were really good.</p>
+
+<p>Recently only some months back, I bought myself an M1 Macbook Pro with 8Gigs of RAM and 512GB of SSD.</p>
+
+<p>I wanted to set up and test how machine learning frameworks are working in this new chip. Here are the setup instructions for Tensorflow.
+Currently TensorFlow 2.4 for Apple Silicon currently available from Github in release 0.1 alpha 3.</p>
+
+<p><strong><em>Note</em></strong>: For now it cannot yet be used to a professional extend but it’s possible to work on a few prototype personal projects.</p>
+
+<p>Before jumping into, I hope Homebrew is already installed in your system if not you can install it by running the following in your terminal</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+</code></pre></div></div>
+
+<p>After it gets installed, install wget</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install wget
+</code></pre></div></div>
+
+<p>Here are the things that we are going to do.</p>
+
+<ul>
+  <li>Step 1: Xcode Command Line Tools</li>
+  <li>Step2: Install Miniforge</li>
+  <li>Step3: Create a virtual environment with python3.8</li>
+  <li>Step4: Clone Tensorflow2.4 Repo from Apple and install Tensorflow &amp; its packages</li>
+  <li>Step5: Install Jupyter Notebook, Pandas</li>
+  <li>Step6: Run a Benchmark by training the MNIST dataset</li>
+</ul>
+
+<h2 id="step1-install-xcode-command-line-tools">Step1: Install Xcode Command Line Tools</h2>
+
+<p>I have already installed Xcode Command Line Tools on my mac. If it’s not already installed in your system, you can install it by running the following command below in your terminal.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcode-select --install
+</code></pre></div></div>
+
+<h2 id="step2-install-miniforge">Step2: Install Miniforge</h2>
+
+<p>Install miniforge for arm64 (Apple Silicon) from <a href="https://github.com/conda-forge/miniforge">miniforge GitHub</a>.</p>
+
+<p>Miniforge enables installing python packages natively compiled for Apple Silicon.</p>
+
+<p>After the installation of miniforge, by default, it gives us one base environment. You can turn off the default base env by running</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda config --set auto_activate_base false
+</code></pre></div></div>
+
+<h3 id="step3-create-a-virtual-environment">Step3: Create a virtual environment</h3>
+
+<p>Let’s create a virtual environment named mlp with python3.8 installed.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create --name mlp python=3.8
+</code></pre></div></div>
+
+<p>And activate it by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate mlp
+</code></pre></div></div>
+
+<h2 id="step4-installing-tensorflow-macos">Step4: Installing Tensorflow-MacOS</h2>
+
+<p>Let’s download and install TensorFlow-macOS from <a href="https://github.com/apple/tensorflow_macos/releases/tag/v0.1alpha3">Apple Github</a></p>
+
+<p>At this time of writing this blog Tensorflow, 0.1 alpha 3(TF 2.4) is the latest one. You can either download or you can do wget.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha3/tensorflow_macos-0.1alpha3.tar.gz
+tar -xvf tensorflow_macos-0.1alpha3.tar.gz
+cd tensorflow_macos/arm64
+</code></pre></div></div>
+<p><img src="https://miro.medium.com/max/700/1*bfvzXNHlQfZ5JCrkpJCv_A.png" alt="" /></p>
+
+<p>Install some dependencies by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda install -c conda-forge -y cached-property six
+
+pip install --upgrade --no-dependencies --force numpy-1.18.5-cp38-cp38-macosx_11_0_arm64.whl grpcio-1.33.2-cp38-cp38-macosx_11_0_arm64.whl h5py-2.10.0-cp38-cp38-macosx_11_0_arm64.whl tensorflow_addons_macos-0.1a3-cp38-cp38-macosx_11_0_arm64.whl
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/700/1*c0l5GNbIub8JgAhsKTv0MQ.png" alt="" /></p>
+
+<p>Then</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda install -c conda-forge -y absl-py astunparse gast opt_einsum termcolor wheel typing_extensions typeguard jupyter pandas
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install wrapt flatbuffers tensorflow_estimator google_pasta keras_preprocessing protobuf
+</code></pre></div></div>
+<p>And finally install Tensorflow</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install --upgrade --force --no-dependencies tensorflow_macos-0.1a3-cp38-cp38-macosx_11_0_arm64.whl
+
+</code></pre></div></div>
+<p><img src="https://miro.medium.com/max/700/1*07e0cfuQJc_XAIHRmvx5PQ.png" alt="" /></p>
+
+<h2 id="step6-run-a-benchmark-by-training-the-mnist-dataset">Step6: Run a Benchmark by training the MNIST dataset</h2>
+
+<p>Let’s install Tensorflow Datasets</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install tensorflow_datasets
+</code></pre></div></div>
+<p>Make sure your conda environment is activated.</p>
+
+<p>Let’s open a Jupyter Notebook and do the benchmark. In your terminal run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook
+</code></pre></div></div>
+
+<p>It will open a browser window</p>
+
+<p>Create a new python3 notebook</p>
+
+<p><img src="https://miro.medium.com/max/700/1*HrbPrO84-Kep5FTakCJUcA.png" alt="" /></p>
+
+<p>I got the code snippet from</p>
+
+<p>https://github.com/apple/tensorflow_macos/issues/25</p>
+
+<p>Copy and paste this code below in the new notebook</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%%time
+import tensorflow.compat.v2 as tf
+import tensorflow_datasets as tfds
+tf.enable_v2_behavior()
+from tensorflow.python.framework.ops import disable_eager_execution
+disable_eager_execution()
+from tensorflow.python.compiler.mlcompute import mlcompute
+mlcompute.set_mlc_device(device_name='gpu')
+(ds_train, ds_test), ds_info = tfds.load(
+    'mnist',
+    split=['train', 'test'],
+    shuffle_files=True,
+    as_supervised=True,
+    with_info=True,
+)
+def normalize_img(image, label):
+  """Normalizes images: `uint8` -&gt; `float32`."""
+  return tf.cast(image, tf.float32) / 255., label
+batch_size = 128
+ds_train = ds_train.map(
+    normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+ds_train = ds_train.cache()
+ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
+ds_train = ds_train.batch(batch_size)
+ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
+ds_test = ds_test.map(
+    normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+ds_test = ds_test.batch(batch_size)
+ds_test = ds_test.cache()
+ds_test = ds_test.prefetch(tf.data.experimental.AUTOTUNE)
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Conv2D(32, kernel_size=(3, 3),
+                 activation='relu'),
+  tf.keras.layers.Conv2D(64, kernel_size=(3, 3),
+                 activation='relu'),
+  tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+#   tf.keras.layers.Dropout(0.25),
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(128, activation='relu'),
+#   tf.keras.layers.Dropout(0.5),
+  tf.keras.layers.Dense(10, activation='softmax')
+])
+model.compile(
+    loss='sparse_categorical_crossentropy',
+    optimizer=tf.keras.optimizers.Adam(0.001),
+    metrics=['accuracy'],
+)
+model.fit(
+    ds_train,
+    epochs=12,
+    validation_data=ds_test,
+)
+
+</code></pre></div></div>
+<p>You will get the output below. The time to run may be different</p>
+
+<p><img src="https://miro.medium.com/max/700/1*0avol-z4ZPVqhb5PRWG2lQ.png" alt="" /></p>
+
+<p>It took a total of 2min 37s second to run 12 epochs with 128 batch size.</p>
+
+<p>You can use any other code editor or any other way to do the test benchmark also.</p>
+
+<p><strong><em>Conclusion</em></strong></p>
+
+<p>As you can see Tensorflow is successfully installed in our system and we are able to run some code also.</p>
+
+<p>If you have any questions, recommendations, or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
+
+<h3 id="references">References:</h3>
+
+<ul>
+  <li>https://blog.tensorflow.org/2020/11/accelerating-tensorflow-performance-on-mac.html</li>
+  <li>https://github.com/apple/tensorflow_macos/issues/3</li>
+  <li>https://github.com/apple/tensorflow_macos</li>
+  <li>https://github.com/apple/tensorflow_macos/issues/25</li>
+</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="apple-silicon" /><category term="tensorflow" /><summary type="html"><![CDATA[Tensorflow M1 Mac]]></summary></entry><entry><title type="html">Try Django Part-2</title><link href="http://localhost:4000/try-django-part-2/" rel="alternate" type="text/html" title="Try Django Part-2" /><published>2020-05-06T00:00:00+00:00</published><updated>2020-05-06T00:00:00+00:00</updated><id>http://localhost:4000/try-django-part-2</id><content type="html" xml:base="http://localhost:4000/try-django-part-2/"><![CDATA[<p><img src="./try_django_cover.jpg" alt="Cover image" /></p>
+
+<p>This is the second part of our Intro To Django Tutorial, if you haven’t gone through our previous tutorial please make sure to check it out.</p>
+
+<p>In this part of tutorial, we are going to do our migrations, create a sign up form and stuff.</p>
+
+<p>So we need to think of our TodoApp features &amp; functionalities first.</p>
+
+<h4 id="features">Features</h4>
+
+<ul>
+  <li>User SignUp
+    <ul>
+      <li>User should have an unique username</li>
+      <li>User should give a password</li>
+    </ul>
+  </li>
+  <li>User SignIn
+    <ul>
+      <li>After registration, user should be able to sign by using username and password</li>
+    </ul>
+  </li>
+  <li>After SignIn
+    <ul>
+      <li>User should be able to add todo
+        <ul>
+          <li>A todo will have one title and a memo</li>
+          <li>User can also specify if a todo is important or not</li>
+        </ul>
+      </li>
+      <li>User can see the todo’s</li>
+      <li>User can update, delete or mark complete on a todo.</li>
+    </ul>
+  </li>
+  <li>User can logout</li>
+</ul>
+
+<p>So these are the features that we are going to work on.</p>
+
+<p>Whenever we are working on this kind of projects or any big projects where there are multiple functionalities and moving pieces like here in our todo there is signup, signin, creating todo’s, listing todo’s and all, sometimes it’s harder to think like where should I even start the project.</p>
+
+<p>So for me personally, I like to think from the User point of view, like If I am the user, If I will not be able to create todo’s without signup first right. I will not be able to logout If I don’t have an account and so on.</p>
+
+<p>I would like to first SignUp in the website then, I will be able to login, then I will able to add my todo’s, see all todo’s, update or delete them when needed.</p>
+
+<p>This gives us a clear idea where to being the project, like we need to implement user SignUp first, then we can work on login, logout and then we can move into creating todo objects, listing them, updating them and so on. If we kind of follow this flow, it will be really helpful for us to know where we are moving in our project.</p>
+
+<p>Let’s go to our project folder named <strong>todo</strong> and run the server.</p>
+
+<p><img src="./django2-1.png" alt="" /></p>
+
+<p>You can see it’s giving us an warning saying <em>“You have 17 unapplied migration(s). “</em> so let’s do the migrations, to do it run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python manage.py migrate
+</code></pre></div></div>
+
+<p><img src="./django2-2.png" alt="" /></p>
+
+<p>According to documentation, Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations when to run them, and the common problems you might run into.</p>
+
+<p>So let’s move forward and create a templates folder inside our  todoapp folder. And then create a todo folder inside the templates.</p>
+
+<p>Then I need you to create an HTML file called ‘signupuser.html’. If you didn’t understand whatever I have written here, just look at the project structure</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> |-- todo/
+ |    |-- todoapp/                &lt;-- our django app!
+ |    |    |-- migrations/
+ |    |    |    +-- __init__.py
+ |    |    |-- templates/
+ |    |    |	+-- todoapp/
+ |    |    |			+-- signupuser.html
+ |    |    |-- __init__.py
+ |    |    |-- admin.py
+ |    |    |-- apps.py
+ |    |    |-- models.py
+ |    |    |-- tests.py
+ |    |    +-- views.py
+ |    |-- todo/            			&lt;-- our django project folder!
+ |    |    |-- __init__.py
+ |    |    |-- asgi.py
+ |    |    |-- settings.py
+ |    |    |-- urls.py
+ |    |    |-- wsgi.py
+ |    +-- manage.py
+</code></pre></div></div>
+
+<p>Here only I have created a folder called templates inside the todoapp, and inside the templates I have created another folder called todoapp. Then inside that I have created a file called signupuser.html.</p>
+
+<p><img src="./django2-4.png" alt="" /></p>
+
+<p>Make sure to follow the same names and same folder structure. If you still get confused, you can checkout my Github repo for code.</p>
+
+<p>Now open the ‘signupuser.html’ and edit it out with the code below.</p>
+
+<p><strong><em>signupuser.html</em></strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span> Sign Up <span class="nt">&lt;/h1&gt;</span>
+</code></pre></div></div>
+
+<p>Now open the views.py inside the todoapp folder and remove the code which was written in our previous section and replace with this code.</p>
+
+<p><strong>views.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="c1"># Create your views here.
+</span><span class="k">def</span> <span class="nf">signupuser</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">'todoapp/signupuser.html'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>I hope this code is self explanatory, here in the first line we have imported render, which simply renders HTML  templates. We have already talked about HttpResponse before.</p>
+
+<p>Then we have created a signupuser function which takes a request and it returns us the <em>signupuser.html</em> file.</p>
+
+<p>Let’s edit the Urls.py file inside our todoapp folder. Remove the code which was written in our previous tutorial and replace with the code below.</p>
+
+<p><strong>Urls.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'signup/'</span><span class="p">,</span><span class="n">views</span><span class="p">.</span><span class="n">signupuser</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span><span class="s">'signupuser'</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Again we have went through this code structure in our part-1 of the tutorial series.  Here we have added the path “signup/”.</p>
+
+<p>Now let’s run the server</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python manage.py runserver 
+</code></pre></div></div>
+
+<p>And go to</p>
+
+<p>http://127.0.0.1:8000/signup/</p>
+
+<p>You will see the page below, if you are not able to see, you have done something wrong in the process.</p>
+
+<p><img src="./django2-3.png" alt="" /></p>
+
+<p>Now just we are simply rendering the HTML templates, for now there’s nothing except the SignUp header. Later we will add design and make it look good.</p>
+
+<h4 id="basic-sign-up">Basic Sign Up</h4>
+
+<p>Django has some built in tools  that you can use to set up the ability for users to log in and log out of a web application.</p>
+
+<p>The most simple way to implement a user sign up is by using the <a href="https://docs.djangoproject.com/en/3.0/topics/auth/default/"><strong>UserCreationForm</strong></a>. If you are wondering where this form came from, remember Django comes with some of it’s in built apps. The auth app provides this form.</p>
+
+<p>So now let’s open view.py and edit it out with the code below.</p>
+
+<p><strong>views.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">UserCreationForm</span>
+
+<span class="c1"># Create your views here.
+</span><span class="k">def</span> <span class="nf">signupuser</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">'todoapp/signupuser.html'</span><span class="p">,</span> <span class="p">{</span><span class="s">'form'</span><span class="p">:</span><span class="n">UserCreationForm</span><span class="p">()})</span>
+
+</code></pre></div></div>
+
+<p>Here what’s new in this file, in the 3rd line you can see we have imported the <em>UserCreationForm</em>. This UserCreationForm gives us a basic form and we can pass it forward to our templates.</p>
+
+<p>In the line 8, we have added a dictonary where the key is the form and the value is UserCreationForm() object.</p>
+
+<p>Read more about why we used the dictionary in the above code from <a href="https://docs.djangoproject.com/en/3.0/ref/templates/api/#django.template.Context">documentation.</a></p>
+
+<p>To simply understand now, we can pass the form object to our HTML template by using the UserCreationForm Object. Read more about it <a href="https://docs.djangoproject.com/en/3.0/ref/templates/language/">here.</a></p>
+
+<p>Now let’s edit signupuser.html file.</p>
+
+<p><strong>signupuser.html</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>SignUp<span class="nt">&lt;/h1&gt;</span>
+
+{{ form }}
+
+</code></pre></div></div>
+
+<p>And now if you run the server and go to http://127.0.0.1:8000/signup/  you will be able to see the page below.</p>
+
+<p><img src="./django2-5.png" alt="" /></p>
+
+<p>So this Django in-built UserCreationForm gives us a basic form. If you didn’t get the syntax which we have used in the signupuser.html file. You can read more about it <a href="https://docs.djangoproject.com/en/3.0/ref/templates/language/">here.</a></p>
+
+<p>Now let’s again edit the signupuser.html file.</p>
+
+<p><strong>signupuser.html</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>SignUp<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+
+{{ form.as_p }}
+
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Sign Up<span class="nt">&lt;/button&gt;</span>
+
+<span class="nt">&lt;/form&gt;</span>
+
+</code></pre></div></div>
+
+<p>Here we have added HTML form. And the method is POST. <em>POST</em> is for writing data, meaning data will be submitted.</p>
+
+<p>Now if you save the file and run the sever you will see the page below</p>
+
+<p><img src="./django2-6.png" alt="" /></p>
+
+<p>Now if you try to fill in some details in the form and if you press submit button you will get this error below. Make sure to try it out so that you understand things better.</p>
+
+<p><img src="./django2-7.png" alt="" /></p>
+
+<p>Now we got the error saying CSRF token missing. To fix this error</p>
+
+<p>Edit this file</p>
+
+<p><strong>signupuser.html</strong></p>
+
+<script src="https://gist.github.com/TheCaffeineDev/5929a348496cfa46ff17f49fc8e12cad.js"></script>
+
+<p>We have added something called <em>csrf_token</em></p>
+
+<p>This is a special token aimed at combating something called Cross Site Request Forgery, which you can learn more about here: <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)"><strong>Cross-Site Request Forgery (CSRF)</strong></a>.</p>
+
+<p>Now if you try to give some inputs and submit it, you will not get any error.</p>
+
+<p>So that’s it for this tutorial, I hope you understood most of things from here. Try to read more from the links that I have referenced in the tutorial.</p>
+
+<p>You can get code for this second part from my <a href="https://github.com/TheCaffeineDev/Django-TodoApp/tree/e99688c3e79cfa110ff93d92234d90a797ae180b">Github Repo</a>.</p>
+
+<p>So that’s it for this tutorial series. I am not going to make any more part on this thing. This part is an optional tutorial of how to think more and build more features if you are building some apps.</p>
+
+<p>Thanks for reading</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="django" /><category term="python" /><summary type="html"><![CDATA[Part-2 Of Django Tutorial]]></summary></entry><entry><title type="html">Try Django Part-1</title><link href="http://localhost:4000/try-django-part-1/" rel="alternate" type="text/html" title="Try Django Part-1" /><published>2020-04-23T00:00:00+00:00</published><updated>2020-04-23T00:00:00+00:00</updated><id>http://localhost:4000/try-django-part-1</id><content type="html" xml:base="http://localhost:4000/try-django-part-1/"><![CDATA[<p><img src="./try_django_cover.jpg" alt="Cover image" /></p>
+
+<p>This is going to be a two part tutorial of how to get started with Django, learning the basics of django, understanding basics URL routing and stuff. We will discuss everything on our way of learning.</p>
+
+<p>We are going to create a project named a todo in this tutorial. It doesn’t have any functionalities but just to understand things better, we are going to refer it like that. So let’s get started.</p>
+
+<h3 id="what-is-django-">What is Django ?</h3>
+
+<p><a href="https://djangoproject.com/">Django</a> is a high-level Python Web framework that encourages rapid development and clean pragmatic design. <a href="https://hackernoon.com/what-is-a-web-framework-173cac228b4"><strong>Web framework</strong></a> is a <strong>set of components</strong> designed to <strong>simplify</strong> your web development process and a standard way to develop websites fast and easily.</p>
+
+<h3 id="who-uses-django-">Who uses Django ?</h3>
+
+<p>Instagram, Pinterest, Bitbucket, Disqus, Dropbox, Mozilla, National Geographic, Udemy, Spotify and many more sites.</p>
+
+<h3 id="why-you-should-use-django-">Why you should use Django ?</h3>
+
+<ul>
+  <li>It’s fast and simple</li>
+  <li>Clean &amp; Rapid developement</li>
+  <li>Very good documentation and high scalability.</li>
+  <li>Maturity (It has been around 12 years)</li>
+  <li>Default Admin Panel</li>
+  <li><strong>ORM</strong>. Django is valued for its object-relational mapper that helps developers interact with databases.</li>
+  <li>It is a python based framework. If you know python then you are good to go.</li>
+  <li>Secure</li>
+  <li>And there are a lot of reasons you should.</li>
+</ul>
+
+<h3 id="when-to-use-django-">When to use Django ?</h3>
+
+<ul>
+  <li>When you’re building a highly customizable app, such as a social media website. You don’t have to worry about reinventing the wheel.</li>
+  <li>As it’s python based framework, you can<a href="https://djangopackages.org/"> utilise libraries of third-party extensions and plugins</a> to customize your app however you wish.</li>
+  <li>If you want to integrate Machine learning features in future.</li>
+  <li>When you don’t want to work with database queries directly, and need ORM support.</li>
+  <li>When you need to move fast, deploy fast, and also make changes as you move ahead.</li>
+  <li>When you need an app that can grow in depth and complexity to any scale and is capable of handling as many visitors and/or transactions as demanded, Django shines.</li>
+</ul>
+
+<h3 id="when-not-to-use-django-">When not to use Django ?</h3>
+
+<ul>
+  <li>When you need to build a very basic app, which does not require database, file operations, or anything even remotely complex.</li>
+  <li>When you want to build everything from scratch, and you know what you’re doing.</li>
+</ul>
+
+<h3 id="what-you-need-to-get-started-with-django-">What you need to get started with Django ?</h3>
+
+<ul>
+  <li>Basic Knowledge Of Python 3</li>
+  <li>Basic Knowledge of Web development (HTML, CSS &amp; JS)</li>
+</ul>
+
+<h2 id="lets-get-started">Let’s get started</h2>
+
+<p>First you have to make sure that Python 3 is installed in your system. If you are using Ubuntu, you can open up your terminal check your python version like this</p>
+
+<p><img src="./django-1-py.png" alt="" /></p>
+
+<p>In my case I am using Python 3.7.4. I work mostly on Machine learning stuff so I am using Anaconda. You don’t need to use anaconda, you just need python installed in your system.</p>
+
+<p>It’s a very good practice to use Virtual Environment while working on Django projects. A virtual environment is like having a sandbox for each  project. So you can play around, install packages, uninstall packages without breaking anything.</p>
+
+<p>But in our first project we are not going to use any virtual environment. Later in other projects we will use Virtual Environment.</p>
+
+<h3 id="lets-install-django">Let’s install Django</h3>
+
+<p>It’s very simple, open up your terminal or cmd in case you are using windows and do</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>django
+</code></pre></div></div>
+
+<p>It will install the latest django version. In my case I am using Django 3.0.2. But any version of Django3. will be fine for this project.</p>
+
+<p><img src="./django-1-2.png" alt="" /></p>
+
+<p>Now we are all set up for our first django project.</p>
+
+<h4 id="starting-a-new-project">Starting a New Project</h4>
+
+<p>Let’s make sure we are in Desktop</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>Desktop
+</code></pre></div></div>
+
+<p>With Django installed, we have the <em>django-admin</em> command-line tool with which we can
+generate our project:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django-admin startproject todo
+</code></pre></div></div>
+
+<p>At this point we should have an initial folder structure (in the current folder) that looks like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> |-- todo/             &lt;-- django project folder
+ |    |-- todo/
+ |    |    |-- __init__.py
+ |    |    |-- asgi.py
+ |    |    |-- settings.py
+ |    |    |-- urls.py
+ |    |    |-- wsgi.py
+ |    +-- manage.py
+</code></pre></div></div>
+
+<p>Let’s go into the details of what all the files means.</p>
+
+<ul>
+  <li>
+    <p><strong>manage.py :</strong>  This is the command center for making non-code changes. Whether
+it’s creating a database migration, running tests, or starting the development
+server, we will use this file often. It will allow us to interact with our Django project.</p>
+  </li>
+  <li>
+    <p><strong>todo</strong> : A python package that contains the files that every Django project needs.</p>
+
+    <ul>
+      <li><strong>todo</strong>/__ init__.py : This is an empty file that is  only needed to make the other files importable. It tells that this directory should be considered as a python package.</li>
+      <li><strong>todo</strong>/asgi.py : It provides an interface between asynchronous Python web servers and frameworks.</li>
+      <li><strong>todo</strong>/settings.py : This is where Django stores all the configuration for our app by
+default.  This file contains all the configuration of our project, and we can customize it.</li>
+      <li><strong>todo</strong>/urls.py : This file contains all the URL  mappings to Python functions. Any URL that needs  to be handled by the project must have an entry here.</li>
+      <li><strong>todo</strong>/wsgi.py : Web Server Gateway Interface (WSGI) is the interface between Python and a web server. You won’t touch this file very much, but it’s how your web server and your Python code know how to talk to each other.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="starting-the-web-server">Starting the web server</h4>
+
+<p>Django comes with a simple web server installed. To run the server simply execute the command below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># make sure you are in higher todo folder
+
+python3 manage.py runserver
+</code></pre></div></div>
+
+<p>For now, you can ignore the migration errors, we will get to that later.</p>
+
+<p><img src="./django-1-3.png" alt="" /></p>
+
+<p>Now open the following URL in a Web browser: <strong>http://127.0.0.1:8000</strong> and you should see the following page:</p>
+
+<p><img src="./django1-4.png" alt="" /></p>
+
+<p>If you see this page, this means you have successfully installed django, created a django project and run the development server.</p>
+
+<p>Hit Control + C to stop the development server.</p>
+
+<h3 id="django-apps">Django Apps</h3>
+
+<p>We have two important concepts to discuss:</p>
+
+<ul>
+  <li>
+    <p><strong>project</strong>: In Django, a project is an entire application. A Django project may consist of a single app, or many apps to provide its service. For your example, the <em>project</em> is the whole website.</p>
+  </li>
+  <li>
+    <p><strong>app</strong>: is a Web application that does something. For example if you are build a e-commerce website then the examples of app would be shopping cart, payment, saved items and all. These all can be divided into multiple apps.</p>
+  </li>
+</ul>
+
+<p>It’s important to note that you can’t run a Django <strong>app</strong> without a <strong>project</strong> . We have these structure because to organize the code structure and stuff.</p>
+
+<p>So let’s create our first <strong>todo app</strong>. To create an app, go to the directory where the <strong>manage.py</strong> file is and run the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django-admin startapp todoapp
+</code></pre></div></div>
+
+<p>We have used “startapp” command this time.</p>
+
+<p>This will give us the following directory structure</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> |-- todo/
+ |    |-- todoapp/                &lt;-- our new django app!
+ |    |    |-- migrations/
+ |    |    |    +-- __init__.py
+ |    |    |-- __init__.py
+ |    |    |-- admin.py
+ |    |    |-- apps.py
+ |    |    |-- models.py
+ |    |    |-- tests.py
+ |    |    +-- views.py
+ |    |-- todo/
+ |    |    |-- __init__.py
+ |    |    |-- asgi.py
+ |    |    |-- settings.py
+ |    |    |-- urls.py
+ |    |    |-- wsgi.py
+ |    +-- manage.py
+</code></pre></div></div>
+
+<p>So let’s understand what all the new files means.</p>
+
+<ul>
+  <li><strong>migrations/</strong>: here Django store some files to keep track of the changes you create in the <strong>models.py</strong> file, so to keep the database and the <strong>models.py</strong> synchronized.</li>
+  <li><strong>admin.py</strong>: This file is used for registering your django models to the Django Administration</li>
+  <li><strong>apps.py</strong>: This file is created to help the user include any application configuration for the app.</li>
+  <li><strong>models.py</strong>: This file is used to write Class based Models for our Django Applications.This will be the blueprint of our database design ,relationships and attribute constraints. The models are translated automatically by Django into database tables.</li>
+  <li><strong>tests.py</strong>: This file is used to write test cases for the Application. For time being we will not go into the details of this.</li>
+  <li><strong>views.py</strong>: this is the file where we handle the request/response cycle of our Web application.</li>
+</ul>
+
+<p>Now that  we have created our first app, let’s configure our project to use it.</p>
+
+<p>To do that, open the <strong>settings.py</strong> and try to find the <code class="language-plaintext highlighter-rouge">INSTALLED_APPS</code> variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'django.contrib.admin'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth'</span><span class="p">,</span>
+    <span class="s">'django.contrib.contenttypes'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages'</span><span class="p">,</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>As you can see, There are 6 built-in apps and they come with Django by default. Common functionalities that most Web applications need, like authentication, sessions, static files management (images, javascripts, css, etc.) and so on these apps provides us.</p>
+
+<p>We will explore all these apps later in our series of tutorial.</p>
+
+<p>Let’s add our todoapp in this <strong>settings.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'django.contrib.admin'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth'</span><span class="p">,</span>
+    <span class="s">'django.contrib.contenttypes'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages'</span><span class="p">,</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+    
+    <span class="s">'todoapp'</span><span class="p">,</span>
+<span class="p">]</span>
+
+</code></pre></div></div>
+
+<p>Always remember whenever you install a new app, you should add that app in the <strong>settings.py</strong> file.</p>
+
+<h3 id="lets-write-our-first-hello-world">Let’s Write Our First Hello World!</h3>
+
+<p>So let’s write our first view. If you don’t understand it completely for the first time that’s fine. We will come back to these things later on also.</p>
+
+<p>Open the <strong>views.py</strong> inside the <strong>todoapp</strong></p>
+
+<p><strong>views.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="c1"># Create your views here.
+</span><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">'Hello, World!'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Views are python functions. Whenever a url is called in Django, it finds corresponding function that is in <strong>views.py</strong>.</p>
+
+<p>A <em>view</em> is a place where we put the “logic” of our application.</p>
+
+<p>Let’s go through the code closely.</p>
+
+<ul>
+  <li><strong>Line 1</strong> Imports the render() method. This is added automatically when you create an app in Django. We use this method when we want to render templates. We will cover this topic later in our series.</li>
+  <li><strong>Line 2</strong>. We have imported the <strong>HttpResponse</strong> method. As you know HTTP is the communication protocol used by all web browsers. It uses request and response to pass the data. The view receives an request object and retuns an <strong>HttpResponse</strong> Object.</li>
+  <li><strong>Line 5,6</strong>. This is our first view function. It’s an example of function based view. We have created a function called index. That takes  <strong>request</strong> and will return the <strong>HttpResponse</strong>. It takes a request from our web browser and returns a response. In our case the response is simple <em>Hello, World!.</em></li>
+</ul>
+
+<h3 id="configuring-the-urls">Configuring the URLs</h3>
+
+<p>Now we have to tell Django <em>when</em> to serve this view.</p>
+
+<p>Let’s create a new file called <strong>‘urls.py’</strong> inside our <strong>todoapp.</strong></p>
+
+<p><strong>urls.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"index"</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Let’s examine this code closely:</p>
+
+<ul>
+  <li><strong>Line 1.</strong> We import the path() function.  It is used to configure URLs. In its basic form, the  <strong><em>path()</em></strong> function has a very simple syntax:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">path</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>Line 2</strong> . Here we import our views file from our todoapp. Here you can see we have used dot notation. A single dot means that the module referenced is in the same directory as the current location. It is good practice to use that.</p>
+  </li>
+  <li>
+    <p><strong>Line 4.</strong> Lists the URL patterns registered for this app. For readability, the list is broken into multiple lines, with one URL pattern per line.</p>
+  </li>
+  <li>
+    <p><strong>Line 5.</strong>  It is the the actual URL dispatcher. A request to the http://127.0.0.1:8000/ of the website would be routed to the <strong>index</strong> function in the application’s <strong>views.py</strong> file. This path takes an optional name argument and any number of additional keyword arguments passed as a Python dictionary.</p>
+  </li>
+  <li>
+    <p><strong>views.index.</strong> Points to our index view. I.e., the dot operator is pointing to the <em>index view</em> inside the <strong>views.py</strong> file that we imported in Line 2.</p>
+
+    <p>The <em>path()</em> function statements are kept in a special file called urls.py.</p>
+
+    <p>Don’t worry if this is a bit confusing right now, it will make a lot more sense once you have written a couple of views.</p>
+  </li>
+</ul>
+
+<p>When we created our project, it created a <strong>urls.py</strong>  file in our <strong>todo</strong> folder<em>(todo\urls.py)</em>. This is a good place for site-wide navigation but is rarely a good place to put URLs relating to individual applications. Having all our URLs in the one file is more complex and less portable and it’s bad if two apps use a view with the same name.</p>
+
+<p>To solve this problem we create a new <strong>urls.py</strong> file for each application.</p>
+
+<p>After doing all these, there’s one more step. We need to make some changes in our (<strong><em>todo/todo/urls.py</em></strong> ) file to make it work.</p>
+
+<p><strong><em>todo/todo/urls.py</em></strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'admin/'</span><span class="p">,</span> <span class="n">admin</span><span class="p">.</span><span class="n">site</span><span class="p">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">'todoapp.urls'</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>We have made some changes to the file:</p>
+
+<ul>
+  <li>In <strong>Line 2</strong> we have added include() function to our imports.</li>
+  <li>In <strong>Line 6</strong> we have added a URL dispatcher. This dispatcher is  simply including <strong>urls.py</strong> file from the todoapp.</li>
+</ul>
+
+<p>Now If you now run the development server, and navigate to <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000/</code> in your browser, you should this home page.</p>
+
+<p><img src="./django-1-5.png" alt="" /></p>
+
+<p>That’s it! You just created your very first view.</p>
+
+<p>So this is it for this section. In our next section we will discuss more about models and stuff.</p>
+
+<p>You can get the code from my Github Repository.</p>
+
+<h5 id="references">References</h5>
+
+<ul>
+  <li>https://medium.com/crowdbotics/when-to-use-django-and-when-not-to-9f62f55f693b</li>
+  <li>https://www.netguru.com/blog/when-to-choose-django</li>
+  <li>https://djangostars.com/blog/why-we-use-django-framework/</li>
+  <li>https://simpleisbetterthancomplex.com/series/2017/09/04/a-complete-beginners-guide-to-django-part-1.html</li>
+  <li>https://medium.com/srp-labs/building-practical-web-applications-with-react-django-3675085a001b</li>
+  <li>https://tutorial.djangogirls.org/en/django_views/</li>
+  <li>https://djangobook.com/mdj2-django-views/</li>
+</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="django" /><category term="python" /><summary type="html"><![CDATA[Part-1 Of Django Tutorial]]></summary></entry><entry><title type="html">How to run VS Code in the browser</title><link href="http://localhost:4000/how-to-run-vs-code-in-browser/" rel="alternate" type="text/html" title="How to run VS Code in the browser" /><published>2020-01-27T00:00:00+00:00</published><updated>2020-01-27T00:00:00+00:00</updated><id>http://localhost:4000/how-to-run-vs-code-in-browser</id><content type="html" xml:base="http://localhost:4000/how-to-run-vs-code-in-browser/"><![CDATA[<p><img src="./vscode.png" alt="Cover image" /></p>
+
+<p>I have been into this programming field since my college days and I have tried a lot of editors over time. As a developer, I believe a code editor is one of the most important tool that a developer can have.</p>
+
+<p>Before I was happy with Sublime Text and Atom for most of the part because it could do everything I needed in my tech stack.</p>
+
+<p>I switched to VS Code for the following reasons:</p>
+
+<ol>
+  <li><strong>Git integration</strong>: I actually prefer to use Terminal for anything to do with Git but the VS Code git system is really great.</li>
+  <li><strong>Integrated terminals</strong>: You get a complete terminal emulator, out of the box.</li>
+  <li><strong>Speed &amp; Extensions:</strong> VS Code is not as fast as Sublime Text but it feels faster than Atom. It has thousands of extensions available that cover pretty much every use case I can think of.</li>
+  <li><strong>IntelliSense:</strong> Intellisense is incredible.VS Code has more intelligent language support, autocompletion, and suggestion. It’s super helpful, sometimes I don’t have to look up various functions and methods.</li>
+  <li><strong>Completely Free:</strong> It is open source and updates are very much frequent.</li>
+</ol>
+
+<p>And there’s more.</p>
+
+<p>Anyway, this blog post is about how to run VS Code in your browser. I am using Ubuntu 18.04 btw. Ubuntu 20.04 will also work fine.</p>
+
+<p>First go to this URL</p>
+
+<p><a href="https://github.com/cdr/code-server/releases/">Code server releases</a> and download the binary file for Linux.</p>
+
+<p><img src="https://miro.medium.com/max/725/1*3d4QSZSQtmP9Q0JS2aAP5Q.png" alt="" /></p>
+
+<p>Then unzip it.</p>
+
+<p><img src="https://miro.medium.com/max/733/1*WfaOMKa2FvtUBY5CQm1j9A.png" alt="" /></p>
+
+<p>Then go inside the unzipped folder.</p>
+
+<p><img src="https://miro.medium.com/max/732/1*ehQhkcBsbCOmv_mH86e_Zw.png" alt="" /></p>
+
+<p>Inside that folder, the code-server is the binary file and you can run it by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./code-server
+</code></pre></div></div>
+
+<p>As you can see it’s running on my localhost.</p>
+
+<p>If you want your own password, you can add your own password by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PASSWORD=prabhat ./code-server --host 0.0.0.0 --port 8080
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/727/1*f5MZua0HuUodU35Epy2ULA.png" alt="" /></p>
+
+<p>You can change your port if you want to.</p>
+
+<p>Then you have to go to your local address. In my case it’s</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:8080/
+</code></pre></div></div>
+
+<p>It will ask you to enter your password.</p>
+
+<p><img src="./code-server-login.png" alt="" /></p>
+
+<p>After entering your password, you will see your code server up and running.</p>
+
+<p><img src="./code-server.png" alt="" /></p>
+
+<p>So that’s it.</p>
+
+<p>I do use the desktop based VSCode for day-to-day coding purpose. But sometimes when needed, running VS code on my browsers saves me time and makes me more productive.</p>
+
+<p>And I think a code editor is simply a tool. It doesn’t matter whether you choose Sublime Text or VS Code or any other. What matters is it works for you.</p>
+
+<p>Thanks for reading. Did this article help you out? If it did, I hope you consider sharing it. You might help someone else out. Thank you so much!</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="vscode" /><summary type="html"><![CDATA[vscode on browser]]></summary></entry><entry><title type="html">Customize Your Terminal On Ubuntu</title><link href="http://localhost:4000/customize-your-terminal-on-ubuntu/" rel="alternate" type="text/html" title="Customize Your Terminal On Ubuntu" /><published>2020-01-04T00:00:00+00:00</published><updated>2020-01-04T00:00:00+00:00</updated><id>http://localhost:4000/customize-your-terminal-on-ubuntu</id><content type="html" xml:base="http://localhost:4000/customize-your-terminal-on-ubuntu/"><![CDATA[<p><img src="./ub_zsh.png" alt="Cover image" /></p>
+
+<p>In this blog post, I will cover how to install Oh My Zsh and How to customize your terminal and make it fancy.</p>
+
+<h2 id="update-the-packages">Update the packages</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h2 id="install-prerequisite-packages-zsh-powerline--powerline-fonts">Install prerequisite packages (ZSH, powerline &amp; powerline fonts)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install zsh
+sudo apt-get install powerline fonts-powerline
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/731/1*S8VYA_Ks7YqLYK6pFPK17Q.png" alt="" /></p>
+
+<h2 id="clone-the-oh-my-zsh-repo">Clone the Oh My Zsh Repo</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+</code></pre></div></div>
+
+<h2 id="create-a-new-zsh-configuration-file">Create a New ZSH configuration file</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre></div></div>
+
+<h2 id="install-powerlevel9k">Install PowerLevel9k!</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+</code></pre></div></div>
+
+<h2 id="set-up-a-theme-for-your-terminal--open-zshrc-file-using-gedit-editor">Set up a theme for your Terminal — Open <code class="language-plaintext highlighter-rouge">.zshrc</code> File using gedit editor</h2>
+
+<p>And change and put these lines :</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">"powerlevel9k/powerlevel9k"</span><span class="nv">POWERLEVEL9K_DISABLE_RPROMPT</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">POWERLEVEL9K_PROMPT_ON_NEWLINE</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX</span><span class="o">=</span>”▶ “
+<span class="nv">POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX</span><span class="o">=</span>””
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/766/1*_hi0hSXi8tXqWirDCMU5nQ.png" alt="" /></p>
+
+<h2 id="change-your-default-shell">Change your Default Shell</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/zsh
+</code></pre></div></div>
+
+<p>for this command to be effective you need to restart your system.</p>
+
+<h1 id="oh-my-zsh-terminal">Oh My Zsh Terminal</h1>
+
+<p>After restarting your terminal will look like this :</p>
+
+<p><img src="https://miro.medium.com/max/724/1*gW98D-UxTS7m1IAC-pMtxw.png" alt="" /></p>
+
+<h2 id="if-you-want-syntax-highlighting">If you want Syntax Highlighting</h2>
+
+<p>Clone the ZSH Syntax Highlighting</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git “$HOME/.zsh-syntax-highlighting” — depth 1
+</code></pre></div></div>
+
+<p>Add syntax-highlighting in <code class="language-plaintext highlighter-rouge">.zshrc</code> Configuration</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo “source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh” &gt;&gt; “$HOME/.zshrc”
+</code></pre></div></div>
+
+<p>And If anything goes wrong, you can revert back to your default shell by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/bash
+</code></pre></div></div>
+
+<p>If you are a data science enthusiast and using anaconda then you need to add these lines below in zshrc file.</p>
+
+<p>Open a terminal and</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gedit .zshrc
+</code></pre></div></div>
+
+<p>add these. Make sure to change your username after home.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\#</span> <span class="o">&gt;&gt;&gt;</span> conda initialize <span class="o">&gt;&gt;&gt;</span>
+<span class="se">\#</span> <span class="o">!!</span> Contents within this block are managed by ‘conda init’ <span class="o">!!</span>
+<span class="nv">__conda_setup</span><span class="o">=</span>”<span class="si">$(</span>‘/home/yourusername/anaconda3/bin/conda’ ‘shell.bash’ ‘hook’ 2&gt; /dev/null<span class="si">)</span>”
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+ </span><span class="nb">eval</span> “<span class="nv">$__conda_setup</span>”
+<span class="k">else
+ if</span> <span class="o">[</span> <span class="nt">-f</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh” <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+ <span class="nb">.</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh”
+ <span class="k">else
+ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>”/home/yourusername/anaconda3/bin:<span class="nv">$PATH</span>”
+ <span class="k">fi
+fi
+</span><span class="nb">unset </span>__conda_setup
+<span class="se">\#</span> <span class="o">&lt;&lt;&lt;</span> conda initialize <span class="o">&lt;&lt;&lt;</span>
+</code></pre></div></div>
+
+<p>Mine looks like this.</p>
+
+<p><img src="https://miro.medium.com/max/768/1*CtxgScchhgnV_bVhXiz0eg.png" alt="" /></p>
+
+<p>Then do</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ./zshrc
+</code></pre></div></div>
+
+<p>There are a lot of customization available. You can check Oh my zsh and Powerlevel9k repository.</p>
+
+<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
+
+<p><strong><em>Thank You</em></strong></p>
+
+<p><strong>Acknowledgment</strong></p>
+
+<ol>
+  <li><a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh — </a></li>
+  <li><a href="https://github.com/Powerlevel9k/powerlevel9k">Powelevel9k</a></li>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="ubuntu" /><category term="terminal" /><summary type="html"><![CDATA[customize your terminal on Ubuntu]]></summary></entry><entry><title type="html">Custom Object Detection With YoloV3</title><link href="http://localhost:4000/Custom-Object-Detection-With-YoloV3/" rel="alternate" type="text/html" title="Custom Object Detection With YoloV3" /><published>2019-12-22T00:00:00+00:00</published><updated>2019-12-22T00:00:00+00:00</updated><id>http://localhost:4000/Custom-Object-Detection-With-YoloV3</id><content type="html" xml:base="http://localhost:4000/Custom-Object-Detection-With-YoloV3/"><![CDATA[<p><img src="./bagpack.jpeg" alt="Cover image" /></p>
+
+<p>Object Detection is a task in computer vision that focuses on detecting objects in images/videos.</p>
+
+<p>There are various object detection algorithms out there like YOLO (You Only Look Once,) Single Shot Detector (SSD), Faster R-CNN, Histogram of Oriented Gradients (HOG), etc.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+<p>It’s good to have a basic knowledge of deep learning computer vision. And basics of programming.</p>
+
+<p>In this article, we are going to train our own custom yolov3 model for object detection.</p>
+
+<p><strong>The steps needed are:</strong></p>
+
+<ol>
+  <li>Gathering data</li>
+  <li>Converting to YoloV3 format</li>
+  <li>Setting Training Pipeline</li>
+  <li>Training model</li>
+  <li>Exporting weights file.</li>
+  <li>Testing object detector</li>
+</ol>
+
+<h2 id="gathering-data">Gathering data</h2>
+
+<p>We are going to get our data from <a href="https://storage.googleapis.com/openimages/web/visualizer/index.html?set=train&amp;type=detection&amp;c=%2Fm%2F0k5j">OpenImagesV5</a>. It was first introduced in 2016, It’s is a collaborative release comprising about nine million images annotated with labels covering thousands of object categories. The new version is an update on 2018’s <a href="https://storage.googleapis.com/openimages/web/factsfigures_v4.html">Open Images V4</a>.</p>
+
+<p>Open Image V5 features newly added annotations on image segmentation masks for 2.8 million objects in 350 categories. Unlike bounding-boxes that only identify the general area in which an object is located, these image segmentation masks trace the outline of the target object, characterizing it’s spatial extent with a higher level of detail.</p>
+
+<p>I am going to choose 4 classes of my choice from OpenImagesV5 that is <em>Backpack, Watch, Book, and Headphones</em>. You can choose as many as you want.</p>
+
+<p>We will have to download those images first. There’s an amazing <a href="https://github.com/pythonlessons/OIDv4_ToolKit">toolkit from GitHub</a> with a full explanation of how to use it. This toolkit will help us to download the images. The toolkit installation is easy. <a href="https://pylessons.com/YOLOv3-introduction/">This guy</a> has written a tutorial to detect custom objects using yolov3 using Keras. You can check it out, he has explained all the steps. In my post, I am going to use PyTorch and will try to simplify things as much as possible.</p>
+
+<ol>
+  <li><strong>Downloading the toolkit</strong></li>
+</ol>
+
+<p>First, open up your terminal and clone the toolkit repository</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/pythonlessons/OIDv4_ToolKit.git
+</code></pre></div></div>
+
+<p>Then go the folder by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd OIDv4_ToolKit
+</code></pre></div></div>
+
+<p>Install all the dependencies by</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<ol>
+  <li><strong>Using toolkit</strong> <strong>&amp; Downloading the data</strong></li>
+</ol>
+
+<p>First of all how to check if we can download the appropriate image class we need? You need to go to the OIDv5 homepage, click on explore and in a search tab try to find your desired class. In my example, I will search for “Watch”, “Backpack”, “Book”, and “Headphones”. To download all of them you can simply run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 main.py downloader <span class="nt">--classes</span> Watch Backpack Book Headphones <span class="nt">--type_csv</span> train <span class="nt">--multiclasses</span> 1 <span class="nt">--limit</span> 600
+</code></pre></div></div>
+
+<p>With this command, 600 training images for each class will get downloaded. If you are using for the first time it will ask you to download (train-annotations-bbox or test-annotations-bbox) CSV file. Type Y, while running the command so that it would get downloaded.</p>
+
+<p><img src="./yolov3-1.png" alt="" /></p>
+
+<p>You need to wait for some time to finish the download.</p>
+
+<p><img src="./yolov3-2.png" alt="" /></p>
+
+<p>This is the folder structure :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main_folder
+│   - main.py
+│   - oid_to_pascal_voc_xml.py
+│   ..
+└─── OID
+    │
+    └─── csv_folder
+    │   │
+    │   └─── class-descriptions-boxable.csv
+    │   │
+    │   └─── test-annotations-bbox.csv
+    │   │
+    │   └─── train-annotations-bbox.csv
+    └─── OID
+        │
+        └─── Dataset
+            │
+            └─── train
+                │
+                └─── Watch_Backpack_Book_Headphones
+</code></pre></div></div>
+
+<h2 id="converting-to-yolov3-format">Converting to YoloV3 format</h2>
+
+<p>Open <code class="language-plaintext highlighter-rouge">oid_to_pascal_voc_xml.py</code> and edit line no. 9 and put</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XML_DIR = 'TO_PASCAL_XML'
+</code></pre></div></div>
+
+<p>Now you need to run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 oid_to_pascal_voc_xml.py
+</code></pre></div></div>
+
+<p>to generate the object co-ordinates in XML formats. After running this above file, you will get object label files in an XML format in the TO_PASCAL_XML folder.</p>
+
+<p>Again we need to convert it into YoloV3 format.</p>
+
+<p>To train a Yolo model there are requirements how an annotation file should be made:</p>
+
+<ul>
+  <li>One row for one image;</li>
+  <li>Row format: image_file_path box1 box2 … boxN;</li>
+  <li>Box format: x_min,y_min,x_max,y_max,class_id (no space).</li>
+  <li>Here is an example:
+    <ul>
+      <li>path/to/img1.jpg 50,100,150,200,0 30,50,200,120,3</li>
+      <li>path/to/img2.jpg 120,300,250,600,4
+   …</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Now you will have to do some little bit of work with these. Have patience, it’s going to take some manual work now.</p>
+
+<p>I will use the code of <a href="https://github.com/ultralytics/yolov3">Ultralytics</a> to train our YoloV3 model. Make sure to check their repository, it’s great. I have made some changes in the folder structure and all for our own model. Now clone my repository for the next steps.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/TheCaffeineDev/YoloV3-Custom-Object-Detection.git
+</code></pre></div></div>
+
+<p>This is the folder structure</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main_folder
+│   - detect.py
+│   - models.py
+│   - train.py
+│ 	- test.py
+│ 	- requirements.txt
+│ 	...
+└─── cfg
+└─── conversion
+    │
+    └─── output
+    └─── xmls
+    │  - classes.txt
+    │  - xmltotxt.py
+    │  ...
+└─── data
+└─── training
+│	│
+│	└─── images
+│	└─── labels
+│	- object.names
+│	- trainer.data
+│	- yolov3.cfg
+│	- train_test.py
+│
+└─── utils
+└─── weights
+</code></pre></div></div>
+
+<p>Now inside the main folder and run this in your terminal to install all the required dependencies.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<p>Then you have to go back to that OIDV4_Toolkit folder <code class="language-plaintext highlighter-rouge">OIDv4_ToolKit/OID/Dataset/train/Watch_Backpack_Book_Headphones/</code> .  Here you need to copy all the images into the following folder in our cloned repository <code class="language-plaintext highlighter-rouge">/YoloV3-Custom-Object-Detection/training/images</code> And</p>
+
+<p>you need to copy all the XML files which are in the folder to <code class="language-plaintext highlighter-rouge">/YoloV3-Custom-Object-Detection/conversion/xmls</code> folder. Don’t get confused about these above steps.</p>
+
+<p>After copying go to the <code class="language-plaintext highlighter-rouge">conversion</code> folder.  You need to edit the <code class="language-plaintext highlighter-rouge">classes.txt </code> file and put your own classes there.</p>
+
+<p>It looks like this:</p>
+
+<p><img src="./yolov3-3.png" alt="" /></p>
+
+<p>Now in conversion folder run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection/conversion folder</span>
+python3 xmltotxt.py <span class="nt">-xml</span> xmls <span class="nt">-out</span> output 
+</code></pre></div></div>
+
+<p>This will generate all the label files in the yolov3 format inside the output folder.</p>
+
+<h2 id="setting-training-pipeline">Setting Training Pipeline</h2>
+
+<p>Now you have to copy all the <code class="language-plaintext highlighter-rouge">.txt</code> files which are in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/conversion/output</code>  folder to <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/training/labels</code> folder.</p>
+
+<p>Now go to the <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/training</code> folder. Now we will edit some files here. Now open that <code class="language-plaintext highlighter-rouge">object.names</code> file and edit it out with your own classes. Mine looks like this</p>
+
+<p>Now in</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection/training folder</span>
+python3 train_test.py
+</code></pre></div></div>
+
+<p>This above file will generate <code class="language-plaintext highlighter-rouge">train.txt</code> and <code class="language-plaintext highlighter-rouge">test.txt</code>.  You can open and check the file for more details. Basically we are splitting 70% &amp; 30% for training and testing respectively.</p>
+
+<p>Then open <code class="language-plaintext highlighter-rouge">trainer.data</code>  . It looks like this. You need to put your no. of classes in the first line,  <code class="language-plaintext highlighter-rouge">train.txt</code> and <code class="language-plaintext highlighter-rouge">test.txt</code> path in 2nd and 3rd line, <code class="language-plaintext highlighter-rouge">object.names</code> path in the 4th line.</p>
+
+<p>Mine looks like this</p>
+
+<p><img src="./yolov3-4.png" alt="" /></p>
+
+<p>Now you need to edit the <code class="language-plaintext highlighter-rouge">.cfg</code> file. By default each YOLO layer has 255 outputs: 85 outputs per anchor [4 box coordinates + 1 object confidence + 80 class confidences], times 3 anchors.</p>
+
+<p>In our case we are using only four classes, then we need to edit the filter. You can reduce filters to <code class="language-plaintext highlighter-rouge">filters=[4 + 1 + n] * 3</code>, where <code class="language-plaintext highlighter-rouge">n</code> is your class count. This modification should be made to the layer preceding each of the 3 YOLO layers. Also, modify <code class="language-plaintext highlighter-rouge">classes=80 </code> to <code class="language-plaintext highlighter-rouge">classes=n</code> in each YOLO layer, where <code class="language-plaintext highlighter-rouge">n</code> is your class count.</p>
+
+<p>In our case in <code class="language-plaintext highlighter-rouge">yolov3.cfg</code> file  I changed the batch size &amp; subdivisions which is in line no. <strong>6</strong> and <strong>7</strong>.  Then line no <strong>610</strong> (classes=4)  and <strong>603</strong> (filters=27), then line no. <strong>689</strong> &amp; <strong>696</strong>, lastly line no. <strong>776</strong> &amp; <strong>783</strong>. If you are using, line no. will be different.</p>
+
+<p><img src="./yolov3-5.png" alt="" /></p>
+
+<p>Now we are ready to train our yolov3 model.</p>
+
+<h2 id="training-model">Training Model</h2>
+
+<p>Below is my desktop specification in which I am going to train my model.</p>
+
+<ul>
+  <li><strong>GPU:</strong> NVIDIA GeForce RTX <em>2080 SUPER</em> (8GB)</li>
+  <li><strong>RAM:</strong> 16GB DDR4</li>
+  <li>OS: Ubuntu 18.04</li>
+</ul>
+
+<p>Now in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection</code> folder open terminal and run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection do</span>
+python3 train.py <span class="nt">--epochs</span> 110 <span class="nt">--data</span> training/trainer.data <span class="nt">--cfg</span> training/yolov3.cfg <span class="nt">--batch</span> 16 <span class="nt">--accum</span> 1 
+</code></pre></div></div>
+
+<p>There are optional arguments are there, you can check-in <code class="language-plaintext highlighter-rouge">train.py</code> file.</p>
+
+<p>Also, You can <strong>Update hyperparameters</strong> also such as LR, LR scheduler, optimizer, augmentation settings, multi_scale settings, etc in <code class="language-plaintext highlighter-rouge">train.py</code> for your particular task. I would recommend you start with all-default settings first updating anything.</p>
+
+<p><img src="./yolov3-6.png" alt="" /></p>
+
+<p>To run tensorboard while training, open another terminal and run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection do</span>
+tensorboard <span class="nt">--logdir</span><span class="o">=</span>runs
+</code></pre></div></div>
+
+<p><img src="./yolov3-7.png" alt="" /></p>
+
+<p>It took me 2 hours to train four objects with 110 epochs.</p>
+
+<p><img src=".//yolov3-8.png" alt="" /></p>
+
+<p>If you follow the above steps, you will be able to train your own model properly.</p>
+
+<h2 id="exporting-weights-file">Exporting weights file</h2>
+
+<p>After training the model, we can get the weights file in the weights folder. It’s in <code class="language-plaintext highlighter-rouge">PyTorch</code> model format. We need to convert it to <code class="language-plaintext highlighter-rouge">darknet</code> format to test it out. Let’s convert it first. Open up the terminal and run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># convert cfg/pytorch model to darknet weights</span>
+<span class="c"># In YoloV3-Custom-Object-Detection</span>
+python3  <span class="nt">-c</span> <span class="s2">"from models import *; convert('training/yolov3.cfg', 'weights/best.pt')"</span>
+
+</code></pre></div></div>
+<p>You will get this message after conversion.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Success: converted 'weights/yolov3-spp.pt' to 'converted.weights'
+</code></pre></div></div>
+<p>Now we will test our object detector. You will have the <code class="language-plaintext highlighter-rouge">converted.weights </code> in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection</code> folder.</p>
+
+<h2 id="testing-object-detector">Testing Object Detector</h2>
+
+<p>Now to run inference, open up your terminal and run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection</span>
+python3 detect.py <span class="nt">--source</span> 0 <span class="nt">--weights</span> converted.weights <span class="nt">--cfg</span> training/yolov3.cfg <span class="nt">--names</span> training/object.names <span class="nt">--img-size</span> 416
+</code></pre></div></div>
+
+<p>Check <code class="language-plaintext highlighter-rouge">detect.py</code> for details.</p>
+
+<ul>
+  <li>Image: ` –source file.jpg `</li>
+  <li>Video:  ` –source file.mp4 `</li>
+  <li>Directory: ` –source dir/ `</li>
+  <li>Webcam:  <code class="language-plaintext highlighter-rouge">--source 0 </code></li>
+  <li>RTSP stream:  <code class="language-plaintext highlighter-rouge">--source rtsp://192.168.0.1/rtp/470011235daa </code></li>
+</ul>
+
+<p>Some of the image inferences below you can see:</p>
+
+<p><img src="./yolov3-9.jpeg" alt="" /></p>
+
+<p><img src="./yolov3-10.jpeg" alt="" /></p>
+
+<p>Due to the GitHub file size limit, I couldn’t upload it to GitHub. If you want to test my weight file, you can get it by</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://www.dropbox.com/s/tou8f0xvs8wdt8a/converted.weights
+</code></pre></div></div>
+
+<p>Link to the repository: https://github.com/TheCaffeineDev/YoloV3-Custom-Object-Detection</p>
+
+<p>If you want to label your own custom images you can use <a href="https://github.com/tzutalin/labelImg">LabelImg</a>.The process of training and all is almost the same.</p>
+
+<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
+
+<p><strong><em>Thank You</em></strong></p>
+
+<h3 id="references-and-credit">References and Credit</h3>
+
+<ol>
+  <li><a href="https://medium.com/syncedreview/google-releases-open-image-v5-launches-open-image-challenge-91fa802f0edf">Medium blog</a></li>
+  <li><a href="https://github.com/ultralytics/yolov3">Ultralytics repo</a></li>
+  <li><a href="https://pylessons.com/">Pylessons</a></li>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="yolov3" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with yolov3]]></summary></entry><entry><title type="html">Custom Object Detection With Tensorflow Object Detection API</title><link href="http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API/" rel="alternate" type="text/html" title="Custom Object Detection With Tensorflow Object Detection API" /><published>2019-12-08T16:04:00+00:00</published><updated>2019-12-08T16:04:00+00:00</updated><id>http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API</id><content type="html" xml:base="http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API/"><![CDATA[<p><img src="./tfapicover.webp" alt="Cover image" /></p>
+
+<p>In this blog post, we are going to build a custom object detector using Tensorflow Object Detection API. I will choose the detection of apple fruit. But you can choose any images you want to detect your own custom objects.</p>
+
+<p>I am assuming that you already know pretty basics of deep learning computer vision.</p>
+
+<p><strong>The steps needed are:</strong></p>
+
+<ol>
+  <li>Installation</li>
+  <li>Gathering data</li>
+  <li>Labeling data</li>
+  <li>Generating TFRecords for training</li>
+  <li>Configuring training</li>
+  <li>Training model</li>
+  <li>Exporting inference graph</li>
+  <li>Testing object detector</li>
+</ol>
+
+<h2 id="installation">Installation</h2>
+
+<p>Make sure you have Python 3.6 or higher version of it. I have done this in my Ubuntu 18.04 machine. If you are using Windows then the process is a little bit different.</p>
+
+<p>If you already have  <strong><em>pip</em></strong> then you are good to go. Otherwise, install <strong><em>pip3</em></strong> by</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>python3-pip
+</code></pre></div></div>
+
+<h3 id="11-tensorflow">1.1 Tensorflow</h3>
+
+<p>Then Install Tensorflow using the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>tensorflow
+</code></pre></div></div>
+
+<p>If you have a GPU that you can use with Tensorflow:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>tensorflow-gpu
+</code></pre></div></div>
+
+<p>The remaining libraries can be installed on Ubuntu 18.04 using via apt-get:</p>
+
+<h3 id="12-other-dependencies">1.2 Other dependencies</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>protobuf-compiler python3-pil python3-lxml python3-tk git
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install pillow Cython lxml jupyter matplotlib contextlib2 
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install pycocotools
+</code></pre></div></div>
+
+<h3 id="13-clone-the-tensorflow-models-repository">1.3 Clone the Tensorflow models repository</h3>
+
+<p>Clone the Tensorflow models repository:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/tensorflow/models.git
+</code></pre></div></div>
+
+<p><strong>From this point on, this directory will be referred to as the</strong> <em>models</em>  <strong>directory</strong></p>
+
+<h3 id="14-setting-up-the-environment">1.4 Setting up the environment</h3>
+
+<p>After cloning the tf models repo, now go to research folder</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>models/research
+</code></pre></div></div>
+
+<p><strong>Protobuf Compilation</strong></p>
+
+<p>The Tensorflow Object Detection API uses Protobufs to configure model and training parameters. Before the framework can be used, the Protobuf libraries must be compiled. This should be done by running the following command from the tensorflow/models/research/ directory:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
+protoc object_detection/protos/<span class="k">*</span>.proto <span class="nt">--python_out</span><span class="o">=</span><span class="nb">.</span>
+</code></pre></div></div>
+
+<p><strong>Add Libraries to PYTHONPATH</strong></p>
+
+<p>When running locally, the tensorflow/models/research/ and slim directories should be appended to PYTHONPATH. This can be done by running the following from tensorflow/models/research/:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
+<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/slim
+</code></pre></div></div>
+
+<p><em>Note:</em> This command needs to run from every new terminal you start. If you wish to avoid running this manually, you can add it as a new line to the end of your ~/.bashrc file, replacing <code class="language-plaintext highlighter-rouge">pwd</code> with the absolute path of tensorflow/models/research on your system.</p>
+
+<p><strong>Object Detection Installation</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
+<span class="nb">sudo </span>python3 setup.py <span class="nb">install</span>
+</code></pre></div></div>
+
+<p><strong>Testing the Installation</strong></p>
+
+<p>You can test that you have correctly installed the Tensorflow Object Detection
+API by running the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 object_detection/builders/model_builder_test.py
+</code></pre></div></div>
+
+<p>If the result looks like the following, you’re ready to proceed to the next steps!</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...............----------------------------------------------------------------------
+
+Ran 15 tests <span class="k">in </span>0.120sOK
+</code></pre></div></div>
+
+<h2 id="gathering-data">Gathering data</h2>
+
+<p><strong>2.1</strong> Open your  google chrome browser and install an extension called <a href="https://chrome.google.com/webstore/detail/download-all-images/ifipmflagepipjokmbdecpmjbibjnakm?hl=en">Download All Images</a></p>
+
+<p><strong>2.2</strong>. Now search your desired image of choice in google images, in my case it’s “Apple”. Now click the “ “download all images” extension button which will be in your top-right  side of browser. You will get a zip file containing your images. Then extract it.</p>
+
+<p><img src="./apple.png" alt="Apple" /></p>
+
+<h2 id="labelling-data">Labelling data</h2>
+
+<p>Open up your terminal and install <em>LabelImg</em> by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install labelImg
+</code></pre></div></div>
+
+<p>LabelImg is a graphical image annotation tool.</p>
+
+<p>After installing labelImg open it by typing</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>labelImg
+</code></pre></div></div>
+
+<p>in your terminal</p>
+
+<p><img src="https://miro.medium.com/max/700/1*OiCJO87VmS_dOkNiDPy82w.gif" alt="labelimg" title="n" width="600" height="500" /></p>
+
+<p>And follow the above like what I am doing. And do this for all picture. What it’s doing is, it’s generating one xml file containing the object co-ordinates with it’s label.</p>
+
+<p>I labelled around 100 images.</p>
+
+<p>Now clone my repository</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/TheCaffeineDev/Tensorflow-Object-Detection-API-With-Custom-Dataset.git
+</code></pre></div></div>
+
+<p>After cloning go inside the directory.</p>
+
+<p>Your directory structure should look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    ├── ...
+    ├── data                 
+    ├── images
+    │   ├── train
+    │   ├── test
+    ├── utils
+    │	├── label_map_util.py
+    │	├── visualization_utils.py
+    ├── generate_tfrecord.py
+    └── object-detection.pbtxt
+    └── transform_image_resolution.py
+    └── xml_csv.py
+    └── webcam_inference.py
+</code></pre></div></div>
+
+<h2 id="generating-tfrecords-for-training">Generating TFRecords for training</h2>
+
+<p>Now copy 70% of your image file to train folder <em>images/train</em> and rest 30% to your test folder.</p>
+
+<p>With the images labelled, we need to create TFRecords that can be served as input data for training of the object detector. In order to create the TFRecords we will use two scripts from <a href="https://github.com/datitran/raccoon_dataset">Dat Tran’s raccoon detector</a>. Namely the <em>xml_to_csv.py</em> and <em>generate_tfrecord.py</em> files.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── ...
+├── data                 
+├── images
+│   ├── train
+│		├── image1.jpg
+│		├── image1.xml ..
+│   ├── test
+│		├── image5.jpg
+│		├── image5.xml ..
+├── generate_tfrecord.py
+└── object-detection.pbtxt
+└── transform_image_resolution.py
+└── xml_csv.py
+└── webcam_inference.py 
+</code></pre></div></div>
+
+<p>Now  in that folder, we can transform our XML files to train_label.csv and test_label.csv by opening the command line and typing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 xml_to_csv.py
+</code></pre></div></div>
+
+<p>This creates two files in the data directory. One called <em>test_labels.csv</em> and another one called <em>train_labels.csv</em>.</p>
+
+<p>Before we can transform the newly created files to TFRecords we need to change a few lines in the <em>generate_tfrecords.py</em> file.</p>
+
+<p>From:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># TO-DO replace this with label map , replace with your own classes
+def class_text_to_int(row_label):
+    if row_label == 'apple':
+        return 1
+    else:
+        return 0
+</code></pre></div></div>
+
+<p>If you have multiple classes then,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># TO-DO replace this with label map
+def class_text_to_int(row_label):
+    if row_label == 'apple':
+        return 1
+    elif row_label == 'banana':
+        return 2
+    elif row_label == 'orange':
+        return 3
+    else:
+        return None
+</code></pre></div></div>
+
+<p>Now you can generate the TFRecords  by typing:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 generate_tfrecord.py <span class="nt">--csv_input</span><span class="o">=</span>data/train_labels.csv  <span class="nt">--output_path</span><span class="o">=</span>train.record <span class="nt">--image_dir</span><span class="o">=</span>images/train
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record --image_dir=images/test
+</code></pre></div></div>
+
+<p>These two commands generate a <em>train.record</em> and a <em>test.record</em> file which can be used to train our object detector.</p>
+
+<h2 id="configuring-training">Configuring training</h2>
+
+<p>The last thing we need to do before training is to create a label map and a training configuration file.</p>
+
+<h2 id="creating-a-label-map">Creating a label map</h2>
+
+<p>The label map maps an id to a name. I have already created a label map file for my training. It looks like this:</p>
+
+<p>Edit <em>object-detection.pbtxt</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>item{
+  id:1
+  name:"apple"
+
+}
+</code></pre></div></div>
+
+<p>If you  are using multiple classes follow this pattern.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>item {
+    id: 1
+    name: 'apple'
+}
+item {
+    id: 2
+    name: 'banana'
+}
+item {
+    id: 3
+    name: 'orange'
+}
+item {
+    id: 4
+    name: 'etc'
+}
+</code></pre></div></div>
+
+<p>The id number of each item should match the id of specified in the <em>generate_tfrecord.py</em> file.</p>
+
+<h3 id="creating-a-training-configuration">Creating a training configuration</h3>
+
+<p>We are going to train our model in Google Colab.</p>
+
+<p>Follow this link below. I have documented it properly.</p>
+
+<p><a href="https://colab.research.google.com/drive/1o7JB0pWanEMn6qnRnEXphu0T4YbuKLL2">Open In Colab</a></p>
+
+<p>I am using “SSD_MOBILENET_V2” for training and with the batch size of 4. You can change the number of steps, which pre-trained model to use &amp; the batch and size.</p>
+
+<p>Then you need to run the cells below. There will be one Upload TF Record heading. Below that you need to upload your generated <em>train.record</em>, <em>test.record</em> &amp; <em>object-detection.pbtxt</em> file.</p>
+
+<h2 id="training-model">Training model</h2>
+
+<p>Now after uploading all those file, run all the cells below. It will get trained.</p>
+
+<h2 id="exporting-inference-graph">Exporting inference graph</h2>
+
+<p>If you have run all the cells, then at last a file named <em>frozen_inference_graph.pb</em> file will get downloaded.</p>
+
+<h2 id="testing-object-detector">Testing Object Detector</h2>
+
+<p>Now copy that <em>frozen_inference_graph.pb</em> file into my GitHub cloned folder. Then you need to edit some things out in that <em>webcam_inference.py</em> to test your own object detector. Open that file and go through the code. I have mentioned the lines you need to change. You can pretty much do that.</p>
+
+<p>If you have followed all of the above steps properly then you will be able to test your model via webcam.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>The Tensorflow Object Detection API allows you to create your own object detector using transfer learning technique.</p>
+
+<p>Here’s the link to grab the code.</p>
+
+<p><a href="https://github.com/TheCaffeineDev/Tensorflow-Object-Detection-API-With-Custom-Dataset">Github Repo</a></p>
+
+<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my mail.</p>
+
+<p><em>Thank you</em></p>
+
+<h1 id="references">References</h1>
+
+<ol>
+  <li><a href="https://github.com/tensorflow/models/tree/master/research/object_detection">Official Github TFOD API</a></li>
+  <li><a href="https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-1-selecting-a-model-a02b6aabe39e">Medium ref</a></li>
+  <li><a href="https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/">Python programming.net</a></li>
+  <li><a href="https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85">Towards data science</a></li>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="tensorflow" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with TF Object detection API]]></summary></entry><entry><title type="html">Javascript Notes</title><link href="http://localhost:4000/javascript-notes/" rel="alternate" type="text/html" title="Javascript Notes" /><published>2018-07-05T00:00:00+00:00</published><updated>2018-07-05T00:00:00+00:00</updated><id>http://localhost:4000/javascript-notes</id><content type="html" xml:base="http://localhost:4000/javascript-notes/"><![CDATA[<h5 id="what-is-javascript">What is JavaScript?</h5>
+
+<p>JavaScript is the programming language of the web. Before it used to be a client-side language but the definition now has changed.</p>
+
+<p>JavaScript was developed by Brendan Eich in 1995. It has become an ECMA standard (a standard for scripting language) in 1997.</p>
+
+<p>Over the last 10 years, Node.js has enabled JavaScript programming outside of web browsers and now it’s one of most used programming language among software developers.</p>
+
+<p>Before it used to be only web, in current scenario you can JS to make desktop and mobile apps also.</p>
+
+<p><strong>“Java v/s  JavaScript”</strong></p>
+
+<p>The name “JavaScript” is little bit misleading.  One of the question most of the beginner ask how Java is related to JavaScript. And it’s one of worst comparison ever. JS is completely different from Java programming language. It’s like comparing a car with carpet.</p>
+
+<h4 id="usage-and-history">Usage and History</h4>
+
+<ul>
+  <li>Web Browsers</li>
+  <li>Applications
+    <ul>
+      <li>Desktop - Electron</li>
+      <li>Mobile - Cordova</li>
+      <li>Server - Node.js</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="what-is-es6es7">What is ES6/ES7</h5>
+
+<p>ECMAScript - European Computer Manufacturers Association Script</p>
+
+<ul>
+  <li>History / Versions
+    <ul>
+      <li>1995 - Created</li>
+      <li>1997 - Standardizing</li>
+      <li>1999 - ECMAScript 3</li>
+      <li>2009 - ECMAScript 5</li>
+      <li>2015 ECMAScript 2015 (ES6)</li>
+      <li>Yearly updates since then</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tools-that-we-need">Tools that we need</h2>
+
+<ul>
+  <li>NodeJS</li>
+  <li>Code Editor - Sublime, Atom, <a href="https://code.visualstudio.com/">VSCode</a></li>
+  <li>Browser - Chrome</li>
+</ul>
+
+<p>NodeJs should be installed in your system. If you haven’t installed please google how to install it in your system. Same goes  with code editor and browser.</p>
+
+<p>I personally use VSCode for almost everything. But you can choose any code editor you want.</p>
+
+<p>So I have created one folder in my desktop called JS. And inside that folder I have created one file named helloWorld.js</p>
+
+<p><img src="../images/blog_posts/js-1.png" alt="" /></p>
+
+<p>Here you can see I am executing the code like this. I have just console logged Hello World !. It’s like print function in other programming language.</p>
+
+<p>VSCode has integrated terminal, as you can see I have used the command node to execute the file. You can also do the same. Make sure Node is installed in your system.</p>
+
+<h4 id="1basics-of-variables--constants">1.Basics of Variables &amp; Constant’s</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Anything following double slashes is an English-language comment.</span>
+<span class="c1">// Read the comments carefully: they explain the JavaScript code.</span>
+
+<span class="c1">// A variable is a symbolic name for a value.</span>
+<span class="c1">// Variables are declared with the let keyword:</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>                     <span class="c1">// Declare a variable named x.</span>
+
+<span class="c1">// Values can be assigned to variables with an = sign</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                     <span class="c1">// Now the variable x has the value 0</span>
+<span class="nx">x</span>                          <span class="c1">// =&gt; 0: A variable evaluates to its value.</span>
+
+<span class="c1">// JavaScript supports several types of values</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                     <span class="c1">// Numbers.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>                  <span class="c1">// Numbers can be integers or reals.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello world</span><span class="dl">"</span><span class="p">;</span>         <span class="c1">// Strings of text in quotation marks.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">JavaScript</span><span class="dl">'</span><span class="p">;</span>          <span class="c1">// Single quote marks also delimit strings.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>                  <span class="c1">// A Boolean value.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>                 <span class="c1">// The other Boolean value.</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>                  <span class="c1">// Null is a special value that means "no value."</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>             <span class="c1">// Undefined is another special value like null.</span>
+</code></pre></div></div>
+
+<p>Two other very important <em>types</em> that JavaScript programs can manipulate are objects and arrays. We will talk about that later.</p>
+
+<h5 id="constants---variable-that-cannot-change">Constants - variable that <strong>cannot</strong> change</h5>
+
+<ul>
+  <li>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>Must be initiated - <em>const x = 2</em></li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="variable-declarations">Variable Declarations</h5>
+
+<ul>
+  <li>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>Cannot be called before declared</li>
+      <li>Has <a href="http://www.benmvp.com/learning-es6-block-level-scoping-let-const/">block scoping</a></li>
+    </ul>
+  </li>
+  <li>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>undefined before declaration</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="2operators">2.Operators</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Operators act on values (the operands) to produce a new value.</span>
+<span class="c1">// Arithmetic operators are some of the simplest:</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 4: addition</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 2: subtraction</span>
+<span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 4: multiplication</span>
+<span class="mi">4</span> <span class="o">/</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 2: division</span>
+<span class="nx">points</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">points</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">x</span>  <span class="c1">// =&gt; 1: more complicated operands also work</span>
+<span class="dl">"</span><span class="s2">53</span><span class="dl">"</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span>                  <span class="c1">// =&gt; "532": + adds numbers, concatenates strings</span>
+
+<span class="c1">// JavaScript defines some shorthand arithmetic operators</span>
+<span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">// Define a variable</span>
+<span class="nx">count</span><span class="o">++</span><span class="p">;</span>                   <span class="c1">// Increment the variable</span>
+<span class="nx">count</span><span class="o">--</span><span class="p">;</span>                   <span class="c1">// Decrement the variable</span>
+<span class="nx">count</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>                <span class="c1">// Add 2: same as count = count + 2;</span>
+<span class="nx">count</span> <span class="o">*=</span> <span class="mi">3</span><span class="p">;</span>                <span class="c1">// Multiply by 3: same as count = count * 3;</span>
+<span class="nx">count</span>                      <span class="c1">// =&gt; 6: variable names are expressions, too.</span>
+
+<span class="c1">// Equality and relational operators test whether two values are equal,</span>
+<span class="c1">// unequal, less than, greater than, and so on. They evaluate to true or false.</span>
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>          <span class="c1">// These = signs are assignment, not equality tests</span>
+<span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span>                    <span class="c1">// =&gt; false: equality</span>
+<span class="nx">x</span> <span class="o">!==</span> <span class="nx">y</span>                    <span class="c1">// =&gt; true: inequality</span>
+<span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span>                      <span class="c1">// =&gt; true: less-than</span>
+<span class="nx">x</span> <span class="o">&lt;=</span> <span class="nx">y</span>                     <span class="c1">// =&gt; true: less-than or equal</span>
+<span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span>                      <span class="c1">// =&gt; false: greater-than</span>
+<span class="nx">x</span> <span class="o">&gt;=</span> <span class="nx">y</span>                     <span class="c1">// =&gt; false: greater-than or equal</span>
+<span class="dl">"</span><span class="s2">four</span><span class="dl">"</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">five</span><span class="dl">"</span>          <span class="c1">// =&gt; false: the two strings are different</span>
+<span class="kc">false</span> <span class="o">===</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span>          <span class="c1">// =&gt; true: false is equal to false</span>
+
+<span class="c1">// Logical operators combine or invert boolean values</span>
+<span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">y</span> <span class="o">===</span> <span class="mi">5</span><span class="p">)</span>     <span class="c1">// =&gt; true: both comparisons are true. &amp;&amp; is AND</span>
+<span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>         <span class="c1">// =&gt; false: neither comparison is true. || is OR</span>
+<span class="o">!</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span><span class="p">)</span>                 <span class="c1">// =&gt; true: ! inverts a boolean value</span>
+</code></pre></div></div>
+
+<h5 id="equality-operators">Equality operators</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">(var1 == var2)</code> - JS will attempt to convert to matching types for comparison</li>
+  <li><code class="language-plaintext highlighter-rouge">(var1 === var2)</code> - No conversion, types must be equal. ‘Strict Equality’</li>
+</ul>
+
+<h4 id="unary-operators">Unary operators</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">++count </code>  or <code class="language-plaintext highlighter-rouge">count++</code> - Increment</li>
+  <li>` –var ` or <code class="language-plaintext highlighter-rouge">var--</code> - Decrement</li>
+  <li><code class="language-plaintext highlighter-rouge">+var</code> - string to numertical type</li>
+  <li><code class="language-plaintext highlighter-rouge">-var</code> - negation, changes sign of numeric type</li>
+</ul>
+
+<h4 id="logical-boolean-operators">Logical (Boolean) operators</h4>
+
+<ul>
+  <li>` &amp;&amp;` - AND</li>
+  <li><code class="language-plaintext highlighter-rouge">||</code>  – OR</li>
+  <li><code class="language-plaintext highlighter-rouge">!</code> NOT, convert to bool, flip</li>
+</ul>
+
+<h4 id="relational-operators">Relational Operators</h4>
+
+<ul>
+  <li>
+    <h6 id="compared-by-ascii">Compared by ASCII</h6>
+  </li>
+  <li>
+    <p>` &gt;, &gt;= `- greater than, greater than or equal to</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;,&lt;=</code> - less than, less than or equal to</li>
+</ul>
+
+<h4 id="conditional-operators">Conditional Operators</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">?</code> used in shorthand <code class="language-plaintext highlighter-rouge">if</code></p>
+  </li>
+  <li>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>condition ? exprIfTrue : exprIfFalse
+</code></pre></div>    </div>
+
+    <ul>
+      <li>ex: <code class="language-plaintext highlighter-rouge">console.log((5&gt;4) ? 'yes' : 'no');   // yes</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="assignment-operators">Assignment Operators</h3>
+
+<p>-<code class="language-plaintext highlighter-rouge">+=, -=, /=, *=, %=</code></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;=</code> - shift bits to left</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;&gt;= - shift bits to right</code></li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;= - shift but keep the sign</code></li>
+</ul>
+
+<h3 id="typeof">typeof()</h3>
+
+<ul>
+  <li>Returns a <strong>string</strong></li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typeof</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>              <span class="c1">// 'number'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>           <span class="c1">// 'boolean'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span><span class="p">)</span>         <span class="c1">// 'string'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{});</span>  <span class="c1">// 'function'</span>
+<span class="k">typeof</span><span class="p">({});</span>             <span class="c1">// 'object'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>           <span class="c1">// 'object'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="kc">undefined</span><span class="p">)</span>       <span class="c1">// 'undefined'</span>
+<span class="k">typeof</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span>            <span class="c1">// 'number'</span>
+<span class="c1">// NaN - not a number</span>
+</code></pre></div></div>
+
+<h3 id="common-type-conversions">Common Type Conversions</h3>
+
+<ul>
+  <li>Convert to string - <code class="language-plaintext highlighter-rouge">foo.toString();</code></li>
+  <li>String to integer -<code class="language-plaintext highlighter-rouge">Number.parseInt('55');</code></li>
+  <li>String to number - <code class="language-plaintext highlighter-rouge">Number.parseFloat('55.99');</code></li>
+</ul>
+
+<h3 id="controlling-loops">Controlling Loops</h3>
+
+<ul>
+  <li>Use <code class="language-plaintext highlighter-rouge">break</code>to get out of a loop</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">continue</code> to finish iteration (without rest of body)</li>
+</ul>
+
+<h4 id="3-functions-and-scope">3. Functions and Scope</h4>
+
+<h5 id="function-scope">Function scope</h5>
+
+<ul>
+  <li>Variables that can be accessed with a function of a nested function</li>
+  <li><strong>*lifetime*</strong></li>
+  <li>If not available in function, looks to parent function</li>
+</ul>
+
+<h5 id="block-scope">Block scope</h5>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">{ }</code> not in a function</p>
+  </li>
+  <li>
+    <p>Using <code class="language-plaintext highlighter-rouge">let</code>for block scope</p>
+  </li>
+  <li>
+    <p>No block scope for <code class="language-plaintext highlighter-rouge">var</code>, no such thing for these</p>
+  </li>
+  <li>
+    <p>IIFE’s - Immediately Invoked Function Expression</p>
+  </li>
+  <li>
+    <p>ex:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">in function</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">})();</span>
+<span class="c1">// can return values this way</span>
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">cardId</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">in function</span><span class="dl">'</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{};</span>
+<span class="p">})();</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+<span class="c1">// [Function: app]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="closures">Closures</h4>
+
+<ul>
+  <li>
+    <p>Keeping a function, it’s variables and nested function in scope</p>
+  </li>
+  <li>
+    <p>ex:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">cardId</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">cardId</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">getId</span><span class="p">:</span> <span class="nx">getId</span>    <span class="c1">//  reference</span>
+    <span class="p">};</span>
+<span class="p">})();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getId</span><span class="p">());</span>
+<span class="c1">// 123</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="the-this-keyword">The <strong>this</strong> keyword</h4>
+
+<ul>
+  <li>
+    <p>Context for the function</p>
+  </li>
+  <li>
+    <p>ex:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">carId</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">getId</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">getId</span><span class="p">());</span>
+<span class="c1">// 123</span>
+  
+</code></pre></div>    </div>
+
+    <ul>
+      <li>Context can change, ie <em>this</em> value can change</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="arrow-functions">Arrow Functions</h4>
+
+<ul>
+  <li>
+    <p>Function declarations</p>
+
+    <ul>
+      <li>Arrow function symbol:<code class="language-plaintext highlighter-rouge">=&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">let getId = () =&gt; 123; //no params</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>More examples</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="nx">prefix</span> <span class="o">=&gt;</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getId</span><span class="p">(</span><span class="dl">'</span><span class="s1">ID: </span><span class="dl">'</span><span class="p">));</span>         <span class="c1">// ID: 456</span>
+  
+<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span> <span class="o">+</span> <span class="nx">suffix</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getId</span><span class="p">(</span><span class="dl">'</span><span class="s1">ID: </span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">));</span>    <span class="c1">// ID: 456!</span>
+  
+<span class="c1">// with braces / return keyword required</span>
+<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span> <span class="o">+</span> <span class="nx">suffix</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// same result as previous</span>
+  
+<span class="c1">// use with underscore:</span>
+<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="nx">_</span> <span class="o">=&gt;</span> <span class="mi">456</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Arrow functions do <strong>NOT</strong> have their own <code class="language-plaintext highlighter-rouge">this&lt;</code>value. <code class="language-plaintext highlighter-rouge">this</code>refers to enclosing context</p>
+
+<h4 id="default-parameters">Default Parameters</h4>
+
+<ul>
+  <li>
+    <p>ex:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">trackCar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">carId</span><span class="p">,</span> <span class="nx">city</span><span class="o">=</span><span class="dl">'</span><span class="s1">NY</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// using backticks for interpreting variables</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Tracking </span><span class="p">${</span><span class="nx">carId</span><span class="p">}</span><span class="s2"> in </span><span class="p">${</span><span class="nx">city</span><span class="p">}</span><span class="s2">.`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Like other defaults, must be on right side.</li>
+  <li>Default overwritten if defined.</li>
+</ul>
+
+<h3 id="4objects-and-arrays">4.Objects and Arrays</h3>
+
+<h4 id="destructuring-arrays">Destructuring Arrays</h4>
+
+<ul>
+  <li>Assign values in array to variables</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">car1</span><span class="p">,</span> <span class="nx">car2</span><span class="p">,</span> <span class="nx">car3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">;</span>
+<span class="c1">// with rest parameters:</span>
+<span class="kd">let</span> <span class="nx">car1</span><span class="p">,</span> <span class="nx">remainingCars</span><span class="p">;</span>
+<span class="p">[</span><span class="nx">car1</span><span class="p">,</span> <span class="p">...</span><span class="nx">remainingCars</span><span class="p">]</span> <span class="o">=</span> <span class="nx">carIds</span>
+<span class="c1">// log</span>
+<span class="c1">// 1 [2, 5]</span>
+</code></pre></div></div>
+
+<h4 id="destructuring-objects">Destructuring Objects</h4>
+
+<ul>
+  <li>{ } instead of [ ] for objects</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="na">style</span><span class="p">:</span> <span class="dl">"</span><span class="s2">convertible</span><span class="dl">"</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">style</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">car</span><span class="p">;</span>
+<span class="c1">// log</span>
+<span class="c1">// 5000, convertible</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Put destructuring in ( ) if variables already declared</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">style</span><span class="p">;</span>
+<span class="p">({</span><span class="nx">id</span><span class="p">,</span> <span class="nx">style</span><span class="p">}</span> <span class="o">=</span> <span class="nx">car</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="spread-syntax">Spread Syntax</h4>
+
+<ul>
+  <li>Take array, spread out elements for parameters</li>
+  <li>Similar to rest syntax, does the opposite</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">];</span>
+<span class="nx">startCars</span><span class="p">(...</span><span class="nx">carIds</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Can iterate through <strong>arrays</strong> <em>and</em> <strong>strings</strong></li>
+</ul>
+
+<h3 id="constructor-functions">Constructor Functions</h3>
+
+<ul>
+  <li>
+    <p>Examples</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>          <span class="c1">// capitalized name as convention`</span>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">carId</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>     <span class="c1">// 123</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Method: function run on an object</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">carId</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Start: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">vehicle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
+<span class="nx">vehicle</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>            <span class="c1">// Start: 123</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="prototypes">Prototypes</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// using previous example</span>
+<span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Start: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>
+<span class="p">}</span>   <span class="c1">// single copy, instead of one function for each object</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Expanding Objects using Prototypes
+    <ul>
+      <li>Give new functionality to objects</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hello</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> Hello</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">.</span><span class="nx">hello</span><span class="p">());</span>     <span class="c1">// foo Hello</span>
+</code></pre></div></div>
+
+<h3 id="javascript-object-notation-json">Javascript Object Notation (JSON)</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">convertible</span><span class="dl">'</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">car</span><span class="p">));</span>
+<span class="c1">// { "id": 123, "style": "convertible" }</span>
+<span class="c1">// Array to JSON</span>
+<span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">123</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">456</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">789</span> <span class="p">}</span>
+<span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">carIds</span><span class="p">));</span>
+<span class="c1">//  [{ "carId": 123 }, { "carId": 456 }, ...]</span>
+<span class="c1">// Parsing JSON:</span>
+<span class="kd">let</span> <span class="nx">jsonIn</span> <span class="o">=</span> <span class="p">[{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">123</span> <span class="p">},</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">456</span> <span class="p">},</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">789</span> <span class="p">}];</span>
+<span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">jsonIn</span><span class="p">);</span>
+<span class="c1">// log: [ { carId: 123 }, { carId: 456 }, { carId: 789 } ]</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="array-iteration">Array Iteration</h3>
+
+<p>Examples:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">carIds</span><span class="p">.</span><span class="nx">foreach</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">));</span>
+<span class="nx">carIds</span><span class="p">.</span><span class="nx">foreach</span><span class="p">((</span><span class="nx">car</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">,</span> <span class="nx">index</span><span class="p">));</span>
+
+<span class="c1">//  only some elements</span>
+<span class="kd">let</span> <span class="nx">convertibles</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">style</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">convertible</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// every case. find, condition, T/F, all elements</span>
+<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">carId</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>    <span class="c1">// true</span>
+
+<span class="c1">// retrieve first instance matching condition</span>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">carId</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">);</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="classes-and-modules">Classes and Modules</h3>
+
+<ul>
+  <li>Class Basics</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span> <span class="p">{</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="constructors-and-properties">Constructors and properties</h3>
+
+<ul>
+  <li>constructor - function executed when new instance of a class is created</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// constructor</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>   <span class="c1">// property</span>
+    <span class="p">}</span>
+<span class="p">}</span>   <span class="c1">// car.id to access property directly</span>
+</code></pre></div></div>
+
+<h3 id="methods">Methods</h3>
+
+<ul>
+  <li>
+    <p>No function keyword needed</p>
+
+    <ul>
+      <li>Example within class Car</li>
+    </ul>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">identify</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`Car Id: </span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="c1">// dont need `this` to access</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="inheritance">Inheritance</h3>
+
+<ul>
+  <li>Example:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span> <span class="kd">extends</span> <span class="nx">Vehicle</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>    <span class="c1">// refers back to parent Vehicle</span>
+    <span class="p">}</span>
+    <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">'</span><span class="s1">In Car Start</span><span class="dl">'</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="creating-and-importing-a-module">Creating and Importing a Module</h3>
+
+<ul>
+  <li>Create &amp; Export
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">export class Car { ... }</code></li>
+    </ul>
+  </li>
+  <li>Import
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">import { Car } from './models/car.js'</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="window-object">Window Object</h2>
+
+<ul>
+  <li>Global object</li>
+  <li>Properties
+    <ul>
+      <li>document</li>
+      <li>location</li>
+      <li>console</li>
+      <li>innerHeight</li>
+      <li>innerWidth</li>
+      <li>pageXOffset</li>
+      <li>pageYOffset</li>
+    </ul>
+  </li>
+  <li>Methods
+    <ul>
+      <li>alert()</li>
+      <li>back()</li>
+      <li>confirm()</li>
+    </ul>
+  </li>
+  <li>Events
+    <ul>
+      <li>( not common )</li>
+    </ul>
+  </li>
+  <li>gGlobal object, must refer when dealing with modules</li>
+</ul>
+
+<h3 id="timers">Timers</h3>
+
+<ul>
+  <li>
+    <p>fire asynchronously</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">setTimeout(); // once</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&gt;setInterval(); // repeatedly</code></li>
+    </ul>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">let</span> <span class="nx">timeoutId</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">1 second paused</span><span class="dl">'</span><span class="p">);</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="c1">// cancel clearTimeout(timeoutId); // or clearTimeout(id); </span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="location-object">Location object</h3>
+
+<ul>
+  <li>Properties
+    <ul>
+      <li>href (URL)</li>
+      <li>hostname</li>
+      <li>port</li>
+      <li>pathname</li>
+      <li>search</li>
+    </ul>
+  </li>
+  <li>Methods
+    <ul>
+      <li>assign()</li>
+      <li>reload() ex: <code class="language-plaintext highlighter-rouge">location.href</code> or <code class="language-plaintext highlighter-rouge">document.location.href</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="document-object">Document Object</h3>
+
+<ul>
+  <li>Properties
+    <ul>
+      <li>body</li>
+      <li>forms</li>
+      <li>links</li>
+    </ul>
+  </li>
+  <li>Methods
+    <ul>
+      <li>createElement()</li>
+      <li>createEvent()</li>
+      <li>getElementById()</li>
+      <li>getElementsByClassName()</li>
+    </ul>
+  </li>
+  <li>Events
+    <ul>
+      <li>onload</li>
+      <li>onclick</li>
+      <li>onKeypress</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="selecting-dom-elements">Selecting DOM Elements</h3>
+
+<ul>
+  <li>Common:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">document.getElementById('elementId');</code></li>
+      <li><code class="language-plaintext highlighter-rouge">document.getElementByClassName('className');</code></li>
+      <li><code class="language-plaintext highlighter-rouge">document.getElementByTagName('tagName');</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="modifying-dom-elements">Modifying DOM Elements</h3>
+
+<p>Example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">elementId</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">new text here</span><span class="dl">'</span><span class="p">;</span> 
+<span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">nameValue</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">myClassName</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">blue</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="promises-and-error-handling">Promises and Error Handling</h3>
+
+<h3 id="errors-in-javascript">Errors in Javascript</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">let car = newCar;</code> // reference error, execution stops</li>
+  <li>Error Handling with try and catch</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">newCar</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error: </span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// continue execution</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>With finally (always executes)</p>
+
+    <ul>
+      <li>
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">finally</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">this always executes</span><span class="dl">'</span><span class="p">);</span> <span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Developer defined errors</p>
+
+    <ul>
+      <li>
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">any custom error</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Creating a Promise</p>
+
+    <ul>
+      <li>Temporary holder for a value you will retrieve after asynchronous call</li>
+    </ul>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span> <span class="p">(</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="dl">'</span><span class="s1">someValue</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Setting a Promise</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+    <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">fulfilled: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">rejected: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="chrome-dev-tools-and-security">Chrome Dev Tools and Security</h2>
+
+<ul>
+  <li>Network » bundle.js file</li>
+  <li>Sources » Watch, etc</li>
+  <li>Don’t store sensitive info on browser</li>
+</ul>
+
+<h3 id="security-and-the-eval-function">Security and the eval() function</h3>
+
+<ul>
+  <li>JS Global eval() function will execute whatever is passed</li>
+  <li>Avoid eval() altogether? Script tags?</li>
+</ul>
+
+<h3 id="preventing-man-in-the-middle-attacks">Preventing Man-in-the-Middle Attacks</h3>
+
+<ul>
+  <li>Code put into HTML between server and intended client</li>
+  <li>Use SSL, use HTTP header</li>
+  <li>Cookie attributes: Secure and HttpOnly</li>
+</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="javascript" /><summary type="html"><![CDATA[JS Notes]]></summary></entry></feed>
