@@ -1,23 +1,30 @@
 
-## Code for Prabhat's Personal Website
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0a8def1e-d761-4a3c-a29d-0a460e755be7/deploy-status)](https://app.netlify.com/sites/iprabhat/deploys)
 
-This repository contains the code and all of my personal website. 
+## Personal Website
 
+This is a static site powering my blog built using Jekyll, Markdown and some JS.
+
+## Quick start
+```
+https://github.com/TheCaffeineDev/iprabhat.git
+cd prabhat
+bundle install
+bundle exec jekyll serve
+```
+
+Navigate to `localhost:4000`. You're Welcome, Fork and be Stargazer.
+
+## Limitation
+
+- Since [`jekyll-postfiles`](https://github.com/nhoizey/jekyll-postfiles#compatibility) plugin isn't supported by github pages, this cause will make your site problems, path broken or post images won't show up, you can host alternatively using likes [netlify.com](https://netlify.com), [vercel.com](https://vercel.com), [azure.com](https://docs.microsoft.com/azure/static-web-apps/publish-jekyll) or [surge.sh](https://surge.sh) services, which support 3rd party.
 
 <h2>Credits</h2>
-<p>I have used the following scripts, fonts or other files as listed.</p>
-<ul>
-  <li><a href="https://fonts.google.com/">Uses the beautiful Google Fonts.</a></li>
-  <li>Uses handcrafted icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</li>
-    <li>Handcrafted using the awesome <a href="https://www.gatsbyjs.org/" target="_blank">Gatsby</a>.</li></ul>
-<h2>Deployment</h2>
-To run the theme locally, navigate to the theme directory and run `yarn`to install the dependencies, then run `yarn run start` or `yarn run dev` or 
-to start the Gatsby server.
 
-I would recommend checking the [Deployment Methods](https://www.netlify.com/blog/2019/05/28/deploy-in-seconds-with-netlify-cli/) page on Netlify website.
+Theme taken from [jekyll-klise](https://github.com/piharpi/jekyll-klise)
 
 
 
 ## License
 
-MIT © [Prabhat](https://iprabhat.dev)
+This project is open source and available under the [MIT License](LICENSE).
