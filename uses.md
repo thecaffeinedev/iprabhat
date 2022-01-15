@@ -11,7 +11,6 @@ comments: False
 - [M1 Macbook Pro (16GB RAM, 512GB SSD) ](https://www.apple.com/in/shop/buy-mac/macbook-pro/13-inch-macbook-pro)
 - [24" LG Virtually Borderless Monitor ](https://www.lg.com/in/monitors/lg-24ml600s-w)
 
-
 ####  🛠 Development Tools & Softwares
 
 
