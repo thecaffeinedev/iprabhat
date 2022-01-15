@@ -9,7 +9,6 @@ description: Part-2 Of Django Tutorial
 This is the second part of our Intro To Django Tutorial, if you haven't gone through our previous tutorial please make sure to check it out.
 
 
-
 In this part of tutorial, we are going to do our migrations, create a sign up form and stuff.
 
 
