@@ -27,8 +27,6 @@ When I'm not hacking away on a project, I enjoy watching tv series, writing, lea
 * __2015-2019__- Sambalpur University Institute Of Information Technology, Burla,Odisha - B.Tech in Computer Science Engineering
 
 
-
-
 ## 📬 Contact 
 
 
