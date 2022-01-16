@@ -1,4 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T19:34:24+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">docker-compose basics</title><link href="http://localhost:4000/docker-compose-bascis/" rel="alternate" type="text/html" title="docker-compose basics" /><published>2021-07-14T00:00:00+00:00</published><updated>2021-07-14T00:00:00+00:00</updated><id>http://localhost:4000/docker-compose-bascis</id><content type="html" xml:base="http://localhost:4000/docker-compose-bascis/"><![CDATA[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T20:18:44+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Test driven development</title><link href="http://localhost:4000/Test-driven-development/" rel="alternate" type="text/html" title="Test driven development" /><published>2022-01-05T00:00:00+00:00</published><updated>2022-01-05T00:00:00+00:00</updated><id>http://localhost:4000/Test-driven-development</id><content type="html" xml:base="http://localhost:4000/Test-driven-development/"><![CDATA[<h1 id="test-driven-development">Test driven development</h1>
+
+<p>If you want to understand the basics of the TDD, please read this <a href="https://www.freecodecamp.org/news/test-driven-development-what-it-is-and-what-it-is-not-41fa6bca02a2/">freecodecamp blog.</a></p>
+
+<h3 id="3-rules-to-follow-while-doing-tdd">3 rules to follow while doing TDD</h3>
+
+<ol>
+  <li>Write production code only when there is a failing test.</li>
+  <li>When writing failing test code, write only the minimum test code.</li>
+  <li>If there is a failing test code, write only the minimum code that the code passes.</li>
+</ol>
+
+<h3 id="which-tests-should-i-write-first">Which tests should I write first?</h3>
+
+<p><strong>Simplest, but interesting</strong> : Write the most concise and meaningful tests you can think of.</p>
+
+<h3 id="order-of-tdd">Order of TDD</h3>
+
+<p>red ➡ green ➡ refactor cycle</p>
+
+<ol>
+  <li>Start</li>
+  <li>Writing the minimum code for failing test</li>
+  <li>Writing passing prod minimal code</li>
+  <li>Refactoring (go back to 2, if no more test cases come to mind, go to 5)</li>
+  <li>Stop</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">Note:</code> Step 4 is not optional. If step 4 is ignored, the code is dirty even after TDD.</p>
+
+<p>Remember that refactoring is a natural and natural thing to do, comparable to washing your hands after using the bathroom.</p>
+
+<h3 id="getting-stuck">Getting stuck</h3>
+
+<p>There are times when you will get stuck during test-driven development. In this case, the writer runs into the idea that he can’t make all the test cases pass unless he erases and rewrites the existing code.</p>
+
+<p>It is mainly caused by the following two cases.</p>
+
+<ul>
+  <li>you wrote the wrong test</li>
+  <li>The prod code is too specific (mainly occurs if you do not follow the principle of Most simple, but interesting)</li>
+</ul>
+
+<h3 id="tdd-benefits">TDD Benefits</h3>
+
+<ul>
+  <li>Because the specification is set first and the prod code is implemented, the developer eliminates unnecessary thoughts when writing the code.</li>
+  <li>Because we write the tests first, the code is decoupled. Naturally, a good design can be obtained.</li>
+</ul>
+
+<h3 id="ui-test">UI Test?</h3>
+
+<p>Since the UI is exposed to too many changes, it can take more time and effort to write very specific test code.</p>
+
+<p>Usually, UI tests are often omitted, and even if they are written, they are written very rough. Rough means that the React action is properly triggered and the style of the component with a certain text is changed as desired.</p>
+
+<p>It is sometimes replaced with a visual regression test. A typical library for this is <a href="https://storybook.js.org/docs/guides/guide-react/">storybook</a> .</p>
+
+<h3 id="practice-tdd">Practice TDD</h3>
+
+<p>Just google “TDD kata”. </p>
+
+<h3 id="gradual-improvement">gradual improvement</h3>
+
+<p>If you do TDD, you will naturally do refactoring, and if you separate modules by responsibility through refactoring, you will naturally get a good design. This is called gradual improvement.</p>
+
+<p>What this means is that it is much more efficient to not get too hung up on design from the start, but to draw a rough design on the blackboard and then try to implement it directly. Because pretty diagrams can only be obtained when the implementation is complete.</p>
+
+<p>According to someone who has actually experienced it, it goes something like this:</p>
+
+<ol>
+  <li>Write a test that passes</li>
+  <li>Once implemented through TDD as per requirements</li>
+  <li>Refactoring until the design is revealed through refactoring in TDD</li>
+  <li>Looking at the architecture, separation of responsibilities. At this stage, all operations have already been performed successfully, and since the test has been obtained, changes are possible.</li>
+  <li>refactoring</li>
+  <li>Create a diagram to express your design</li>
+</ol>
+
+<h3 id="black-box-testing--white-box-testing">Black-box testing &amp; White-box testing</h3>
+
+<ul>
+  <li>White-box: Test the internal source code. Write tests for conditional statements in if/while and trace all executable paths.</li>
+  <li>Black-box: A method of inspecting the operation without knowing the internal structure or principle of operation of the software, giving correct and incorrect inputs, and checking whether the software operates as expected.</li>
+</ul>
+
+<p>These are just some of my thoughts regarding it. I will write about it more clearly and in a structured way later on.</p>
+
+<p><strong>Some good reads:</strong></p>
+
+<ul>
+  <li><a href="https://www.freecodecamp.org/news/test-driven-development-what-it-is-and-what-it-is-not-41fa6bca02a2/">freecodecamp blog</a></li>
+  <li><a href="https://www.tddfellow.com/blog/2016/08/31/getting-stuck-while-doing-tdd-part-3-triangulation-to-the-rescue/">tddfellow</a></li>
+  <li><a href="https://www.freecodecamp.org/news practical-tdd-test-driven-development-84a32044ed0b/">practical tdd</a></li>
+  <li><a href="https://medium.com/javarevisited/tdd-katas-5e897300a887">kata blog</a></li>
+</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="tdd" /><category term="software-design" /><summary type="html"><![CDATA[Test driven development]]></summary></entry><entry><title type="html">docker-compose basics</title><link href="http://localhost:4000/docker-compose-bascis/" rel="alternate" type="text/html" title="docker-compose basics" /><published>2021-07-14T00:00:00+00:00</published><updated>2021-07-14T00:00:00+00:00</updated><id>http://localhost:4000/docker-compose-bascis</id><content type="html" xml:base="http://localhost:4000/docker-compose-bascis/"><![CDATA[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
 
 <p><em>NOTE: This isn’t a Docker tutorial. It assumes you to have a basic knowledge of Docker and the problems it solves.</em></p>
 
@@ -1937,316 +2032,4 @@ python3 detect.py <span class="nt">--source</span> 0 <span class="nt">--weights<
   <li><a href="https://medium.com/syncedreview/google-releases-open-image-v5-launches-open-image-challenge-91fa802f0edf">Medium blog</a></li>
   <li><a href="https://github.com/ultralytics/yolov3">Ultralytics repo</a></li>
   <li><a href="https://pylessons.com/">Pylessons</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="yolov3" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with yolov3]]></summary></entry><entry><title type="html">Custom Object Detection With Tensorflow Object Detection API</title><link href="http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API/" rel="alternate" type="text/html" title="Custom Object Detection With Tensorflow Object Detection API" /><published>2019-12-08T16:04:00+00:00</published><updated>2019-12-08T16:04:00+00:00</updated><id>http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API</id><content type="html" xml:base="http://localhost:4000/Custom-Object-Detection-With-Tensorflow-Object-Detection-API/"><![CDATA[<p><img src="./tfapicover.webp" alt="Cover image" /></p>
-
-<p>In this blog post, we are going to build a custom object detector using Tensorflow Object Detection API. I will choose the detection of apple fruit. But you can choose any images you want to detect your own custom objects.</p>
-
-<p>I am assuming that you already know pretty basics of deep learning computer vision.</p>
-
-<p><strong>The steps needed are:</strong></p>
-
-<ol>
-  <li>Installation</li>
-  <li>Gathering data</li>
-  <li>Labeling data</li>
-  <li>Generating TFRecords for training</li>
-  <li>Configuring training</li>
-  <li>Training model</li>
-  <li>Exporting inference graph</li>
-  <li>Testing object detector</li>
-</ol>
-
-<h2 id="installation">Installation</h2>
-
-<p>Make sure you have Python 3.6 or higher version of it. I have done this in my Ubuntu 18.04 machine. If you are using Windows then the process is a little bit different.</p>
-
-<p>If you already have  <strong><em>pip</em></strong> then you are good to go. Otherwise, install <strong><em>pip3</em></strong> by</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>python3-pip
-</code></pre></div></div>
-
-<h3 id="11-tensorflow">1.1 Tensorflow</h3>
-
-<p>Then Install Tensorflow using the following command:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>tensorflow
-</code></pre></div></div>
-
-<p>If you have a GPU that you can use with Tensorflow:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>tensorflow-gpu
-</code></pre></div></div>
-
-<p>The remaining libraries can be installed on Ubuntu 18.04 using via apt-get:</p>
-
-<h3 id="12-other-dependencies">1.2 Other dependencies</h3>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>protobuf-compiler python3-pil python3-lxml python3-tk git
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install pillow Cython lxml jupyter matplotlib contextlib2 
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install pycocotools
-</code></pre></div></div>
-
-<h3 id="13-clone-the-tensorflow-models-repository">1.3 Clone the Tensorflow models repository</h3>
-
-<p>Clone the Tensorflow models repository:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/tensorflow/models.git
-</code></pre></div></div>
-
-<p><strong>From this point on, this directory will be referred to as the</strong> <em>models</em>  <strong>directory</strong></p>
-
-<h3 id="14-setting-up-the-environment">1.4 Setting up the environment</h3>
-
-<p>After cloning the tf models repo, now go to research folder</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>models/research
-</code></pre></div></div>
-
-<p><strong>Protobuf Compilation</strong></p>
-
-<p>The Tensorflow Object Detection API uses Protobufs to configure model and training parameters. Before the framework can be used, the Protobuf libraries must be compiled. This should be done by running the following command from the tensorflow/models/research/ directory:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
-protoc object_detection/protos/<span class="k">*</span>.proto <span class="nt">--python_out</span><span class="o">=</span><span class="nb">.</span>
-</code></pre></div></div>
-
-<p><strong>Add Libraries to PYTHONPATH</strong></p>
-
-<p>When running locally, the tensorflow/models/research/ and slim directories should be appended to PYTHONPATH. This can be done by running the following from tensorflow/models/research/:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
-<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/slim
-</code></pre></div></div>
-
-<p><em>Note:</em> This command needs to run from every new terminal you start. If you wish to avoid running this manually, you can add it as a new line to the end of your ~/.bashrc file, replacing <code class="language-plaintext highlighter-rouge">pwd</code> with the absolute path of tensorflow/models/research on your system.</p>
-
-<p><strong>Object Detection Installation</strong></p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From tensorflow/models/research/</span>
-<span class="nb">sudo </span>python3 setup.py <span class="nb">install</span>
-</code></pre></div></div>
-
-<p><strong>Testing the Installation</strong></p>
-
-<p>You can test that you have correctly installed the Tensorflow Object Detection
-API by running the following command:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 object_detection/builders/model_builder_test.py
-</code></pre></div></div>
-
-<p>If the result looks like the following, you’re ready to proceed to the next steps!</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...............----------------------------------------------------------------------
-
-Ran 15 tests <span class="k">in </span>0.120sOK
-</code></pre></div></div>
-
-<h2 id="gathering-data">Gathering data</h2>
-
-<p><strong>2.1</strong> Open your  google chrome browser and install an extension called <a href="https://chrome.google.com/webstore/detail/download-all-images/ifipmflagepipjokmbdecpmjbibjnakm?hl=en">Download All Images</a></p>
-
-<p><strong>2.2</strong>. Now search your desired image of choice in google images, in my case it’s “Apple”. Now click the “ “download all images” extension button which will be in your top-right  side of browser. You will get a zip file containing your images. Then extract it.</p>
-
-<p><img src="./apple.png" alt="Apple" /></p>
-
-<h2 id="labelling-data">Labelling data</h2>
-
-<p>Open up your terminal and install <em>LabelImg</em> by</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install labelImg
-</code></pre></div></div>
-
-<p>LabelImg is a graphical image annotation tool.</p>
-
-<p>After installing labelImg open it by typing</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>labelImg
-</code></pre></div></div>
-
-<p>in your terminal</p>
-
-<p><img src="https://miro.medium.com/max/700/1*OiCJO87VmS_dOkNiDPy82w.gif" alt="labelimg" title="n" width="600" height="500" /></p>
-
-<p>And follow the above like what I am doing. And do this for all picture. What it’s doing is, it’s generating one xml file containing the object co-ordinates with it’s label.</p>
-
-<p>I labelled around 100 images.</p>
-
-<p>Now clone my repository</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/TheCaffeineDev/Tensorflow-Object-Detection-API-With-Custom-Dataset.git
-</code></pre></div></div>
-
-<p>After cloning go inside the directory.</p>
-
-<p>Your directory structure should look like this:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-    ├── ...
-    ├── data                 
-    ├── images
-    │   ├── train
-    │   ├── test
-    ├── utils
-    │	├── label_map_util.py
-    │	├── visualization_utils.py
-    ├── generate_tfrecord.py
-    └── object-detection.pbtxt
-    └── transform_image_resolution.py
-    └── xml_csv.py
-    └── webcam_inference.py
-</code></pre></div></div>
-
-<h2 id="generating-tfrecords-for-training">Generating TFRecords for training</h2>
-
-<p>Now copy 70% of your image file to train folder <em>images/train</em> and rest 30% to your test folder.</p>
-
-<p>With the images labelled, we need to create TFRecords that can be served as input data for training of the object detector. In order to create the TFRecords we will use two scripts from <a href="https://github.com/datitran/raccoon_dataset">Dat Tran’s raccoon detector</a>. Namely the <em>xml_to_csv.py</em> and <em>generate_tfrecord.py</em> files.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── ...
-├── data                 
-├── images
-│   ├── train
-│		├── image1.jpg
-│		├── image1.xml ..
-│   ├── test
-│		├── image5.jpg
-│		├── image5.xml ..
-├── generate_tfrecord.py
-└── object-detection.pbtxt
-└── transform_image_resolution.py
-└── xml_csv.py
-└── webcam_inference.py 
-</code></pre></div></div>
-
-<p>Now  in that folder, we can transform our XML files to train_label.csv and test_label.csv by opening the command line and typing:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 xml_to_csv.py
-</code></pre></div></div>
-
-<p>This creates two files in the data directory. One called <em>test_labels.csv</em> and another one called <em>train_labels.csv</em>.</p>
-
-<p>Before we can transform the newly created files to TFRecords we need to change a few lines in the <em>generate_tfrecords.py</em> file.</p>
-
-<p>From:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># TO-DO replace this with label map , replace with your own classes
-def class_text_to_int(row_label):
-    if row_label == 'apple':
-        return 1
-    else:
-        return 0
-</code></pre></div></div>
-
-<p>If you have multiple classes then,</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># TO-DO replace this with label map
-def class_text_to_int(row_label):
-    if row_label == 'apple':
-        return 1
-    elif row_label == 'banana':
-        return 2
-    elif row_label == 'orange':
-        return 3
-    else:
-        return None
-</code></pre></div></div>
-
-<p>Now you can generate the TFRecords  by typing:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 generate_tfrecord.py <span class="nt">--csv_input</span><span class="o">=</span>data/train_labels.csv  <span class="nt">--output_path</span><span class="o">=</span>train.record <span class="nt">--image_dir</span><span class="o">=</span>images/train
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record --image_dir=images/test
-</code></pre></div></div>
-
-<p>These two commands generate a <em>train.record</em> and a <em>test.record</em> file which can be used to train our object detector.</p>
-
-<h2 id="configuring-training">Configuring training</h2>
-
-<p>The last thing we need to do before training is to create a label map and a training configuration file.</p>
-
-<h2 id="creating-a-label-map">Creating a label map</h2>
-
-<p>The label map maps an id to a name. I have already created a label map file for my training. It looks like this:</p>
-
-<p>Edit <em>object-detection.pbtxt</em></p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>item{
-  id:1
-  name:"apple"
-
-}
-</code></pre></div></div>
-
-<p>If you  are using multiple classes follow this pattern.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>item {
-    id: 1
-    name: 'apple'
-}
-item {
-    id: 2
-    name: 'banana'
-}
-item {
-    id: 3
-    name: 'orange'
-}
-item {
-    id: 4
-    name: 'etc'
-}
-</code></pre></div></div>
-
-<p>The id number of each item should match the id of specified in the <em>generate_tfrecord.py</em> file.</p>
-
-<h3 id="creating-a-training-configuration">Creating a training configuration</h3>
-
-<p>We are going to train our model in Google Colab.</p>
-
-<p>Follow this link below. I have documented it properly.</p>
-
-<p><a href="https://colab.research.google.com/drive/1o7JB0pWanEMn6qnRnEXphu0T4YbuKLL2">Open In Colab</a></p>
-
-<p>I am using “SSD_MOBILENET_V2” for training and with the batch size of 4. You can change the number of steps, which pre-trained model to use &amp; the batch and size.</p>
-
-<p>Then you need to run the cells below. There will be one Upload TF Record heading. Below that you need to upload your generated <em>train.record</em>, <em>test.record</em> &amp; <em>object-detection.pbtxt</em> file.</p>
-
-<h2 id="training-model">Training model</h2>
-
-<p>Now after uploading all those file, run all the cells below. It will get trained.</p>
-
-<h2 id="exporting-inference-graph">Exporting inference graph</h2>
-
-<p>If you have run all the cells, then at last a file named <em>frozen_inference_graph.pb</em> file will get downloaded.</p>
-
-<h2 id="testing-object-detector">Testing Object Detector</h2>
-
-<p>Now copy that <em>frozen_inference_graph.pb</em> file into my GitHub cloned folder. Then you need to edit some things out in that <em>webcam_inference.py</em> to test your own object detector. Open that file and go through the code. I have mentioned the lines you need to change. You can pretty much do that.</p>
-
-<p>If you have followed all of the above steps properly then you will be able to test your model via webcam.</p>
-
-<h1 id="conclusion">Conclusion</h1>
-
-<p>The Tensorflow Object Detection API allows you to create your own object detector using transfer learning technique.</p>
-
-<p>Here’s the link to grab the code.</p>
-
-<p><a href="https://github.com/TheCaffeineDev/Tensorflow-Object-Detection-API-With-Custom-Dataset">Github Repo</a></p>
-
-<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my mail.</p>
-
-<p><em>Thank you</em></p>
-
-<h1 id="references">References</h1>
-
-<ol>
-  <li><a href="https://github.com/tensorflow/models/tree/master/research/object_detection">Official Github TFOD API</a></li>
-  <li><a href="https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-1-selecting-a-model-a02b6aabe39e">Medium ref</a></li>
-  <li><a href="https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/">Python programming.net</a></li>
-  <li><a href="https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85">Towards data science</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="tensorflow" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with TF Object detection API]]></summary></entry></feed>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="yolov3" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with yolov3]]></summary></entry></feed>
