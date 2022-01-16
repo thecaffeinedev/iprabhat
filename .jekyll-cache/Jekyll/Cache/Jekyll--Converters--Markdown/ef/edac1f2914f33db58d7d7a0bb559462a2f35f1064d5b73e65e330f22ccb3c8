@@ -1,0 +1,148 @@
+I"n<h1 id="docker-cheatsheet">Docker Cheatsheet</h1>
+
+<h2 id="basics">Basics</h2>
+
+<h3 id="dockerfile">Dockerfile</h3>
+
+<p>A text file that contains all commands, in order, needed to build a given image. A Dockerfile adheres to a specific format and set of instructions which you can find at <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>. You can also find common <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Best Practices</a> on the official website.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> python:3.8-alpine</span>
+<span class="k">RUN </span><span class="nb">mkdir</span> /app
+<span class="k">ADD</span><span class="s"> . /app</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">RUN </span>pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+<span class="k">CMD</span><span class="s"> ["python", "app.py"]</span>
+</code></pre></div></div>
+
+<h3 id="multi-stage-builds">Multi-stage builds</h3>
+
+<p>With <a href="https://docs.docker.com/develop/develop-images/multistage-build/">multi-stage builds</a>, you use multiple FROM statements in your Dockerfile. Each FROM instruction can use a different base, and each of them begins a new stage of the build. You can selectively copy artifacts from one stage to another, leaving behind everything you don’t want in the final image.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> nginx</span>
+
+<span class="k">EXPOSE</span><span class="s"> 8000</span>
+
+<span class="k">COPY</span><span class="s"> --from=builder /app/build /usr/share/nginx/html</span>
+</code></pre></div></div>
+
+<h3 id="dockerignore">.dockerignore</h3>
+
+<p>To exclude files not relevant to the build use a <a href="https://docs.docker.com/engine/reference/builder/#dockerignore-file">dockerignore</a> file.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>__pycache__
+*.pyc
+*.pyo
+*.pyd
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.coverage.*
+.cache
+coverage.xml
+*.cover
+*.log
+.mypy_cache
+.pytest_cache
+.hypothesis
+</code></pre></div></div>
+
+<h2 id="images">Images</h2>
+
+<p>An <a href="https://docs.docker.com/language/nodejs/build-images/">image</a> is an executable package that includes everything needed to run an application - the code, a runtime, libraries, environment variables, and configuration files.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build .                          # Build image
+docker build -t &lt;image&gt;:&lt;tag&gt; .         # Build image with tag
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker images -a                        # List all images on this machine
+docker image rm &lt;image&gt;                 # Remove image from this machine
+</code></pre></div></div>
+
+<h2 id="containers">Containers</h2>
+
+<p>A <a href="https://docs.docker.com/language/nodejs/run-containers/">container</a> is a runtime instance of an image - what the image becomes in memory when executed.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker create -t &lt;image&gt;                # Create container
+docker start -i &lt;container&gt;             # Start container
+docker run -it &lt;image&gt;                  # Create and start container
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps -a                            # Show all running containers
+docker container ls -a                  # Show all containers
+
+docker stop &lt;container&gt;                 # Gracefully stop the container
+docker kill &lt;container&gt;                 # Force shutdown of the container
+docker rm &lt;container&gt;                   # Remove container from this machine
+</code></pre></div></div>
+
+<h2 id="utility">Utility</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Remove all unused containers, networks and images
+docker system prune
+
+# Remove all unused volumes
+docker volume prune
+
+# Stop all running containers
+docker stop $(docker ps -aq)
+
+# Delete all stopped containers
+docker rm $(docker ps -aq)
+</code></pre></div></div>
+
+<h2 id="debug">Debug</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker logs &lt;container&gt;
+docker exec -it &lt;container&gt; &lt;command&gt;
+</code></pre></div></div>
+
+<h2 id="volumes">Volumes</h2>
+
+<h3 id="host-volumesbind-mounts">Host volumes/Bind Mounts</h3>
+
+<p>Use bind mounts to give your container access to your source code. The physical host file system is mounted into the virtual file system. Changes are propagated back to the Docker host.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v /home/caffeinedev/work:/var/lib/postgresql/data
+</code></pre></div></div>
+
+<h3 id="anonymous-volumes">Anonymous Volumes</h3>
+
+<p>The location of anonymous volumes is managed by Docker. Note that it can be difficult to refer to the same volume when it is anonymous. Anonymous volumes have no specific source so when the container is deleted, instruct the Docker Engine daemon to remove them.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v /var/lib/postgresql/data
+</code></pre></div></div>
+
+<h3 id="named-volumes">Named volumes</h3>
+
+<p>Named volumes can be referred to by specific names.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v data:/var/lib/postgresql/data
+</code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>For production, use secrets to store sensitive application data used by services, and use configs for non-sensitive data such as configuration files.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker config create
+docker secret create
+</code></pre></div></div>
+
+<h2 id="docker-compose">Docker-Compose</h2>
+
+<p><a href="https://docs.docker.com/compose/">Compose</a>  is a tool for defining and running multi-container Docker applications.</p>
+
+<h3 id="basics-1">Basics</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose up                     # Create and start one or more containers
+docker-compose up -d                  # Don't show terminal
+docker-compose up --build             # Force rebuilding
+docker-compose up --force-recreate    # Force recreate
+
+docker-compose -f docker-compose.override.yml up
+
+docker-compose down
+docker-compose ps -a
+</code></pre></div></div>
+
+<p>Docker-compose is a whole different topic to talk about. Maybe I will write a different blog post for it.</p>
+:ET

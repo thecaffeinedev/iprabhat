@@ -1,0 +1,354 @@
+I"S<p><img src="./try_django_cover.jpg" alt="Cover image" /></p>
+
+<p>This is going to be a two part tutorial of how to get started with Django, learning the basics of django, understanding basics URL routing and stuff. We will discuss everything on our way of learning.</p>
+
+<p>We are going to create a project named a todo in this tutorial. It doesn’t have any functionalities but just to understand things better, we are going to refer it like that. So let’s get started.</p>
+
+<h3 id="what-is-django-">What is Django ?</h3>
+
+<p><a href="https://djangoproject.com/">Django</a> is a high-level Python Web framework that encourages rapid development and clean pragmatic design. <a href="https://hackernoon.com/what-is-a-web-framework-173cac228b4"><strong>Web framework</strong></a> is a <strong>set of components</strong> designed to <strong>simplify</strong> your web development process and a standard way to develop websites fast and easily.</p>
+
+<h3 id="who-uses-django-">Who uses Django ?</h3>
+
+<p>Instagram, Pinterest, Bitbucket, Disqus, Dropbox, Mozilla, National Geographic, Udemy, Spotify and many more sites.</p>
+
+<h3 id="why-you-should-use-django-">Why you should use Django ?</h3>
+
+<ul>
+  <li>It’s fast and simple</li>
+  <li>Clean &amp; Rapid developement</li>
+  <li>Very good documentation and high scalability.</li>
+  <li>Maturity (It has been around 12 years)</li>
+  <li>Default Admin Panel</li>
+  <li><strong>ORM</strong>. Django is valued for its object-relational mapper that helps developers interact with databases.</li>
+  <li>It is a python based framework. If you know python then you are good to go.</li>
+  <li>Secure</li>
+  <li>And there are a lot of reasons you should.</li>
+</ul>
+
+<h3 id="when-to-use-django-">When to use Django ?</h3>
+
+<ul>
+  <li>When you’re building a highly customizable app, such as a social media website. You don’t have to worry about reinventing the wheel.</li>
+  <li>As it’s python based framework, you can<a href="https://djangopackages.org/"> utilise libraries of third-party extensions and plugins</a> to customize your app however you wish.</li>
+  <li>If you want to integrate Machine learning features in future.</li>
+  <li>When you don’t want to work with database queries directly, and need ORM support.</li>
+  <li>When you need to move fast, deploy fast, and also make changes as you move ahead.</li>
+  <li>When you need an app that can grow in depth and complexity to any scale and is capable of handling as many visitors and/or transactions as demanded, Django shines.</li>
+</ul>
+
+<h3 id="when-not-to-use-django-">When not to use Django ?</h3>
+
+<ul>
+  <li>When you need to build a very basic app, which does not require database, file operations, or anything even remotely complex.</li>
+  <li>When you want to build everything from scratch, and you know what you’re doing.</li>
+</ul>
+
+<h3 id="what-you-need-to-get-started-with-django-">What you need to get started with Django ?</h3>
+
+<ul>
+  <li>Basic Knowledge Of Python 3</li>
+  <li>Basic Knowledge of Web development (HTML, CSS &amp; JS)</li>
+</ul>
+
+<h2 id="lets-get-started">Let’s get started</h2>
+
+<p>First you have to make sure that Python 3 is installed in your system. If you are using Ubuntu, you can open up your terminal check your python version like this</p>
+
+<p><img src="./django-1-py.png" alt="" /></p>
+
+<p>In my case I am using Python 3.7.4. I work mostly on Machine learning stuff so I am using Anaconda. You don’t need to use anaconda, you just need python installed in your system.</p>
+
+<p>It’s a very good practice to use Virtual Environment while working on Django projects. A virtual environment is like having a sandbox for each  project. So you can play around, install packages, uninstall packages without breaking anything.</p>
+
+<p>But in our first project we are not going to use any virtual environment. Later in other projects we will use Virtual Environment.</p>
+
+<h3 id="lets-install-django">Let’s install Django</h3>
+
+<p>It’s very simple, open up your terminal or cmd in case you are using windows and do</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>django
+</code></pre></div></div>
+
+<p>It will install the latest django version. In my case I am using Django 3.0.2. But any version of Django3. will be fine for this project.</p>
+
+<p><img src="./django-1-2.png" alt="" /></p>
+
+<p>Now we are all set up for our first django project.</p>
+
+<h4 id="starting-a-new-project">Starting a New Project</h4>
+
+<p>Let’s make sure we are in Desktop</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>Desktop
+</code></pre></div></div>
+
+<p>With Django installed, we have the <em>django-admin</em> command-line tool with which we can
+generate our project:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django-admin startproject todo
+</code></pre></div></div>
+
+<p>At this point we should have an initial folder structure (in the current folder) that looks like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> |-- todo/             &lt;-- django project folder
+ |    |-- todo/
+ |    |    |-- __init__.py
+ |    |    |-- asgi.py
+ |    |    |-- settings.py
+ |    |    |-- urls.py
+ |    |    |-- wsgi.py
+ |    +-- manage.py
+</code></pre></div></div>
+
+<p>Let’s go into the details of what all the files means.</p>
+
+<ul>
+  <li>
+    <p><strong>manage.py :</strong>  This is the command center for making non-code changes. Whether
+it’s creating a database migration, running tests, or starting the development
+server, we will use this file often. It will allow us to interact with our Django project.</p>
+  </li>
+  <li>
+    <p><strong>todo</strong> : A python package that contains the files that every Django project needs.</p>
+
+    <ul>
+      <li><strong>todo</strong>/__ init__.py : This is an empty file that is  only needed to make the other files importable. It tells that this directory should be considered as a python package.</li>
+      <li><strong>todo</strong>/asgi.py : It provides an interface between asynchronous Python web servers and frameworks.</li>
+      <li><strong>todo</strong>/settings.py : This is where Django stores all the configuration for our app by
+default.  This file contains all the configuration of our project, and we can customize it.</li>
+      <li><strong>todo</strong>/urls.py : This file contains all the URL  mappings to Python functions. Any URL that needs  to be handled by the project must have an entry here.</li>
+      <li><strong>todo</strong>/wsgi.py : Web Server Gateway Interface (WSGI) is the interface between Python and a web server. You won’t touch this file very much, but it’s how your web server and your Python code know how to talk to each other.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="starting-the-web-server">Starting the web server</h4>
+
+<p>Django comes with a simple web server installed. To run the server simply execute the command below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># make sure you are in higher todo folder
+
+python3 manage.py runserver
+</code></pre></div></div>
+
+<p>For now, you can ignore the migration errors, we will get to that later.</p>
+
+<p><img src="./django-1-3.png" alt="" /></p>
+
+<p>Now open the following URL in a Web browser: <strong>http://127.0.0.1:8000</strong> and you should see the following page:</p>
+
+<p><img src="./django1-4.png" alt="" /></p>
+
+<p>If you see this page, this means you have successfully installed django, created a django project and run the development server.</p>
+
+<p>Hit Control + C to stop the development server.</p>
+
+<h3 id="django-apps">Django Apps</h3>
+
+<p>We have two important concepts to discuss:</p>
+
+<ul>
+  <li>
+    <p><strong>project</strong>: In Django, a project is an entire application. A Django project may consist of a single app, or many apps to provide its service. For your example, the <em>project</em> is the whole website.</p>
+  </li>
+  <li>
+    <p><strong>app</strong>: is a Web application that does something. For example if you are build a e-commerce website then the examples of app would be shopping cart, payment, saved items and all. These all can be divided into multiple apps.</p>
+  </li>
+</ul>
+
+<p>It’s important to note that you can’t run a Django <strong>app</strong> without a <strong>project</strong> . We have these structure because to organize the code structure and stuff.</p>
+
+<p>So let’s create our first <strong>todo app</strong>. To create an app, go to the directory where the <strong>manage.py</strong> file is and run the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django-admin startapp todoapp
+</code></pre></div></div>
+
+<p>We have used “startapp” command this time.</p>
+
+<p>This will give us the following directory structure</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> |-- todo/
+ |    |-- todoapp/                &lt;-- our new django app!
+ |    |    |-- migrations/
+ |    |    |    +-- __init__.py
+ |    |    |-- __init__.py
+ |    |    |-- admin.py
+ |    |    |-- apps.py
+ |    |    |-- models.py
+ |    |    |-- tests.py
+ |    |    +-- views.py
+ |    |-- todo/
+ |    |    |-- __init__.py
+ |    |    |-- asgi.py
+ |    |    |-- settings.py
+ |    |    |-- urls.py
+ |    |    |-- wsgi.py
+ |    +-- manage.py
+</code></pre></div></div>
+
+<p>So let’s understand what all the new files means.</p>
+
+<ul>
+  <li><strong>migrations/</strong>: here Django store some files to keep track of the changes you create in the <strong>models.py</strong> file, so to keep the database and the <strong>models.py</strong> synchronized.</li>
+  <li><strong>admin.py</strong>: This file is used for registering your django models to the Django Administration</li>
+  <li><strong>apps.py</strong>: This file is created to help the user include any application configuration for the app.</li>
+  <li><strong>models.py</strong>: This file is used to write Class based Models for our Django Applications.This will be the blueprint of our database design ,relationships and attribute constraints. The models are translated automatically by Django into database tables.</li>
+  <li><strong>tests.py</strong>: This file is used to write test cases for the Application. For time being we will not go into the details of this.</li>
+  <li><strong>views.py</strong>: this is the file where we handle the request/response cycle of our Web application.</li>
+</ul>
+
+<p>Now that  we have created our first app, let’s configure our project to use it.</p>
+
+<p>To do that, open the <strong>settings.py</strong> and try to find the <code class="language-plaintext highlighter-rouge">INSTALLED_APPS</code> variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'django.contrib.admin'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth'</span><span class="p">,</span>
+    <span class="s">'django.contrib.contenttypes'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages'</span><span class="p">,</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>As you can see, There are 6 built-in apps and they come with Django by default. Common functionalities that most Web applications need, like authentication, sessions, static files management (images, javascripts, css, etc.) and so on these apps provides us.</p>
+
+<p>We will explore all these apps later in our series of tutorial.</p>
+
+<p>Let’s add our todoapp in this <strong>settings.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'django.contrib.admin'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth'</span><span class="p">,</span>
+    <span class="s">'django.contrib.contenttypes'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages'</span><span class="p">,</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+    
+    <span class="s">'todoapp'</span><span class="p">,</span>
+<span class="p">]</span>
+
+</code></pre></div></div>
+
+<p>Always remember whenever you install a new app, you should add that app in the <strong>settings.py</strong> file.</p>
+
+<h3 id="lets-write-our-first-hello-world">Let’s Write Our First Hello World!</h3>
+
+<p>So let’s write our first view. If you don’t understand it completely for the first time that’s fine. We will come back to these things later on also.</p>
+
+<p>Open the <strong>views.py</strong> inside the <strong>todoapp</strong></p>
+
+<p><strong>views.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="c1"># Create your views here.
+</span><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">'Hello, World!'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Views are python functions. Whenever a url is called in Django, it finds corresponding function that is in <strong>views.py</strong>.</p>
+
+<p>A <em>view</em> is a place where we put the “logic” of our application.</p>
+
+<p>Let’s go through the code closely.</p>
+
+<ul>
+  <li><strong>Line 1</strong> Imports the render() method. This is added automatically when you create an app in Django. We use this method when we want to render templates. We will cover this topic later in our series.</li>
+  <li><strong>Line 2</strong>. We have imported the <strong>HttpResponse</strong> method. As you know HTTP is the communication protocol used by all web browsers. It uses request and response to pass the data. The view receives an request object and retuns an <strong>HttpResponse</strong> Object.</li>
+  <li><strong>Line 5,6</strong>. This is our first view function. It’s an example of function based view. We have created a function called index. That takes  <strong>request</strong> and will return the <strong>HttpResponse</strong>. It takes a request from our web browser and returns a response. In our case the response is simple <em>Hello, World!.</em></li>
+</ul>
+
+<h3 id="configuring-the-urls">Configuring the URLs</h3>
+
+<p>Now we have to tell Django <em>when</em> to serve this view.</p>
+
+<p>Let’s create a new file called <strong>‘urls.py’</strong> inside our <strong>todoapp.</strong></p>
+
+<p><strong>urls.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"index"</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Let’s examine this code closely:</p>
+
+<ul>
+  <li><strong>Line 1.</strong> We import the path() function.  It is used to configure URLs. In its basic form, the  <strong><em>path()</em></strong> function has a very simple syntax:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">path</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>Line 2</strong> . Here we import our views file from our todoapp. Here you can see we have used dot notation. A single dot means that the module referenced is in the same directory as the current location. It is good practice to use that.</p>
+  </li>
+  <li>
+    <p><strong>Line 4.</strong> Lists the URL patterns registered for this app. For readability, the list is broken into multiple lines, with one URL pattern per line.</p>
+  </li>
+  <li>
+    <p><strong>Line 5.</strong>  It is the the actual URL dispatcher. A request to the http://127.0.0.1:8000/ of the website would be routed to the <strong>index</strong> function in the application’s <strong>views.py</strong> file. This path takes an optional name argument and any number of additional keyword arguments passed as a Python dictionary.</p>
+  </li>
+  <li>
+    <p><strong>views.index.</strong> Points to our index view. I.e., the dot operator is pointing to the <em>index view</em> inside the <strong>views.py</strong> file that we imported in Line 2.</p>
+
+    <p>The <em>path()</em> function statements are kept in a special file called urls.py.</p>
+
+    <p>Don’t worry if this is a bit confusing right now, it will make a lot more sense once you have written a couple of views.</p>
+  </li>
+</ul>
+
+<p>When we created our project, it created a <strong>urls.py</strong>  file in our <strong>todo</strong> folder<em>(todo\urls.py)</em>. This is a good place for site-wide navigation but is rarely a good place to put URLs relating to individual applications. Having all our URLs in the one file is more complex and less portable and it’s bad if two apps use a view with the same name.</p>
+
+<p>To solve this problem we create a new <strong>urls.py</strong> file for each application.</p>
+
+<p>After doing all these, there’s one more step. We need to make some changes in our (<strong><em>todo/todo/urls.py</em></strong> ) file to make it work.</p>
+
+<p><strong><em>todo/todo/urls.py</em></strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'admin/'</span><span class="p">,</span> <span class="n">admin</span><span class="p">.</span><span class="n">site</span><span class="p">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">'todoapp.urls'</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>We have made some changes to the file:</p>
+
+<ul>
+  <li>In <strong>Line 2</strong> we have added include() function to our imports.</li>
+  <li>In <strong>Line 6</strong> we have added a URL dispatcher. This dispatcher is  simply including <strong>urls.py</strong> file from the todoapp.</li>
+</ul>
+
+<p>Now If you now run the development server, and navigate to <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000/</code> in your browser, you should this home page.</p>
+
+<p><img src="./django-1-5.png" alt="" /></p>
+
+<p>That’s it! You just created your very first view.</p>
+
+<p>So this is it for this section. In our next section we will discuss more about models and stuff.</p>
+
+<p>You can get the code from my Github Repository.</p>
+
+<h5 id="references">References</h5>
+
+<ul>
+  <li>https://medium.com/crowdbotics/when-to-use-django-and-when-not-to-9f62f55f693b</li>
+  <li>https://www.netguru.com/blog/when-to-choose-django</li>
+  <li>https://djangostars.com/blog/why-we-use-django-framework/</li>
+  <li>https://simpleisbetterthancomplex.com/series/2017/09/04/a-complete-beginners-guide-to-django-part-1.html</li>
+  <li>https://medium.com/srp-labs/building-practical-web-applications-with-react-django-3675085a001b</li>
+  <li>https://tutorial.djangogirls.org/en/django_views/</li>
+  <li>https://djangobook.com/mdj2-django-views/</li>
+</ul>
+:ET

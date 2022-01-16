@@ -1,0 +1,122 @@
+I"�<p><img src="./ub_zsh.png" alt="Cover image" /></p>
+
+<p>In this blog post, I will cover how to install Oh My Zsh and How to customize your terminal and make it fancy.</p>
+
+<h2 id="update-the-packages">Update the packages</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h2 id="install-prerequisite-packages-zsh-powerline--powerline-fonts">Install prerequisite packages (ZSH, powerline &amp; powerline fonts)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install zsh
+sudo apt-get install powerline fonts-powerline
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/731/1*S8VYA_Ks7YqLYK6pFPK17Q.png" alt="" /></p>
+
+<h2 id="clone-the-oh-my-zsh-repo">Clone the Oh My Zsh Repo</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+</code></pre></div></div>
+
+<h2 id="create-a-new-zsh-configuration-file">Create a New ZSH configuration file</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre></div></div>
+
+<h2 id="install-powerlevel9k">Install PowerLevel9k!</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+</code></pre></div></div>
+
+<h2 id="set-up-a-theme-for-your-terminal--open-zshrc-file-using-gedit-editor">Set up a theme for your Terminal — Open <code class="language-plaintext highlighter-rouge">.zshrc</code> File using gedit editor</h2>
+
+<p>And change and put these lines :</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">"powerlevel9k/powerlevel9k"</span><span class="nv">POWERLEVEL9K_DISABLE_RPROMPT</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">POWERLEVEL9K_PROMPT_ON_NEWLINE</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX</span><span class="o">=</span>”▶ “
+<span class="nv">POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX</span><span class="o">=</span>””
+</code></pre></div></div>
+
+<p><img src="https://miro.medium.com/max/766/1*_hi0hSXi8tXqWirDCMU5nQ.png" alt="" /></p>
+
+<h2 id="change-your-default-shell">Change your Default Shell</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/zsh
+</code></pre></div></div>
+
+<p>for this command to be effective you need to restart your system.</p>
+
+<h1 id="oh-my-zsh-terminal">Oh My Zsh Terminal</h1>
+
+<p>After restarting your terminal will look like this :</p>
+
+<p><img src="https://miro.medium.com/max/724/1*gW98D-UxTS7m1IAC-pMtxw.png" alt="" /></p>
+
+<h2 id="if-you-want-syntax-highlighting">If you want Syntax Highlighting</h2>
+
+<p>Clone the ZSH Syntax Highlighting</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git “$HOME/.zsh-syntax-highlighting” — depth 1
+</code></pre></div></div>
+
+<p>Add syntax-highlighting in <code class="language-plaintext highlighter-rouge">.zshrc</code> Configuration</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo “source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh” &gt;&gt; “$HOME/.zshrc”
+</code></pre></div></div>
+
+<p>And If anything goes wrong, you can revert back to your default shell by</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/bash
+</code></pre></div></div>
+
+<p>If you are a data science enthusiast and using anaconda then you need to add these lines below in zshrc file.</p>
+
+<p>Open a terminal and</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gedit .zshrc
+</code></pre></div></div>
+
+<p>add these. Make sure to change your username after home.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\#</span> <span class="o">&gt;&gt;&gt;</span> conda initialize <span class="o">&gt;&gt;&gt;</span>
+<span class="se">\#</span> <span class="o">!!</span> Contents within this block are managed by ‘conda init’ <span class="o">!!</span>
+<span class="nv">__conda_setup</span><span class="o">=</span>”<span class="si">$(</span>‘/home/yourusername/anaconda3/bin/conda’ ‘shell.bash’ ‘hook’ 2&gt; /dev/null<span class="si">)</span>”
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+ </span><span class="nb">eval</span> “<span class="nv">$__conda_setup</span>”
+<span class="k">else
+ if</span> <span class="o">[</span> <span class="nt">-f</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh” <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+ <span class="nb">.</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh”
+ <span class="k">else
+ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>”/home/yourusername/anaconda3/bin:<span class="nv">$PATH</span>”
+ <span class="k">fi
+fi
+</span><span class="nb">unset </span>__conda_setup
+<span class="se">\#</span> <span class="o">&lt;&lt;&lt;</span> conda initialize <span class="o">&lt;&lt;&lt;</span>
+</code></pre></div></div>
+
+<p>Mine looks like this.</p>
+
+<p><img src="https://miro.medium.com/max/768/1*CtxgScchhgnV_bVhXiz0eg.png" alt="" /></p>
+
+<p>Then do</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ./zshrc
+</code></pre></div></div>
+
+<p>There are a lot of customization available. You can check Oh my zsh and Powerlevel9k repository.</p>
+
+<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
+
+<p><strong><em>Thank You</em></strong></p>
+
+<p><strong>Acknowledgment</strong></p>
+
+<ol>
+  <li><a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh — </a></li>
+  <li><a href="https://github.com/Powerlevel9k/powerlevel9k">Powelevel9k</a></li>
+</ol>
+:ET
