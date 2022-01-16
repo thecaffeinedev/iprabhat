@@ -35,9 +35,7 @@ import (
     "log"
     "net/http"
 )
-type director struct {
-    Name string `json:"name"`
-}
+
 type film struct {
     Universe    string   `json:"universe"`
     Title       string   `json:"title"`
