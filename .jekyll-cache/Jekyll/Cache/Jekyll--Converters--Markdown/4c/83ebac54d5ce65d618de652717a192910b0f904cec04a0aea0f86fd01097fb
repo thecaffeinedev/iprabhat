@@ -1,4 +1,4 @@
-I"§Í<h5 id="what-is-javascript">What is JavaScript?</h5>
+I"”Í<h5 id="what-is-javascript">What is JavaScript?</h5>
 
 <p>JavaScript is the programming language of the web. Before it used to be a client-side language but the definition now has changed.</p>
 
@@ -56,7 +56,7 @@
 
 <p>So I have created one folder in my desktop called JS. And inside that folder I have created one file named helloWorld.js</p>
 
-<p><img src="../images/blog_posts/js-1.png" alt="" /></p>
+<p><img src="./js-1.png" alt="" /></p>
 
 <p>Here you can see I am executing the code like this. I have just console logged Hello World !. Itâ€™s like print function in other programming language.</p>
 

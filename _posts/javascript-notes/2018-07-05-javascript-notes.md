@@ -57,7 +57,7 @@ I personally use VSCode for almost everything. But you can choose any code edito
 
 So I have created one folder in my desktop called JS. And inside that folder I have created one file named helloWorld.js  
 
-![](../images/blog_posts/js-1.png)
+![](./js-1.png)
 
 Here you can see I am executing the code like this. I have just console logged Hello World !. It's like print function in other programming language.
 

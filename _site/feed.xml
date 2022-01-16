@@ -1,4 +1,240 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T08:27:20+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Docker Cheatsheet</title><link href="http://localhost:4000/docker-cheatsheet/" rel="alternate" type="text/html" title="Docker Cheatsheet" /><published>2021-06-16T00:00:00+00:00</published><updated>2021-06-16T00:00:00+00:00</updated><id>http://localhost:4000/docker-cheatsheet</id><content type="html" xml:base="http://localhost:4000/docker-cheatsheet/"><![CDATA[<h1 id="docker-cheatsheet">Docker Cheatsheet</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T15:08:31+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">docker-compose basics</title><link href="http://localhost:4000/docker-compose-bascis/" rel="alternate" type="text/html" title="docker-compose basics" /><published>2021-07-14T00:00:00+00:00</published><updated>2021-07-14T00:00:00+00:00</updated><id>http://localhost:4000/docker-compose-bascis</id><content type="html" xml:base="http://localhost:4000/docker-compose-bascis/"><![CDATA[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
+
+<p><em>NOTE: This isn’t a Docker tutorial. It assumes you to have a basic knowledge of Docker and the problems it solves.</em></p>
+
+<p><a href="https://docs.docker.com/compose/">Docker Compose</a> is a tool for defining and managing applications which consist of multiple Docker containers.</p>
+
+<p>To begin with, let’s create some working directories;</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>docker_compose_basics
+<span class="nb">cd </span>docker_compose_basics
+<span class="nb">mkdir </span>api web
+</code></pre></div></div>
+
+<p>Before we get started on the Docker stuff, we will create two simple applications; an API and a web server. I’ve chosen to write the API in <a href="https://golang.org/">Go</a> and the web server in <a href="https://nodejs.org/en/">Node</a> to keep things interesting. All the code is provided so don’t worry if you are unfamiliar with these are technologies.</p>
+
+<h3 id="1-json-api">1) JSON API</h3>
+
+<p><strong>1.1) Writing a simple API in Go</strong></p>
+
+<p>Go inside the <code class="language-plaintext highlighter-rouge">API</code> directory and create a file named <code class="language-plaintext highlighter-rouge">api.go</code></p>
+
+<p>In this file we will define some structures and hardcode some data. The  <code class="language-plaintext highlighter-rouge">main</code> function simply listens to the root path on port 80 and returns a JSON response containing all the data in response to all requests.I hardcoded the data in an effort to keep things minimal. By the end of this post you will have the knowledge to enable you to move that data into a real database, also managed by Docker Compose.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"encoding/json"</span>
+    <span class="s">"log"</span>
+    <span class="s">"net/http"</span>
+<span class="p">)</span>
+<span class="k">type</span> <span class="n">director</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">Name</span> <span class="kt">string</span> <span class="s">`json:"name"`</span>
+<span class="p">}</span>
+<span class="k">type</span> <span class="n">film</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">Universe</span>    <span class="kt">string</span>   <span class="s">`json:"universe"`</span>
+    <span class="n">Title</span>       <span class="kt">string</span>   <span class="s">`json:"title"`</span>
+    <span class="n">Year</span> 	 	<span class="kt">int</span>      <span class="s">`json:"int"`</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="n">films</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="n">film</span><span class="p">{</span>
+    <span class="p">{</span><span class="s">"Marvel"</span><span class="p">,</span> <span class="s">"Iron Man"</span><span class="p">,</span> <span class="m">2008</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"DC"</span><span class="p">,</span> <span class="s">"The Dark Knight"</span><span class="p">,</span> <span class="m">2008</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"Marvel"</span><span class="p">,</span> <span class="s">"The Avengers"</span><span class="p">,</span> <span class="m">2012</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"DC"</span><span class="p">,</span> <span class="s">"Man of Steel"</span><span class="p">,</span> <span class="m">2013</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"Marvel"</span><span class="p">,</span> <span class="s">"Black Panther"</span><span class="p">,</span> <span class="m">2018</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"DC"</span><span class="p">,</span> <span class="s">"Justice League"</span><span class="p">,</span> <span class="m">2017</span><span class="p">},</span>
+<span class="p">}</span>
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="k">func</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">j</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">json</span><span class="o">.</span><span class="n">Marshal</span><span class="p">(</span><span class="n">films</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span> <span class="s">"application/json"</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":80"</span><span class="p">,</span> <span class="no">nil</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s make sure everything works.</p>
+
+<p><code class="language-plaintext highlighter-rouge">go run api.go</code></p>
+
+<p>and in other terminal run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl localhost
+
+<span class="o">[{</span><span class="s2">"universe"</span>:<span class="s2">"Marvel"</span>,<span class="s2">"title"</span>:<span class="s2">"Iron Man"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,<span class="o">{</span><span class="s2">"universe"</span>:<span class="s2">"DC"</span>,<span class="s2">"title"</span>:<span class="s2">"The Dark Knight"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,..
+</code></pre></div></div>
+
+<p>Looks good! If you don’t have <code class="language-plaintext highlighter-rouge">go</code>installed you can skip this step and trust that it works - you’ll be able to run this code in a minute via Docker anyway.</p>
+
+<p><img src="./server.png" alt="" /></p>
+
+<p><strong>1.2) Dockerizing the Go API</strong></p>
+
+<p>Create another file in the api directory name Dockerfile.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> golang:alpine</span>
+<span class="k">WORKDIR</span><span class="s"> /go/src/api</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+<span class="k">RUN </span>go <span class="nb">install</span> <span class="nt">-v</span> ./...
+<span class="k">CMD</span><span class="s"> ["api"]</span>
+</code></pre></div></div>
+
+<p>This Dockerfile is pretty much as simple. In short we are defining an image using the  <code class="language-plaintext highlighter-rouge">golang:alpine</code> base image, copying our code and running it.</p>
+
+<p>When your application becomes more complex, fetching dependencies etc, this file will need to reflect those changes.</p>
+
+<p>Ok, let’s try out our container using the Docker cli. Note that we’re mapping the port from 80-&gt;8091. I’m not going to explain the other flags passed to these commands, please refer to the <a href="https://docs.docker.com/engine/reference/commandline/cli/">documentation</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ docker build <span class="nt">-t</span> docker-compose-basics-api <span class="nb">.</span>
+~ docker run <span class="nt">-p</span> 8091:80/tcp <span class="nt">-it</span> <span class="nt">--rm</span> docker-compose-basics-api
+..
+~ curl localhost:8091
+<span class="o">[{</span><span class="s2">"universe"</span>:<span class="s2">"Marvel"</span>,<span class="s2">"title"</span>:<span class="s2">"Iron Man"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,<span class="o">{</span><span class="s2">"universe"</span>:<span class="s2">"DC"</span>,<span class="s2">"title"</span>:<span class="s2">"The Dark Knight"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,..
+</code></pre></div></div>
+
+<p>Great, our container works too.</p>
+
+<p><em>Now you can be sure the code works if you skipped it the first time. If you’re new to Docker, this demonstrates the power of it. You can run code without installing the specific compiler/runtime 👍.</em></p>
+
+<h3 id="2-web-server"><em>2) Web server</em></h3>
+
+<p><strong>2.1) Writing a simple web server in Node</strong></p>
+
+<p>Go inside the <code class="language-plaintext highlighter-rouge">web</code> directory, create new file named <code class="language-plaintext highlighter-rouge">index.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;p&gt;No films.&lt;/p&gt;</span><span class="dl">'</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span> <span class="p">})</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;body&gt;&lt;h1&gt;Films&lt;/h1&gt;</span><span class="p">${</span><span class="nx">content</span><span class="p">}</span><span class="s2">&lt;/body&gt;&lt;/html&gt;`</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Keeping this simple. This code will create a web server listening on port 80 which will return some HTML.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ node index.js
+..
+~ curl localhost
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Films&lt;/h1&gt;No Movies.&lt;/body&gt;&lt;/html&gt;
+</code></pre></div></div>
+
+<p><strong>2.2) Dockerizing the Node web server</strong></p>
+
+<p>Next, create a <code class="language-plaintext highlighter-rouge">Dockerfile</code> in the <code class="language-plaintext highlighter-rouge">web</code> directory</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> node:alpine</span>
+<span class="k">WORKDIR</span><span class="s"> /docker-compose-basics/web</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+<span class="k">RUN </span>npm <span class="nb">install</span> <span class="nt">--prod</span>
+<span class="k">CMD</span><span class="s"> ["node", "index.js"]</span>
+</code></pre></div></div>
+
+<p>Let’s run it and make sure it works. Note that this image has a slightly different name and port.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ docker build -t docker-compose-basics-web .
+~ docker run -p 8092:80/tcp --init -it --rm docker-compose-basics-web
+..
+~ curl localhost:8092
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Movies&lt;/h1&gt;&lt;p&gt;No Movies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre></div></div>
+
+<p>Awesome, this one works too.</p>
+
+<h3 id="3-creating-the-docker-compose-file">3) Creating the Docker Compose file</h3>
+
+<p>Finally, we’re here. Create <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> in the top level directory <code class="language-plaintext highlighter-rouge">docker_compose_bascis</code>.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: "3"
+services:
+  movies-api:
+    build: ./api
+    ports:
+      - 8091:80
+  movies-web:
+    build: ./web
+    ports:
+      - 8092:80
+    depends_on:
+      - movies-api
+</code></pre></div></div>
+
+<p>That’s it.</p>
+
+<p>We’ve defined two services named <code class="language-plaintext highlighter-rouge">movies-api</code> and <code class="language-plaintext highlighter-rouge">movies-web</code>. Until now we had to use <code class="language-plaintext highlighter-rouge">docker build</code> to build our images. Docker Compose handles this for us, it just needs to be pointed to the directory containing the Dockerfile. We have also exposed our ports as we did previously in <code class="language-plaintext highlighter-rouge">docker run</code>.</p>
+
+<p>Also we’ve introduced a new concept; <code class="language-plaintext highlighter-rouge">depends_on</code>. This tells Docker Compose that films-web depends on <code class="language-plaintext highlighter-rouge">movies-api</code>. This is especially useful when you have many services and databases. Internally this just ensures that the API is started before the web service. It does <strong>NOT</strong> wait for the API to be ‘ready’, to handle this please read the <a href="https://docs.docker.com/compose/startup-order/">documentation</a>.</p>
+
+<p>Let’s give it a try… with one simple command;</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose up <span class="nt">--build</span>
+</code></pre></div></div>
+
+<p>Awesome, both services are up and running as expected;</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ curl localhost:8091
+<span class="o">[{</span><span class="s2">"universe"</span>:<span class="s2">"Marvel"</span>,<span class="s2">"title"</span>:<span class="s2">"Iron Man"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,<span class="o">{</span><span class="s2">"universe"</span>:<span class="s2">"DC"</span>,<span class="s2">"title"</span>:<span class="s2">"The Dark Knight"</span>,<span class="s2">"int"</span>:2008<span class="o">}</span>,..
+
+~ curl localhost:8092
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Movies&lt;/h1&gt;&lt;p&gt;No Movies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre></div></div>
+
+<p>You can also run in detached mode by adding the <code class="language-plaintext highlighter-rouge">-d</code> flag. Later you can stop it by running <code class="language-plaintext highlighter-rouge">docker-compose down</code>.</p>
+
+<h3 id="4-enabling-service-communication">4) Enabling service communication</h3>
+
+<p>We need our web server to fetch the films from the API. Hardcoding IP addresses/host names/ports in our services is far too brittle and error prone.</p>
+
+<p>Fortunately, Docker Compose makes this really easy. Each service joins a common network with the name of the service defined in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> used as the hostname.</p>
+
+<p>Let’s update the web server to talk to the API. Replace <code class="language-plaintext highlighter-rouge">index.js</code> with the following code;</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">res</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="dl">''</span>
+        
+            <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">data</span> <span class="o">+=</span> <span class="nx">chunk</span>
+            <span class="p">})</span>
+        
+            <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">resolve</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+            <span class="p">})</span>
+        <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">err</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">movies</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://movies-api</span><span class="dl">'</span><span class="p">)</span>
+    <span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">movies</span>
+        <span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">universe</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">year</span> <span class="p">})</span> <span class="o">=&gt;</span> 
+            <span class="s2">`</span><span class="p">${</span><span class="nx">universe</span><span class="p">}</span><span class="s2"> (</span><span class="p">${</span><span class="nx">title</span><span class="p">}</span><span class="s2">) - Released on </span><span class="p">${</span><span class="nx">year</span><span class="p">}</span><span class="s2">`</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">list</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`</span><span class="p">${</span><span class="nx">list</span><span class="p">}</span><span class="s2">&lt;li&gt;</span><span class="p">${</span><span class="nx">str</span><span class="p">}</span><span class="s2">&lt;/li&gt;`</span><span class="p">,</span> <span class="dl">''</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span> <span class="p">})</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;body&gt;&lt;h1&gt;Movies&lt;/h1&gt;&lt;ul&gt;</span><span class="p">${</span><span class="nx">content</span><span class="p">}</span><span class="s2">&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;`</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>I’ve implemented a naive  <code class="language-plaintext highlighter-rouge">fetch()</code>  function rather than pulling in a dependency - again keeping things simple. You’ll see that we can now refer to the API using the service name defined in the Docker Compose file as the hostname;  <code class="language-plaintext highlighter-rouge">fetch('http://movies-api')</code>.</p>
+
+<p>The result is;</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ docker-compose up <span class="nt">--build</span>
+..
+~ curl localhost:8092
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Movies&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;Marvel <span class="o">(</span>Iron Man<span class="o">)</span> - Released on 2008 ...
+</code></pre></div></div>
+
+<p>So that’s it. Maybe later on I will write a tutorial for docker-compose with volumes in it.</p>
+
+<p>You can find the code in <a href="https://github.com/TheCaffeineDev/docker-compose-basics">Github</a>.</p>
+
+<p>If you have any questions, recommendations, or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="docker" /><summary type="html"><![CDATA[docker-compose basics]]></summary></entry><entry><title type="html">docker cheatsheet</title><link href="http://localhost:4000/docker-cheatsheet/" rel="alternate" type="text/html" title="docker cheatsheet" /><published>2021-06-16T00:00:00+00:00</published><updated>2021-06-16T00:00:00+00:00</updated><id>http://localhost:4000/docker-cheatsheet</id><content type="html" xml:base="http://localhost:4000/docker-cheatsheet/"><![CDATA[<h1 id="docker-cheatsheet">Docker Cheatsheet</h1>
 
 <h2 id="basics">Basics</h2>
 
@@ -2015,828 +2251,4 @@ item {
   <li><a href="https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-1-selecting-a-model-a02b6aabe39e">Medium ref</a></li>
   <li><a href="https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/">Python programming.net</a></li>
   <li><a href="https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85">Towards data science</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="tensorflow" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with TF Object detection API]]></summary></entry><entry><title type="html">Javascript Notes</title><link href="http://localhost:4000/javascript-notes/" rel="alternate" type="text/html" title="Javascript Notes" /><published>2018-07-05T00:00:00+00:00</published><updated>2018-07-05T00:00:00+00:00</updated><id>http://localhost:4000/javascript-notes</id><content type="html" xml:base="http://localhost:4000/javascript-notes/"><![CDATA[<h5 id="what-is-javascript">What is JavaScript?</h5>
-
-<p>JavaScript is the programming language of the web. Before it used to be a client-side language but the definition now has changed.</p>
-
-<p>JavaScript was developed by Brendan Eich in 1995. It has become an ECMA standard (a standard for scripting language) in 1997.</p>
-
-<p>Over the last 10 years, Node.js has enabled JavaScript programming outside of web browsers and now it’s one of most used programming language among software developers.</p>
-
-<p>Before it used to be only web, in current scenario you can JS to make desktop and mobile apps also.</p>
-
-<p><strong>“Java v/s  JavaScript”</strong></p>
-
-<p>The name “JavaScript” is little bit misleading.  One of the question most of the beginner ask how Java is related to JavaScript. And it’s one of worst comparison ever. JS is completely different from Java programming language. It’s like comparing a car with carpet.</p>
-
-<h4 id="usage-and-history">Usage and History</h4>
-
-<ul>
-  <li>Web Browsers</li>
-  <li>Applications
-    <ul>
-      <li>Desktop - Electron</li>
-      <li>Mobile - Cordova</li>
-      <li>Server - Node.js</li>
-    </ul>
-  </li>
-</ul>
-
-<h5 id="what-is-es6es7">What is ES6/ES7</h5>
-
-<p>ECMAScript - European Computer Manufacturers Association Script</p>
-
-<ul>
-  <li>History / Versions
-    <ul>
-      <li>1995 - Created</li>
-      <li>1997 - Standardizing</li>
-      <li>1999 - ECMAScript 3</li>
-      <li>2009 - ECMAScript 5</li>
-      <li>2015 ECMAScript 2015 (ES6)</li>
-      <li>Yearly updates since then</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="tools-that-we-need">Tools that we need</h2>
-
-<ul>
-  <li>NodeJS</li>
-  <li>Code Editor - Sublime, Atom, <a href="https://code.visualstudio.com/">VSCode</a></li>
-  <li>Browser - Chrome</li>
-</ul>
-
-<p>NodeJs should be installed in your system. If you haven’t installed please google how to install it in your system. Same goes  with code editor and browser.</p>
-
-<p>I personally use VSCode for almost everything. But you can choose any code editor you want.</p>
-
-<p>So I have created one folder in my desktop called JS. And inside that folder I have created one file named helloWorld.js</p>
-
-<p><img src="../images/blog_posts/js-1.png" alt="" /></p>
-
-<p>Here you can see I am executing the code like this. I have just console logged Hello World !. It’s like print function in other programming language.</p>
-
-<p>VSCode has integrated terminal, as you can see I have used the command node to execute the file. You can also do the same. Make sure Node is installed in your system.</p>
-
-<h4 id="1basics-of-variables--constants">1.Basics of Variables &amp; Constant’s</h4>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Anything following double slashes is an English-language comment.</span>
-<span class="c1">// Read the comments carefully: they explain the JavaScript code.</span>
-
-<span class="c1">// A variable is a symbolic name for a value.</span>
-<span class="c1">// Variables are declared with the let keyword:</span>
-<span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>                     <span class="c1">// Declare a variable named x.</span>
-
-<span class="c1">// Values can be assigned to variables with an = sign</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                     <span class="c1">// Now the variable x has the value 0</span>
-<span class="nx">x</span>                          <span class="c1">// =&gt; 0: A variable evaluates to its value.</span>
-
-<span class="c1">// JavaScript supports several types of values</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                     <span class="c1">// Numbers.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>                  <span class="c1">// Numbers can be integers or reals.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello world</span><span class="dl">"</span><span class="p">;</span>         <span class="c1">// Strings of text in quotation marks.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">JavaScript</span><span class="dl">'</span><span class="p">;</span>          <span class="c1">// Single quote marks also delimit strings.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>                  <span class="c1">// A Boolean value.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>                 <span class="c1">// The other Boolean value.</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>                  <span class="c1">// Null is a special value that means "no value."</span>
-<span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>             <span class="c1">// Undefined is another special value like null.</span>
-</code></pre></div></div>
-
-<p>Two other very important <em>types</em> that JavaScript programs can manipulate are objects and arrays. We will talk about that later.</p>
-
-<h5 id="constants---variable-that-cannot-change">Constants - variable that <strong>cannot</strong> change</h5>
-
-<ul>
-  <li>
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span>
-</code></pre></div>    </div>
-
-    <ul>
-      <li>Must be initiated - <em>const x = 2</em></li>
-    </ul>
-  </li>
-</ul>
-
-<h5 id="variable-declarations">Variable Declarations</h5>
-
-<ul>
-  <li>
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span>
-</code></pre></div>    </div>
-
-    <ul>
-      <li>Cannot be called before declared</li>
-      <li>Has <a href="http://www.benmvp.com/learning-es6-block-level-scoping-let-const/">block scoping</a></li>
-    </ul>
-  </li>
-  <li>
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span>
-</code></pre></div>    </div>
-
-    <ul>
-      <li>undefined before declaration</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="2operators">2.Operators</h4>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Operators act on values (the operands) to produce a new value.</span>
-<span class="c1">// Arithmetic operators are some of the simplest:</span>
-<span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 4: addition</span>
-<span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 2: subtraction</span>
-<span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 4: multiplication</span>
-<span class="mi">4</span> <span class="o">/</span> <span class="mi">2</span>                      <span class="c1">// =&gt; 2: division</span>
-<span class="nx">points</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">points</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">x</span>  <span class="c1">// =&gt; 1: more complicated operands also work</span>
-<span class="dl">"</span><span class="s2">53</span><span class="dl">"</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span>                  <span class="c1">// =&gt; "532": + adds numbers, concatenates strings</span>
-
-<span class="c1">// JavaScript defines some shorthand arithmetic operators</span>
-<span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">// Define a variable</span>
-<span class="nx">count</span><span class="o">++</span><span class="p">;</span>                   <span class="c1">// Increment the variable</span>
-<span class="nx">count</span><span class="o">--</span><span class="p">;</span>                   <span class="c1">// Decrement the variable</span>
-<span class="nx">count</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>                <span class="c1">// Add 2: same as count = count + 2;</span>
-<span class="nx">count</span> <span class="o">*=</span> <span class="mi">3</span><span class="p">;</span>                <span class="c1">// Multiply by 3: same as count = count * 3;</span>
-<span class="nx">count</span>                      <span class="c1">// =&gt; 6: variable names are expressions, too.</span>
-
-<span class="c1">// Equality and relational operators test whether two values are equal,</span>
-<span class="c1">// unequal, less than, greater than, and so on. They evaluate to true or false.</span>
-<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>          <span class="c1">// These = signs are assignment, not equality tests</span>
-<span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span>                    <span class="c1">// =&gt; false: equality</span>
-<span class="nx">x</span> <span class="o">!==</span> <span class="nx">y</span>                    <span class="c1">// =&gt; true: inequality</span>
-<span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span>                      <span class="c1">// =&gt; true: less-than</span>
-<span class="nx">x</span> <span class="o">&lt;=</span> <span class="nx">y</span>                     <span class="c1">// =&gt; true: less-than or equal</span>
-<span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span>                      <span class="c1">// =&gt; false: greater-than</span>
-<span class="nx">x</span> <span class="o">&gt;=</span> <span class="nx">y</span>                     <span class="c1">// =&gt; false: greater-than or equal</span>
-<span class="dl">"</span><span class="s2">four</span><span class="dl">"</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">five</span><span class="dl">"</span>          <span class="c1">// =&gt; false: the two strings are different</span>
-<span class="kc">false</span> <span class="o">===</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span>          <span class="c1">// =&gt; true: false is equal to false</span>
-
-<span class="c1">// Logical operators combine or invert boolean values</span>
-<span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">y</span> <span class="o">===</span> <span class="mi">5</span><span class="p">)</span>     <span class="c1">// =&gt; true: both comparisons are true. &amp;&amp; is AND</span>
-<span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>         <span class="c1">// =&gt; false: neither comparison is true. || is OR</span>
-<span class="o">!</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span><span class="p">)</span>                 <span class="c1">// =&gt; true: ! inverts a boolean value</span>
-</code></pre></div></div>
-
-<h5 id="equality-operators">Equality operators</h5>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">(var1 == var2)</code> - JS will attempt to convert to matching types for comparison</li>
-  <li><code class="language-plaintext highlighter-rouge">(var1 === var2)</code> - No conversion, types must be equal. ‘Strict Equality’</li>
-</ul>
-
-<h4 id="unary-operators">Unary operators</h4>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">++count </code>  or <code class="language-plaintext highlighter-rouge">count++</code> - Increment</li>
-  <li>` –var ` or <code class="language-plaintext highlighter-rouge">var--</code> - Decrement</li>
-  <li><code class="language-plaintext highlighter-rouge">+var</code> - string to numertical type</li>
-  <li><code class="language-plaintext highlighter-rouge">-var</code> - negation, changes sign of numeric type</li>
-</ul>
-
-<h4 id="logical-boolean-operators">Logical (Boolean) operators</h4>
-
-<ul>
-  <li>` &amp;&amp;` - AND</li>
-  <li><code class="language-plaintext highlighter-rouge">||</code>  – OR</li>
-  <li><code class="language-plaintext highlighter-rouge">!</code> NOT, convert to bool, flip</li>
-</ul>
-
-<h4 id="relational-operators">Relational Operators</h4>
-
-<ul>
-  <li>
-    <h6 id="compared-by-ascii">Compared by ASCII</h6>
-  </li>
-  <li>
-    <p>` &gt;, &gt;= `- greater than, greater than or equal to</p>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">&lt;,&lt;=</code> - less than, less than or equal to</li>
-</ul>
-
-<h4 id="conditional-operators">Conditional Operators</h4>
-
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">?</code> used in shorthand <code class="language-plaintext highlighter-rouge">if</code></p>
-  </li>
-  <li>
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>condition ? exprIfTrue : exprIfFalse
-</code></pre></div>    </div>
-
-    <ul>
-      <li>ex: <code class="language-plaintext highlighter-rouge">console.log((5&gt;4) ? 'yes' : 'no');   // yes</code></li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="assignment-operators">Assignment Operators</h3>
-
-<p>-<code class="language-plaintext highlighter-rouge">+=, -=, /=, *=, %=</code></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">&lt;=</code> - shift bits to left</li>
-  <li><code class="language-plaintext highlighter-rouge">&gt;&gt;= - shift bits to right</code></li>
-  <li><code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;= - shift but keep the sign</code></li>
-</ul>
-
-<h3 id="typeof">typeof()</h3>
-
-<ul>
-  <li>Returns a <strong>string</strong></li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typeof</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>              <span class="c1">// 'number'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>           <span class="c1">// 'boolean'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span><span class="p">)</span>         <span class="c1">// 'string'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{});</span>  <span class="c1">// 'function'</span>
-<span class="k">typeof</span><span class="p">({});</span>             <span class="c1">// 'object'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>           <span class="c1">// 'object'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="kc">undefined</span><span class="p">)</span>       <span class="c1">// 'undefined'</span>
-<span class="k">typeof</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span>            <span class="c1">// 'number'</span>
-<span class="c1">// NaN - not a number</span>
-</code></pre></div></div>
-
-<h3 id="common-type-conversions">Common Type Conversions</h3>
-
-<ul>
-  <li>Convert to string - <code class="language-plaintext highlighter-rouge">foo.toString();</code></li>
-  <li>String to integer -<code class="language-plaintext highlighter-rouge">Number.parseInt('55');</code></li>
-  <li>String to number - <code class="language-plaintext highlighter-rouge">Number.parseFloat('55.99');</code></li>
-</ul>
-
-<h3 id="controlling-loops">Controlling Loops</h3>
-
-<ul>
-  <li>Use <code class="language-plaintext highlighter-rouge">break</code>to get out of a loop</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">continue</code> to finish iteration (without rest of body)</li>
-</ul>
-
-<h4 id="3-functions-and-scope">3. Functions and Scope</h4>
-
-<h5 id="function-scope">Function scope</h5>
-
-<ul>
-  <li>Variables that can be accessed with a function of a nested function</li>
-  <li><strong>*lifetime*</strong></li>
-  <li>If not available in function, looks to parent function</li>
-</ul>
-
-<h5 id="block-scope">Block scope</h5>
-
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">{ }</code> not in a function</p>
-  </li>
-  <li>
-    <p>Using <code class="language-plaintext highlighter-rouge">let</code>for block scope</p>
-  </li>
-  <li>
-    <p>No block scope for <code class="language-plaintext highlighter-rouge">var</code>, no such thing for these</p>
-  </li>
-  <li>
-    <p>IIFE’s - Immediately Invoked Function Expression</p>
-  </li>
-  <li>
-    <p>ex:</p>
-
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">in function</span><span class="dl">'</span><span class="p">);</span>
-<span class="p">})();</span>
-<span class="c1">// can return values this way</span>
-<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">cardId</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">in function</span><span class="dl">'</span><span class="p">);</span>
-    <span class="k">return</span> <span class="p">{};</span>
-<span class="p">})();</span>
-  
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
-<span class="c1">// [Function: app]</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h4 id="closures">Closures</h4>
-
-<ul>
-  <li>
-    <p>Keeping a function, it’s variables and nested function in scope</p>
-  </li>
-  <li>
-    <p>ex:</p>
-
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">cardId</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">cardId</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="na">getId</span><span class="p">:</span> <span class="nx">getId</span>    <span class="c1">//  reference</span>
-    <span class="p">};</span>
-<span class="p">})();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getId</span><span class="p">());</span>
-<span class="c1">// 123</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h4 id="the-this-keyword">The <strong>this</strong> keyword</h4>
-
-<ul>
-  <li>
-    <p>Context for the function</p>
-  </li>
-  <li>
-    <p>ex:</p>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">carId</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
-    <span class="na">getId</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">getId</span><span class="p">());</span>
-<span class="c1">// 123</span>
-  
-</code></pre></div>    </div>
-
-    <ul>
-      <li>Context can change, ie <em>this</em> value can change</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="arrow-functions">Arrow Functions</h4>
-
-<ul>
-  <li>
-    <p>Function declarations</p>
-
-    <ul>
-      <li>Arrow function symbol:<code class="language-plaintext highlighter-rouge">=&gt;</code></li>
-      <li><code class="language-plaintext highlighter-rouge">let getId = () =&gt; 123; //no params</code></li>
-    </ul>
-  </li>
-  <li>
-    <p>More examples</p>
-
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="nx">prefix</span> <span class="o">=&gt;</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getId</span><span class="p">(</span><span class="dl">'</span><span class="s1">ID: </span><span class="dl">'</span><span class="p">));</span>         <span class="c1">// ID: 456</span>
-  
-<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span> <span class="o">+</span> <span class="nx">suffix</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getId</span><span class="p">(</span><span class="dl">'</span><span class="s1">ID: </span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">));</span>    <span class="c1">// ID: 456!</span>
-  
-<span class="c1">// with braces / return keyword required</span>
-<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prefix</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="mi">456</span> <span class="o">+</span> <span class="nx">suffix</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="c1">// same result as previous</span>
-  
-<span class="c1">// use with underscore:</span>
-<span class="kd">let</span> <span class="nx">getId</span> <span class="o">=</span> <span class="nx">_</span> <span class="o">=&gt;</span> <span class="mi">456</span><span class="p">;</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>Arrow functions do <strong>NOT</strong> have their own <code class="language-plaintext highlighter-rouge">this&lt;</code>value. <code class="language-plaintext highlighter-rouge">this</code>refers to enclosing context</p>
-
-<h4 id="default-parameters">Default Parameters</h4>
-
-<ul>
-  <li>
-    <p>ex:</p>
-
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">trackCar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">carId</span><span class="p">,</span> <span class="nx">city</span><span class="o">=</span><span class="dl">'</span><span class="s1">NY</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// using backticks for interpreting variables</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Tracking </span><span class="p">${</span><span class="nx">carId</span><span class="p">}</span><span class="s2"> in </span><span class="p">${</span><span class="nx">city</span><span class="p">}</span><span class="s2">.`</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>    </div>
-  </li>
-  <li>Like other defaults, must be on right side.</li>
-  <li>Default overwritten if defined.</li>
-</ul>
-
-<h3 id="4objects-and-arrays">4.Objects and Arrays</h3>
-
-<h4 id="destructuring-arrays">Destructuring Arrays</h4>
-
-<ul>
-  <li>Assign values in array to variables</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
-<span class="kd">let</span> <span class="p">[</span><span class="nx">car1</span><span class="p">,</span> <span class="nx">car2</span><span class="p">,</span> <span class="nx">car3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">;</span>
-<span class="c1">// with rest parameters:</span>
-<span class="kd">let</span> <span class="nx">car1</span><span class="p">,</span> <span class="nx">remainingCars</span><span class="p">;</span>
-<span class="p">[</span><span class="nx">car1</span><span class="p">,</span> <span class="p">...</span><span class="nx">remainingCars</span><span class="p">]</span> <span class="o">=</span> <span class="nx">carIds</span>
-<span class="c1">// log</span>
-<span class="c1">// 1 [2, 5]</span>
-</code></pre></div></div>
-
-<h4 id="destructuring-objects">Destructuring Objects</h4>
-
-<ul>
-  <li>{ } instead of [ ] for objects</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="na">style</span><span class="p">:</span> <span class="dl">"</span><span class="s2">convertible</span><span class="dl">"</span> <span class="p">}</span>
-<span class="kd">let</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">style</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">car</span><span class="p">;</span>
-<span class="c1">// log</span>
-<span class="c1">// 5000, convertible</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Put destructuring in ( ) if variables already declared</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">style</span><span class="p">;</span>
-<span class="p">({</span><span class="nx">id</span><span class="p">,</span> <span class="nx">style</span><span class="p">}</span> <span class="o">=</span> <span class="nx">car</span><span class="p">);</span>
-</code></pre></div></div>
-
-<h4 id="spread-syntax">Spread Syntax</h4>
-
-<ul>
-  <li>Take array, spread out elements for parameters</li>
-  <li>Similar to rest syntax, does the opposite</li>
-</ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">];</span>
-<span class="nx">startCars</span><span class="p">(...</span><span class="nx">carIds</span><span class="p">);</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Can iterate through <strong>arrays</strong> <em>and</em> <strong>strings</strong></li>
-</ul>
-
-<h3 id="constructor-functions">Constructor Functions</h3>
-
-<ul>
-  <li>
-    <p>Examples</p>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>          <span class="c1">// capitalized name as convention`</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">carId</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>     <span class="c1">// 123</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Method: function run on an object</p>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Car</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">carId</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Start: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-<span class="kd">let</span> <span class="nx">vehicle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
-<span class="nx">vehicle</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>            <span class="c1">// Start: 123</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h3 id="prototypes">Prototypes</h3>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// using previous example</span>
-<span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Start: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">carId</span><span class="p">);</span>
-<span class="p">}</span>   <span class="c1">// single copy, instead of one function for each object</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Expanding Objects using Prototypes
-    <ul>
-      <li>Give new functionality to objects</li>
-    </ul>
-  </li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hello</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> Hello</span><span class="dl">'</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">.</span><span class="nx">hello</span><span class="p">());</span>     <span class="c1">// foo Hello</span>
-</code></pre></div></div>
-
-<h3 id="javascript-object-notation-json">Javascript Object Notation (JSON)</h3>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
-    <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">convertible</span><span class="dl">'</span>
-<span class="p">};</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">car</span><span class="p">));</span>
-<span class="c1">// { "id": 123, "style": "convertible" }</span>
-<span class="c1">// Array to JSON</span>
-<span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">123</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">456</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="na">carId</span><span class="p">:</span> <span class="mi">789</span> <span class="p">}</span>
-<span class="p">];</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">carIds</span><span class="p">));</span>
-<span class="c1">//  [{ "carId": 123 }, { "carId": 456 }, ...]</span>
-<span class="c1">// Parsing JSON:</span>
-<span class="kd">let</span> <span class="nx">jsonIn</span> <span class="o">=</span> <span class="p">[{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">123</span> <span class="p">},</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">456</span> <span class="p">},</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">carId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">789</span> <span class="p">}];</span>
-<span class="kd">let</span> <span class="nx">carIds</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">jsonIn</span><span class="p">);</span>
-<span class="c1">// log: [ { carId: 123 }, { carId: 456 }, { carId: 789 } ]</span>
-</code></pre></div></div>
-
-<hr />
-
-<h3 id="array-iteration">Array Iteration</h3>
-
-<p>Examples:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">carIds</span><span class="p">.</span><span class="nx">foreach</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">));</span>
-<span class="nx">carIds</span><span class="p">.</span><span class="nx">foreach</span><span class="p">((</span><span class="nx">car</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">,</span> <span class="nx">index</span><span class="p">));</span>
-
-<span class="c1">//  only some elements</span>
-<span class="kd">let</span> <span class="nx">convertibles</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">style</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">convertible</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="c1">// every case. find, condition, T/F, all elements</span>
-<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">carId</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>    <span class="c1">// true</span>
-
-<span class="c1">// retrieve first instance matching condition</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">carIds</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">car</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">carId</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">);</span>
-</code></pre></div></div>
-
-<hr />
-
-<h3 id="classes-and-modules">Classes and Modules</h3>
-
-<ul>
-  <li>Class Basics</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span> <span class="p">{</span> <span class="p">};</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
-</code></pre></div></div>
-
-<h3 id="constructors-and-properties">Constructors and properties</h3>
-
-<ul>
-  <li>constructor - function executed when new instance of a class is created</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// constructor</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>   <span class="c1">// property</span>
-    <span class="p">}</span>
-<span class="p">}</span>   <span class="c1">// car.id to access property directly</span>
-</code></pre></div></div>
-
-<h3 id="methods">Methods</h3>
-
-<ul>
-  <li>
-    <p>No function keyword needed</p>
-
-    <ul>
-      <li>Example within class Car</li>
-    </ul>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">identify</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s2">`Car Id: </span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
-    <span class="c1">// dont need `this` to access</span>
-<span class="p">}</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h3 id="inheritance">Inheritance</h3>
-
-<ul>
-  <li>Example:</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Car</span> <span class="kd">extends</span> <span class="nx">Vehicle</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">super</span><span class="p">();</span>    <span class="c1">// refers back to parent Vehicle</span>
-    <span class="p">}</span>
-    <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="dl">'</span><span class="s1">In Car Start</span><span class="dl">'</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="creating-and-importing-a-module">Creating and Importing a Module</h3>
-
-<ul>
-  <li>Create &amp; Export
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">export class Car { ... }</code></li>
-    </ul>
-  </li>
-  <li>Import
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">import { Car } from './models/car.js'</code></li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="window-object">Window Object</h2>
-
-<ul>
-  <li>Global object</li>
-  <li>Properties
-    <ul>
-      <li>document</li>
-      <li>location</li>
-      <li>console</li>
-      <li>innerHeight</li>
-      <li>innerWidth</li>
-      <li>pageXOffset</li>
-      <li>pageYOffset</li>
-    </ul>
-  </li>
-  <li>Methods
-    <ul>
-      <li>alert()</li>
-      <li>back()</li>
-      <li>confirm()</li>
-    </ul>
-  </li>
-  <li>Events
-    <ul>
-      <li>( not common )</li>
-    </ul>
-  </li>
-  <li>gGlobal object, must refer when dealing with modules</li>
-</ul>
-
-<h3 id="timers">Timers</h3>
-
-<ul>
-  <li>
-    <p>fire asynchronously</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">setTimeout(); // once</code></li>
-      <li><code class="language-plaintext highlighter-rouge">&gt;setInterval(); // repeatedly</code></li>
-    </ul>
-
-    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">let</span> <span class="nx">timeoutId</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">1 second paused</span><span class="dl">'</span><span class="p">);</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-<span class="c1">// cancel clearTimeout(timeoutId); // or clearTimeout(id); </span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h3 id="location-object">Location object</h3>
-
-<ul>
-  <li>Properties
-    <ul>
-      <li>href (URL)</li>
-      <li>hostname</li>
-      <li>port</li>
-      <li>pathname</li>
-      <li>search</li>
-    </ul>
-  </li>
-  <li>Methods
-    <ul>
-      <li>assign()</li>
-      <li>reload() ex: <code class="language-plaintext highlighter-rouge">location.href</code> or <code class="language-plaintext highlighter-rouge">document.location.href</code></li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="document-object">Document Object</h3>
-
-<ul>
-  <li>Properties
-    <ul>
-      <li>body</li>
-      <li>forms</li>
-      <li>links</li>
-    </ul>
-  </li>
-  <li>Methods
-    <ul>
-      <li>createElement()</li>
-      <li>createEvent()</li>
-      <li>getElementById()</li>
-      <li>getElementsByClassName()</li>
-    </ul>
-  </li>
-  <li>Events
-    <ul>
-      <li>onload</li>
-      <li>onclick</li>
-      <li>onKeypress</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="selecting-dom-elements">Selecting DOM Elements</h3>
-
-<ul>
-  <li>Common:
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">document.getElementById('elementId');</code></li>
-      <li><code class="language-plaintext highlighter-rouge">document.getElementByClassName('className');</code></li>
-      <li><code class="language-plaintext highlighter-rouge">document.getElementByTagName('tagName');</code></li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="modifying-dom-elements">Modifying DOM Elements</h3>
-
-<p>Example:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">elementId</span><span class="dl">'</span><span class="p">);</span> 
-<span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">new text here</span><span class="dl">'</span><span class="p">;</span> 
-<span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">nameValue</span><span class="dl">'</span><span class="p">);</span> 
-<span class="nx">el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">myClassName</span><span class="dl">'</span><span class="p">);</span> 
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">blue</span><span class="dl">'</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h3 id="promises-and-error-handling">Promises and Error Handling</h3>
-
-<h3 id="errors-in-javascript">Errors in Javascript</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">let car = newCar;</code> // reference error, execution stops</li>
-  <li>Error Handling with try and catch</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">newCar</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error: </span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">// continue execution</span>
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p>With finally (always executes)</p>
-
-    <ul>
-      <li>
-        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">finally</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">this always executes</span><span class="dl">'</span><span class="p">);</span> <span class="p">}</span>
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Developer defined errors</p>
-
-    <ul>
-      <li>
-        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">any custom error</span><span class="dl">'</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Creating a Promise</p>
-
-    <ul>
-      <li>Temporary holder for a value you will retrieve after asynchronous call</li>
-    </ul>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span> <span class="p">(</span>
-    <span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="dl">'</span><span class="s1">someValue</span><span class="dl">'</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">);</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Setting a Promise</p>
-
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">fulfilled: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
-    <span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">rejected: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">);</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h2 id="chrome-dev-tools-and-security">Chrome Dev Tools and Security</h2>
-
-<ul>
-  <li>Network » bundle.js file</li>
-  <li>Sources » Watch, etc</li>
-  <li>Don’t store sensitive info on browser</li>
-</ul>
-
-<h3 id="security-and-the-eval-function">Security and the eval() function</h3>
-
-<ul>
-  <li>JS Global eval() function will execute whatever is passed</li>
-  <li>Avoid eval() altogether? Script tags?</li>
-</ul>
-
-<h3 id="preventing-man-in-the-middle-attacks">Preventing Man-in-the-Middle Attacks</h3>
-
-<ul>
-  <li>Code put into HTML between server and intended client</li>
-  <li>Use SSL, use HTTP header</li>
-  <li>Cookie attributes: Secure and HttpOnly</li>
-</ul>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="javascript" /><summary type="html"><![CDATA[JS Notes]]></summary></entry></feed>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="tensorflow" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with TF Object detection API]]></summary></entry></feed>

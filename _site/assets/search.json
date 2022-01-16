@@ -1,7 +1,15 @@
 [
   
     {
-      "title"    : "Docker Cheatsheet",
+      "title"    : "docker-compose basics",
+      "description" : "docker-compose basics",
+      "tags"     : "docker",
+      "url"      : "/docker-compose-bascis/",
+      "date"     : "2021-07-14 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "docker cheatsheet",
       "description" : "Docker Cheatsheet",
       "tags"     : "docker",
       "url"      : "/docker-cheatsheet/",
