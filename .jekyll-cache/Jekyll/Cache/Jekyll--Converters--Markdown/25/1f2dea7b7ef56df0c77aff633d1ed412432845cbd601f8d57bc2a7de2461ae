@@ -1,4 +1,4 @@
-I"w\<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
+I"ˆ[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
 
 <p><em>NOTE: This isnâ€™t a Docker tutorial. It assumes you to have a basic knowledge of Docker and the problems it solves.</em></p>
 
@@ -27,9 +27,7 @@
     <span class="s">"log"</span>
     <span class="s">"net/http"</span>
 <span class="p">)</span>
-<span class="k">type</span> <span class="n">director</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">Name</span> <span class="kt">string</span> <span class="s">`json:"name"`</span>
-<span class="p">}</span>
+
 <span class="k">type</span> <span class="n">film</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">Universe</span>    <span class="kt">string</span>   <span class="s">`json:"universe"`</span>
     <span class="n">Title</span>       <span class="kt">string</span>   <span class="s">`json:"title"`</span>

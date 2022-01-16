@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T15:08:31+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">docker-compose basics</title><link href="http://localhost:4000/docker-compose-bascis/" rel="alternate" type="text/html" title="docker-compose basics" /><published>2021-07-14T00:00:00+00:00</published><updated>2021-07-14T00:00:00+00:00</updated><id>http://localhost:4000/docker-compose-bascis</id><content type="html" xml:base="http://localhost:4000/docker-compose-bascis/"><![CDATA[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T19:34:24+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">docker-compose basics</title><link href="http://localhost:4000/docker-compose-bascis/" rel="alternate" type="text/html" title="docker-compose basics" /><published>2021-07-14T00:00:00+00:00</published><updated>2021-07-14T00:00:00+00:00</updated><id>http://localhost:4000/docker-compose-bascis</id><content type="html" xml:base="http://localhost:4000/docker-compose-bascis/"><![CDATA[<h1 id="getting-started-with-docker-compose">Getting started with Docker Compose</h1>
 
 <p><em>NOTE: This isn’t a Docker tutorial. It assumes you to have a basic knowledge of Docker and the problems it solves.</em></p>
 
@@ -27,9 +27,7 @@
     <span class="s">"log"</span>
     <span class="s">"net/http"</span>
 <span class="p">)</span>
-<span class="k">type</span> <span class="n">director</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">Name</span> <span class="kt">string</span> <span class="s">`json:"name"`</span>
-<span class="p">}</span>
+
 <span class="k">type</span> <span class="n">film</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">Universe</span>    <span class="kt">string</span>   <span class="s">`json:"universe"`</span>
     <span class="n">Title</span>       <span class="kt">string</span>   <span class="s">`json:"title"`</span>
