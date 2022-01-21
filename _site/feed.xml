@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-16T20:18:44+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Test driven development</title><link href="http://localhost:4000/Test-driven-development/" rel="alternate" type="text/html" title="Test driven development" /><published>2022-01-05T00:00:00+00:00</published><updated>2022-01-05T00:00:00+00:00</updated><id>http://localhost:4000/Test-driven-development</id><content type="html" xml:base="http://localhost:4000/Test-driven-development/"><![CDATA[<h1 id="test-driven-development">Test driven development</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-21T09:29:44+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Test driven development</title><link href="http://localhost:4000/Test-driven-development/" rel="alternate" type="text/html" title="Test driven development" /><published>2022-01-05T00:00:00+00:00</published><updated>2022-01-05T00:00:00+00:00</updated><id>http://localhost:4000/Test-driven-development</id><content type="html" xml:base="http://localhost:4000/Test-driven-development/"><![CDATA[<h1 id="test-driven-development">Test driven development</h1>
 
 <p>If you want to understand the basics of the TDD, please read this <a href="https://www.freecodecamp.org/news/test-driven-development-what-it-is-and-what-it-is-not-41fa6bca02a2/">freecodecamp blog.</a></p>
 
 <h3 id="3-rules-to-follow-while-doing-tdd">3 rules to follow while doing TDD</h3>
+<p>Bob Martin describes Test-Driven Development using these three simple rules:</p>
 
 <ol>
-  <li>Write production code only when there is a failing test.</li>
-  <li>When writing failing test code, write only the minimum test code.</li>
-  <li>If there is a failing test code, write only the minimum code that the code passes.</li>
+  <li>Do not write production code unless it is to make a failing unit test pass.</li>
+  <li>Do not write more of a unit test than is sufficient to fail, and build failures are failures.</li>
+  <li>Do not write more production code than is sufficient to pass the one failing unit test.</li>
 </ol>
 
+<p>Even though this sounds restrictive, it is a very productive and fun way to develop software.</p>
 <h3 id="which-tests-should-i-write-first">Which tests should I write first?</h3>
 
 <p><strong>Simplest, but interesting</strong> : Write the most concise and meaningful tests you can think of.</p>
@@ -19,11 +21,11 @@
 <p>red ➡ green ➡ refactor cycle</p>
 
 <ol>
-  <li>Start</li>
-  <li>Writing the minimum code for failing test</li>
-  <li>Writing passing prod minimal code</li>
+  <li>Write test before production code</li>
+  <li>Writing the minimum code for failing test(RED)</li>
+  <li>Write simplest code passing the test (GREEN)</li>
   <li>Refactoring (go back to 2, if no more test cases come to mind, go to 5)</li>
-  <li>Stop</li>
+  <li>Don’t write any test before passing existing ones</li>
 </ol>
 
 <p><code class="language-plaintext highlighter-rouge">Note:</code> Step 4 is not optional. If step 4 is ignored, the code is dirty even after TDD.</p>
@@ -59,6 +61,11 @@
 <h3 id="practice-tdd">Practice TDD</h3>
 
 <p>Just google “TDD kata”. </p>
+
+<h3 id="tests--tdd">Tests != TDD</h3>
+<p>Writing tests does not mean TDD. TDD is when your design is guided by the tests. By following the red, green, refactor steps the design will emerge through writing the minimal amount of code to make your tests pass.</p>
+
+<p>If you write all of your code first then go back to add tests, you are not using TDD.</p>
 
 <h3 id="gradual-improvement">gradual improvement</h3>
 

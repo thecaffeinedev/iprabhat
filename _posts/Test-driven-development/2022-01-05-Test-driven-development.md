@@ -9,11 +9,15 @@ description: Test driven development
 If you want to understand the basics of the TDD, please read this [freecodecamp blog.](https://www.freecodecamp.org/news/test-driven-development-what-it-is-and-what-it-is-not-41fa6bca02a2/)
 
 ### 3 rules to follow while doing TDD
+Bob Martin describes Test-Driven Development using these three simple rules:
 
-1.  Write production code only when there is a failing test.
-2.  When writing failing test code, write only the minimum test code.
-3.  If there is a failing test code, write only the minimum code that the code passes.
 
+
+1.  Do not write production code unless it is to make a failing unit test pass.
+2.  Do not write more of a unit test than is sufficient to fail, and build failures are failures.
+3.  Do not write more production code than is sufficient to pass the one failing unit test.
+
+Even though this sounds restrictive, it is a very productive and fun way to develop software.
 ### Which tests should I write first?
 
 **Simplest, but interesting** : Write the most concise and meaningful tests you can think of.
@@ -22,11 +26,11 @@ If you want to understand the basics of the TDD, please read this [freecodecamp 
 
 red ➡ green ➡ refactor cycle
 
-1.  Start
-2.  Writing the minimum code for failing test
-3.  Writing passing prod minimal code
+1.  Write test before production code
+2.  Writing the minimum code for failing test(RED)
+3.  Write simplest code passing the test (GREEN)
 4.  Refactoring (go back to 2, if no more test cases come to mind, go to 5)
-5.  Stop
+5.  Don't write any test before passing existing ones
     
 
 `Note:` Step 4 is not optional. If step 4 is ignored, the code is dirty even after TDD.
@@ -60,6 +64,12 @@ It is sometimes replaced with a visual regression test. A typical library for th
 ### Practice TDD
 
 Just google "TDD kata". 
+
+### Tests != TDD
+Writing tests does not mean TDD. TDD is when your design is guided by the tests. By following the red, green, refactor steps the design will emerge through writing the minimal amount of code to make your tests pass.
+
+If you write all of your code first then go back to add tests, you are not using TDD.
+
 
 ### gradual improvement
 
