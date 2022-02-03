@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Be a good developer",
+      "description" : "Be a good developer",
+      "tags"     : "dev, software-design",
+      "url"      : "/be-a-good-developer/",
+      "date"     : "2022-01-23 00:00:00 +0000"
+    } ,
+  
+    {
       "title"    : "Test driven development",
       "description" : "Test driven development",
       "tags"     : "tdd, software-design",

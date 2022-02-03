@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-01-21T09:29:44+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Test driven development</title><link href="http://localhost:4000/Test-driven-development/" rel="alternate" type="text/html" title="Test driven development" /><published>2022-01-05T00:00:00+00:00</published><updated>2022-01-05T00:00:00+00:00</updated><id>http://localhost:4000/Test-driven-development</id><content type="html" xml:base="http://localhost:4000/Test-driven-development/"><![CDATA[<h1 id="test-driven-development">Test driven development</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-02-03T14:37:09+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">Be a good developer</title><link href="http://localhost:4000/be-a-good-developer/" rel="alternate" type="text/html" title="Be a good developer" /><published>2022-01-23T00:00:00+00:00</published><updated>2022-01-23T00:00:00+00:00</updated><id>http://localhost:4000/be-a-good-developer</id><content type="html" xml:base="http://localhost:4000/be-a-good-developer/"><![CDATA[<h2 id="overview"><strong>Overview</strong></h2>
+
+<p>A ‘good developer’ is too vague. It could be a developer who knows how to properly apply TDD in practice, a developer with the performance to create a huge amount of code in an instant or a developer equipped with <a href="https://en.wikipedia.org/wiki/Software_craftsmanship">software craftsmanship</a> to the core.</p>
+
+<p>Neither one is wrong, nor one can be said to be right. I think it would be best if I looked at various types of developers and made my own ‘good developers’ by imitating the strengths of those people.</p>
+
+<h2 id="your-own-standards"><strong>your own standards</strong></h2>
+
+<p>The 7 criteria I set for a good developer at the beginning of 2022 are:</p>
+
+<ul>
+  <li>high productivity</li>
+  <li>reliably solve a given problem</li>
+  <li>good at collaboration</li>
+  <li>general, domain knowledge</li>
+  <li>write stable code</li>
+  <li>write clean code</li>
+  <li>good at the software design</li>
+</ul>
+
+<p>Once you have set a standard, you should be able to achieve it. But how?</p>
+
+<h3 id="to-be-more-productive"><strong>To be more productive</strong></h3>
+
+<p>High productivity means that the number of tasks processed per unit time is large.</p>
+
+<p>So, first of all, you need to manage your time well. I personally use the <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Pomodoro technique</a>.</p>
+
+<p>Second, the work I’ve done has to be useful. In order to do that, you must first know how to answer the Why. Knowing why you are doing this will show you what you need to do, and if you know what you need to do, you will be able to think about how to secure it. If I get out of this Why - How - What cycle and do things in the reverse order or in the wrong order, my hard work turns into a piece of tissue paper or I have to make major revisions from time to time.</p>
+
+<p>If I can manage my time well and always do only the important things, the rest is my own competence. In other words, you need to be good at coding. This requires an absolute amount of time, so the more you dig and the more you dig, the more productive you should be.</p>
+
+<p>Personally, in development, I have experienced that the more I get used to <strong>modeling the code, the higher my productivity.</strong> Modeling the code means that the program runs freely in your head without running a separate compilation. The great developers I’ve worked with would sometimes shout, ‘Oh, I see what’s wrong,’ when a bug occurs, and find the cause right away without running the program. As I watch them, how are they different from me? This modeling is what I discovered while thinking about it.</p>
+
+<h3 id="to-reliably-solve-a-given-problem"><strong>To reliably solve a given problem</strong></h3>
+
+<p>This is a difficult question. You must also have the ability to solve problems, and also have the ability to predict and prepare for various variables in solving the problem. The meticulous attention to detail here is an added bonus.</p>
+
+<p>Since problem-solving ability is a comprehensively required ability at various levels such as the code level and the decision-making level within the team, it is necessary to have quick judgment and experience. As you gain experience, you will be able to make some predictions about what will happen in the future if something similar happens.</p>
+
+<p>In other words, this question turns into how to get a lot of experiences that help growth in a short time and how to handle things with meticulous care. Getting a lot of experience in a short amount of time always puts me in an uncomfortable zone. If something is repetitive, you should automate it and always crave something new.</p>
+
+<p>I am not a meticulous person by nature, so I worked hard to be meticulous. Self-review of the code I’ve written, or check it out by deploying it instead of finishing testing locally. When combined with Pomodoro, when I think about what I am currently doing during my break time, I can recall the parts I missed.</p>
+
+<h3 id="to-collaborate-well"><strong>To collaborate well</strong></h3>
+
+<p>In order to collaborate well, communication skills are essential. I should always be on the lookout for inefficiencies when communicating my intentions clearly and discussing them without hurting the other person’s feelings.</p>
+
+<p>A good example of being wary of inefficiencies is ubiquitous language. By defining a common domain language between domain experts and developers, the inefficiency of word choices and explanations is blocked in the first place.</p>
+
+<h3 id="in-general-domain-knowledge">In <strong>general, domain knowledge</strong></h3>
+
+<p>Domain knowledge is the understanding of your domain. Be it product, software, technologies, or the business to which you are contributing.</p>
+
+<p>First, in order to increase general knowledge, you should actively do several projects for proof of concept. Many won’t agree but this is what has been worked out for me.</p>
+
+<h3 id="to-write-stable-code"><strong>To write stable code</strong></h3>
+
+<p>Stable code is, after all, bug-free code. In fact, it is impossible to completely eliminate the bug. This is because unexpected bugs pop up even if you test for all the assumed cases. Our goal is to make it bug-free in every case we assume.</p>
+
+<p>The best way is to do TDD. If you do TDD, you have no choice but to make the module easier to test, and the code becomes simpler when dependencies are organized, making it easier to follow the KISS principle.</p>
+
+<h3 id="to-write-clean-code"><strong>To write clean code</strong></h3>
+
+<p>The definition of clean code is as diverse as the number of developers. However, as a rule, the clean code I define here is Uncle Bob’s <a href="https://en.wikipedia.org/wiki/Robert_C._Martin">Clean code</a>.</p>
+
+<p>This book is a lot to read, a lot to follow, and a lot to experience. I’ve read this book two times since I was an undergraduate, but every time I look at it, something new catches my eye. In the past, the content that said, ‘What is it?’ It means that the moment of ‘Wow…’ will come. Uncle Bob is in a far-off state, and every time I leveled up, I was only able to get what I could see from my height, step by step.</p>
+
+<h3 id="to-be-good-at-the-software-design"><strong>To be good at the software design</strong></h3>
+
+<p>A good software design is one that delays decision-making as much as possible. A decision made after getting as much information as possible is always better than a decision not made.</p>
+
+<p>To be good at this, you need to be good at an abstract painting, which you learned in college. By distinguishing which domains and non-domains are, it should be possible to abstract all non-domains and invert dependencies. However, it is difficult to distinguish between domains and non-domains. At this time, if you have a lot of general knowledge, you can get more help.</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="dev" /><category term="software-design" /><summary type="html"><![CDATA[Be a good developer]]></summary></entry><entry><title type="html">Test driven development</title><link href="http://localhost:4000/Test-driven-development/" rel="alternate" type="text/html" title="Test driven development" /><published>2022-01-05T00:00:00+00:00</published><updated>2022-01-05T00:00:00+00:00</updated><id>http://localhost:4000/Test-driven-development</id><content type="html" xml:base="http://localhost:4000/Test-driven-development/"><![CDATA[<h1 id="test-driven-development">Test driven development</h1>
 
 <p>If you want to understand the basics of the TDD, please read this <a href="https://www.freecodecamp.org/news/test-driven-development-what-it-is-and-what-it-is-not-41fa6bca02a2/">freecodecamp blog.</a></p>
 
@@ -1732,311 +1804,4 @@ fi
 <ol>
   <li><a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh — </a></li>
   <li><a href="https://github.com/Powerlevel9k/powerlevel9k">Powelevel9k</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="ubuntu" /><category term="terminal" /><summary type="html"><![CDATA[customize your terminal on Ubuntu]]></summary></entry><entry><title type="html">Custom Object Detection With YoloV3</title><link href="http://localhost:4000/Custom-Object-Detection-With-YoloV3/" rel="alternate" type="text/html" title="Custom Object Detection With YoloV3" /><published>2019-12-22T00:00:00+00:00</published><updated>2019-12-22T00:00:00+00:00</updated><id>http://localhost:4000/Custom-Object-Detection-With-YoloV3</id><content type="html" xml:base="http://localhost:4000/Custom-Object-Detection-With-YoloV3/"><![CDATA[<p><img src="./bagpack.jpeg" alt="Cover image" /></p>
-
-<p>Object Detection is a task in computer vision that focuses on detecting objects in images/videos.</p>
-
-<p>There are various object detection algorithms out there like YOLO (You Only Look Once,) Single Shot Detector (SSD), Faster R-CNN, Histogram of Oriented Gradients (HOG), etc.</p>
-
-<h3 id="prerequisites">Prerequisites</h3>
-<p>It’s good to have a basic knowledge of deep learning computer vision. And basics of programming.</p>
-
-<p>In this article, we are going to train our own custom yolov3 model for object detection.</p>
-
-<p><strong>The steps needed are:</strong></p>
-
-<ol>
-  <li>Gathering data</li>
-  <li>Converting to YoloV3 format</li>
-  <li>Setting Training Pipeline</li>
-  <li>Training model</li>
-  <li>Exporting weights file.</li>
-  <li>Testing object detector</li>
-</ol>
-
-<h2 id="gathering-data">Gathering data</h2>
-
-<p>We are going to get our data from <a href="https://storage.googleapis.com/openimages/web/visualizer/index.html?set=train&amp;type=detection&amp;c=%2Fm%2F0k5j">OpenImagesV5</a>. It was first introduced in 2016, It’s is a collaborative release comprising about nine million images annotated with labels covering thousands of object categories. The new version is an update on 2018’s <a href="https://storage.googleapis.com/openimages/web/factsfigures_v4.html">Open Images V4</a>.</p>
-
-<p>Open Image V5 features newly added annotations on image segmentation masks for 2.8 million objects in 350 categories. Unlike bounding-boxes that only identify the general area in which an object is located, these image segmentation masks trace the outline of the target object, characterizing it’s spatial extent with a higher level of detail.</p>
-
-<p>I am going to choose 4 classes of my choice from OpenImagesV5 that is <em>Backpack, Watch, Book, and Headphones</em>. You can choose as many as you want.</p>
-
-<p>We will have to download those images first. There’s an amazing <a href="https://github.com/pythonlessons/OIDv4_ToolKit">toolkit from GitHub</a> with a full explanation of how to use it. This toolkit will help us to download the images. The toolkit installation is easy. <a href="https://pylessons.com/YOLOv3-introduction/">This guy</a> has written a tutorial to detect custom objects using yolov3 using Keras. You can check it out, he has explained all the steps. In my post, I am going to use PyTorch and will try to simplify things as much as possible.</p>
-
-<ol>
-  <li><strong>Downloading the toolkit</strong></li>
-</ol>
-
-<p>First, open up your terminal and clone the toolkit repository</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/pythonlessons/OIDv4_ToolKit.git
-</code></pre></div></div>
-
-<p>Then go the folder by</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd OIDv4_ToolKit
-</code></pre></div></div>
-
-<p>Install all the dependencies by</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
-</code></pre></div></div>
-
-<ol>
-  <li><strong>Using toolkit</strong> <strong>&amp; Downloading the data</strong></li>
-</ol>
-
-<p>First of all how to check if we can download the appropriate image class we need? You need to go to the OIDv5 homepage, click on explore and in a search tab try to find your desired class. In my example, I will search for “Watch”, “Backpack”, “Book”, and “Headphones”. To download all of them you can simply run</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 main.py downloader <span class="nt">--classes</span> Watch Backpack Book Headphones <span class="nt">--type_csv</span> train <span class="nt">--multiclasses</span> 1 <span class="nt">--limit</span> 600
-</code></pre></div></div>
-
-<p>With this command, 600 training images for each class will get downloaded. If you are using for the first time it will ask you to download (train-annotations-bbox or test-annotations-bbox) CSV file. Type Y, while running the command so that it would get downloaded.</p>
-
-<p><img src="./yolov3-1.png" alt="" /></p>
-
-<p>You need to wait for some time to finish the download.</p>
-
-<p><img src="./yolov3-2.png" alt="" /></p>
-
-<p>This is the folder structure :</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main_folder
-│   - main.py
-│   - oid_to_pascal_voc_xml.py
-│   ..
-└─── OID
-    │
-    └─── csv_folder
-    │   │
-    │   └─── class-descriptions-boxable.csv
-    │   │
-    │   └─── test-annotations-bbox.csv
-    │   │
-    │   └─── train-annotations-bbox.csv
-    └─── OID
-        │
-        └─── Dataset
-            │
-            └─── train
-                │
-                └─── Watch_Backpack_Book_Headphones
-</code></pre></div></div>
-
-<h2 id="converting-to-yolov3-format">Converting to YoloV3 format</h2>
-
-<p>Open <code class="language-plaintext highlighter-rouge">oid_to_pascal_voc_xml.py</code> and edit line no. 9 and put</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XML_DIR = 'TO_PASCAL_XML'
-</code></pre></div></div>
-
-<p>Now you need to run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 oid_to_pascal_voc_xml.py
-</code></pre></div></div>
-
-<p>to generate the object co-ordinates in XML formats. After running this above file, you will get object label files in an XML format in the TO_PASCAL_XML folder.</p>
-
-<p>Again we need to convert it into YoloV3 format.</p>
-
-<p>To train a Yolo model there are requirements how an annotation file should be made:</p>
-
-<ul>
-  <li>One row for one image;</li>
-  <li>Row format: image_file_path box1 box2 … boxN;</li>
-  <li>Box format: x_min,y_min,x_max,y_max,class_id (no space).</li>
-  <li>Here is an example:
-    <ul>
-      <li>path/to/img1.jpg 50,100,150,200,0 30,50,200,120,3</li>
-      <li>path/to/img2.jpg 120,300,250,600,4
-   …</li>
-    </ul>
-  </li>
-</ul>
-
-<p>Now you will have to do some little bit of work with these. Have patience, it’s going to take some manual work now.</p>
-
-<p>I will use the code of <a href="https://github.com/ultralytics/yolov3">Ultralytics</a> to train our YoloV3 model. Make sure to check their repository, it’s great. I have made some changes in the folder structure and all for our own model. Now clone my repository for the next steps.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/TheCaffeineDev/YoloV3-Custom-Object-Detection.git
-</code></pre></div></div>
-
-<p>This is the folder structure</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main_folder
-│   - detect.py
-│   - models.py
-│   - train.py
-│ 	- test.py
-│ 	- requirements.txt
-│ 	...
-└─── cfg
-└─── conversion
-    │
-    └─── output
-    └─── xmls
-    │  - classes.txt
-    │  - xmltotxt.py
-    │  ...
-└─── data
-└─── training
-│	│
-│	└─── images
-│	└─── labels
-│	- object.names
-│	- trainer.data
-│	- yolov3.cfg
-│	- train_test.py
-│
-└─── utils
-└─── weights
-</code></pre></div></div>
-
-<p>Now inside the main folder and run this in your terminal to install all the required dependencies.</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
-</code></pre></div></div>
-
-<p>Then you have to go back to that OIDV4_Toolkit folder <code class="language-plaintext highlighter-rouge">OIDv4_ToolKit/OID/Dataset/train/Watch_Backpack_Book_Headphones/</code> .  Here you need to copy all the images into the following folder in our cloned repository <code class="language-plaintext highlighter-rouge">/YoloV3-Custom-Object-Detection/training/images</code> And</p>
-
-<p>you need to copy all the XML files which are in the folder to <code class="language-plaintext highlighter-rouge">/YoloV3-Custom-Object-Detection/conversion/xmls</code> folder. Don’t get confused about these above steps.</p>
-
-<p>After copying go to the <code class="language-plaintext highlighter-rouge">conversion</code> folder.  You need to edit the <code class="language-plaintext highlighter-rouge">classes.txt </code> file and put your own classes there.</p>
-
-<p>It looks like this:</p>
-
-<p><img src="./yolov3-3.png" alt="" /></p>
-
-<p>Now in conversion folder run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection/conversion folder</span>
-python3 xmltotxt.py <span class="nt">-xml</span> xmls <span class="nt">-out</span> output 
-</code></pre></div></div>
-
-<p>This will generate all the label files in the yolov3 format inside the output folder.</p>
-
-<h2 id="setting-training-pipeline">Setting Training Pipeline</h2>
-
-<p>Now you have to copy all the <code class="language-plaintext highlighter-rouge">.txt</code> files which are in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/conversion/output</code>  folder to <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/training/labels</code> folder.</p>
-
-<p>Now go to the <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection/training</code> folder. Now we will edit some files here. Now open that <code class="language-plaintext highlighter-rouge">object.names</code> file and edit it out with your own classes. Mine looks like this</p>
-
-<p>Now in</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection/training folder</span>
-python3 train_test.py
-</code></pre></div></div>
-
-<p>This above file will generate <code class="language-plaintext highlighter-rouge">train.txt</code> and <code class="language-plaintext highlighter-rouge">test.txt</code>.  You can open and check the file for more details. Basically we are splitting 70% &amp; 30% for training and testing respectively.</p>
-
-<p>Then open <code class="language-plaintext highlighter-rouge">trainer.data</code>  . It looks like this. You need to put your no. of classes in the first line,  <code class="language-plaintext highlighter-rouge">train.txt</code> and <code class="language-plaintext highlighter-rouge">test.txt</code> path in 2nd and 3rd line, <code class="language-plaintext highlighter-rouge">object.names</code> path in the 4th line.</p>
-
-<p>Mine looks like this</p>
-
-<p><img src="./yolov3-4.png" alt="" /></p>
-
-<p>Now you need to edit the <code class="language-plaintext highlighter-rouge">.cfg</code> file. By default each YOLO layer has 255 outputs: 85 outputs per anchor [4 box coordinates + 1 object confidence + 80 class confidences], times 3 anchors.</p>
-
-<p>In our case we are using only four classes, then we need to edit the filter. You can reduce filters to <code class="language-plaintext highlighter-rouge">filters=[4 + 1 + n] * 3</code>, where <code class="language-plaintext highlighter-rouge">n</code> is your class count. This modification should be made to the layer preceding each of the 3 YOLO layers. Also, modify <code class="language-plaintext highlighter-rouge">classes=80 </code> to <code class="language-plaintext highlighter-rouge">classes=n</code> in each YOLO layer, where <code class="language-plaintext highlighter-rouge">n</code> is your class count.</p>
-
-<p>In our case in <code class="language-plaintext highlighter-rouge">yolov3.cfg</code> file  I changed the batch size &amp; subdivisions which is in line no. <strong>6</strong> and <strong>7</strong>.  Then line no <strong>610</strong> (classes=4)  and <strong>603</strong> (filters=27), then line no. <strong>689</strong> &amp; <strong>696</strong>, lastly line no. <strong>776</strong> &amp; <strong>783</strong>. If you are using, line no. will be different.</p>
-
-<p><img src="./yolov3-5.png" alt="" /></p>
-
-<p>Now we are ready to train our yolov3 model.</p>
-
-<h2 id="training-model">Training Model</h2>
-
-<p>Below is my desktop specification in which I am going to train my model.</p>
-
-<ul>
-  <li><strong>GPU:</strong> NVIDIA GeForce RTX <em>2080 SUPER</em> (8GB)</li>
-  <li><strong>RAM:</strong> 16GB DDR4</li>
-  <li>OS: Ubuntu 18.04</li>
-</ul>
-
-<p>Now in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection</code> folder open terminal and run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection do</span>
-python3 train.py <span class="nt">--epochs</span> 110 <span class="nt">--data</span> training/trainer.data <span class="nt">--cfg</span> training/yolov3.cfg <span class="nt">--batch</span> 16 <span class="nt">--accum</span> 1 
-</code></pre></div></div>
-
-<p>There are optional arguments are there, you can check-in <code class="language-plaintext highlighter-rouge">train.py</code> file.</p>
-
-<p>Also, You can <strong>Update hyperparameters</strong> also such as LR, LR scheduler, optimizer, augmentation settings, multi_scale settings, etc in <code class="language-plaintext highlighter-rouge">train.py</code> for your particular task. I would recommend you start with all-default settings first updating anything.</p>
-
-<p><img src="./yolov3-6.png" alt="" /></p>
-
-<p>To run tensorboard while training, open another terminal and run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection do</span>
-tensorboard <span class="nt">--logdir</span><span class="o">=</span>runs
-</code></pre></div></div>
-
-<p><img src="./yolov3-7.png" alt="" /></p>
-
-<p>It took me 2 hours to train four objects with 110 epochs.</p>
-
-<p><img src=".//yolov3-8.png" alt="" /></p>
-
-<p>If you follow the above steps, you will be able to train your own model properly.</p>
-
-<h2 id="exporting-weights-file">Exporting weights file</h2>
-
-<p>After training the model, we can get the weights file in the weights folder. It’s in <code class="language-plaintext highlighter-rouge">PyTorch</code> model format. We need to convert it to <code class="language-plaintext highlighter-rouge">darknet</code> format to test it out. Let’s convert it first. Open up the terminal and run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># convert cfg/pytorch model to darknet weights</span>
-<span class="c"># In YoloV3-Custom-Object-Detection</span>
-python3  <span class="nt">-c</span> <span class="s2">"from models import *; convert('training/yolov3.cfg', 'weights/best.pt')"</span>
-
-</code></pre></div></div>
-<p>You will get this message after conversion.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Success: converted 'weights/yolov3-spp.pt' to 'converted.weights'
-</code></pre></div></div>
-<p>Now we will test our object detector. You will have the <code class="language-plaintext highlighter-rouge">converted.weights </code> in <code class="language-plaintext highlighter-rouge">YoloV3-Custom-Object-Detection</code> folder.</p>
-
-<h2 id="testing-object-detector">Testing Object Detector</h2>
-
-<p>Now to run inference, open up your terminal and run</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In YoloV3-Custom-Object-Detection</span>
-python3 detect.py <span class="nt">--source</span> 0 <span class="nt">--weights</span> converted.weights <span class="nt">--cfg</span> training/yolov3.cfg <span class="nt">--names</span> training/object.names <span class="nt">--img-size</span> 416
-</code></pre></div></div>
-
-<p>Check <code class="language-plaintext highlighter-rouge">detect.py</code> for details.</p>
-
-<ul>
-  <li>Image: ` –source file.jpg `</li>
-  <li>Video:  ` –source file.mp4 `</li>
-  <li>Directory: ` –source dir/ `</li>
-  <li>Webcam:  <code class="language-plaintext highlighter-rouge">--source 0 </code></li>
-  <li>RTSP stream:  <code class="language-plaintext highlighter-rouge">--source rtsp://192.168.0.1/rtp/470011235daa </code></li>
-</ul>
-
-<p>Some of the image inferences below you can see:</p>
-
-<p><img src="./yolov3-9.jpeg" alt="" /></p>
-
-<p><img src="./yolov3-10.jpeg" alt="" /></p>
-
-<p>Due to the GitHub file size limit, I couldn’t upload it to GitHub. If you want to test my weight file, you can get it by</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://www.dropbox.com/s/tou8f0xvs8wdt8a/converted.weights
-</code></pre></div></div>
-
-<p>Link to the repository: https://github.com/TheCaffeineDev/YoloV3-Custom-Object-Detection</p>
-
-<p>If you want to label your own custom images you can use <a href="https://github.com/tzutalin/labelImg">LabelImg</a>.The process of training and all is almost the same.</p>
-
-<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
-
-<p><strong><em>Thank You</em></strong></p>
-
-<h3 id="references-and-credit">References and Credit</h3>
-
-<ol>
-  <li><a href="https://medium.com/syncedreview/google-releases-open-image-v5-launches-open-image-challenge-91fa802f0edf">Medium blog</a></li>
-  <li><a href="https://github.com/ultralytics/yolov3">Ultralytics repo</a></li>
-  <li><a href="https://pylessons.com/">Pylessons</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="yolov3" /><category term="object-detection" /><summary type="html"><![CDATA[Learn how to train a custom object detection with yolov3]]></summary></entry></feed>
+</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="ubuntu" /><category term="terminal" /><summary type="html"><![CDATA[customize your terminal on Ubuntu]]></summary></entry></feed>
