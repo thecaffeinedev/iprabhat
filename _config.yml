@@ -24,7 +24,7 @@ author:
 url: "https://iprabhat.dev" #
 baseurl:
 permalink: /:title/
-google_analytics: "UA-150491781-1"
+google_analytics: UA-150491781-1
 fb_appid:
 
 # Collection setting
