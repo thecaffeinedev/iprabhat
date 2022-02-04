@@ -1,5 +1,5 @@
 ---
-title: Be a good developer
+title: good developer
 date: 2022-01-23
 tags: [dev,software-design]
 description: Be a good developer
