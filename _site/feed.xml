@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-02-04T19:07:42+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">good developer</title><link href="http://localhost:4000/good-developer/" rel="alternate" type="text/html" title="good developer" /><published>2022-01-23T00:00:00+00:00</published><updated>2022-01-23T00:00:00+00:00</updated><id>http://localhost:4000/good-developer</id><content type="html" xml:base="http://localhost:4000/good-developer/"><![CDATA[<h2 id="overview"><strong>Overview</strong></h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-03-13T18:43:41+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Prabhat</title><subtitle>I&apos;m a software engineer based in Hyderabad, India, who enjoys building things.</subtitle><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><entry><title type="html">podcast I tune to</title><link href="http://localhost:4000/podcast-I-tune-to/" rel="alternate" type="text/html" title="podcast I tune to" /><published>2022-03-14T00:00:00+00:00</published><updated>2022-03-14T00:00:00+00:00</updated><id>http://localhost:4000/podcast-I-tune-to</id><content type="html" xml:base="http://localhost:4000/podcast-I-tune-to/"><![CDATA[<p>🎙</p>
+
+<p>Here’s the list of some podcasts I tune to. Most of my subscriptions remain Spotify-oriented but you may find their sites and youtube channel if you search.</p>
+
+<p><strong>Tech 👨🏻‍💻</strong></p>
+
+<ul>
+  <li><strong>Software Engineering in general</strong>
+    <ul>
+      <li><a href="https://open.spotify.com/show/7eGnnZnfb3mOGTqWR4gTjK?si=e2837394aee34abc">Software at scale</a></li>
+      <li><a href="https://open.spotify.com/show/2RlUhuz45H9BkU22pbWkpj?si=b69911834e0e4711">Software misadventures</a></li>
+      <li><a href="https://open.spotify.com/show/2wz1OneBIDXpbBYeuyIsJL?si=1121c56f034646c7">Software Engineering Unlocked</a></li>
+      <li><a href="https://open.spotify.com/show/6UO3XQclSuNnGxB39QdAnL?si=ea4873a84b4949ad">Software Engineering Radio</a></li>
+      <li><a href="https://open.spotify.com/show/6UCtBYL29hwhw4YbTdX83N?si=7710238a03524d27">Software daily</a></li>
+      <li><a href="https://open.spotify.com/show/0e5eoM6w7eW9Wu7wMA04Tr?si=d79479e6ec7547c9">The Stack Overflow Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/6oFuKu89C9X1wQ7bT0QEM2?si=eb26f4d27351467a">PodRocket</a></li>
+      <li><a href="https://open.spotify.com/show/5X07QpW7U2CM9ZbGxl4p40?si=4cfce00a1a1842b1">Embedded Insiders</a></li>
+      <li><a href="https://open.spotify.com/show/5fazVpZpvD33ipGt928lvm?si=2444761994714f23">The Craft of Open Source</a></li>
+      <li><a href="https://open.spotify.com/show/41Av6Rq81LfOT3Volz7W9D?si=38458ab3a13e452a">The Real Python Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/6xpiit8aJmwDHk1rKdxmri?si=25fb90d1d547433a">JavaScript Jabber Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/59I1XnvAB9fQzSj9SIKCoI?si=d4240e3192fe44cf">Soft Skills Engineering</a></li>
+      <li><a href="https://open.spotify.com/show/2T2OwucPOy2uDG1CUsjIMB?si=2670f4c48f9b44a9">Code Newbie - Podcast</a></li>
+    </ul>
+  </li>
+  <li><strong>ML and Stuff</strong>
+    <ul>
+      <li><a href="https://open.spotify.com/show/1LaCr5TFAgYPK5qHjP3XDp?si=7ee98e1d62994deb">Practical AI Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/7wZygk3mUUqBaRbBGB1lgh?si=37873e16ca4a4e9f">MLOps community</a></li>
+      <li><a href="https://open.spotify.com/show/2MAi0BvDc6GTFvKFPXnkCL?si=b43d606e84534e06">Artificial Intelligence: AI Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/5aFnCGDhpL5bGr2uHy4bB5?si=3fb09348ba90424f">Eye on A.I.</a></li>
+      <li><a href="https://open.spotify.com/show/2sp5EL7s7EqxttxwwoJ3i7?si=03eec8ba9ebc4b3e">TWiML &amp; AI</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Apart from these tech podcasts, I listen to some others also. I will add it here later on.</p>
+
+<p>I’ll keep the list updated every time I discover and new great podcast will add it here.</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="podcast" /><summary type="html"><![CDATA[podcast]]></summary></entry><entry><title type="html">good developer</title><link href="http://localhost:4000/good-developer/" rel="alternate" type="text/html" title="good developer" /><published>2022-01-23T00:00:00+00:00</published><updated>2022-01-23T00:00:00+00:00</updated><id>http://localhost:4000/good-developer</id><content type="html" xml:base="http://localhost:4000/good-developer/"><![CDATA[<h2 id="overview"><strong>Overview</strong></h2>
 
 <p>A ‘good developer’ is too vague. It could be a developer who knows how to properly apply TDD in practice, a developer with the performance to create a huge amount of code in an instant or a developer equipped with <a href="https://en.wikipedia.org/wiki/Software_craftsmanship">software craftsmanship</a> to the core.</p>
 
@@ -1684,124 +1721,4 @@ python3 manage.py runserver
 
 <p>And I think a code editor is simply a tool. It doesn’t matter whether you choose Sublime Text or VS Code or any other. What matters is it works for you.</p>
 
-<p>Thanks for reading. Did this article help you out? If it did, I hope you consider sharing it. You might help someone else out. Thank you so much!</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="vscode" /><summary type="html"><![CDATA[vscode on browser]]></summary></entry><entry><title type="html">Customize Your Terminal On Ubuntu</title><link href="http://localhost:4000/customize-your-terminal-on-ubuntu/" rel="alternate" type="text/html" title="Customize Your Terminal On Ubuntu" /><published>2020-01-04T00:00:00+00:00</published><updated>2020-01-04T00:00:00+00:00</updated><id>http://localhost:4000/customize-your-terminal-on-ubuntu</id><content type="html" xml:base="http://localhost:4000/customize-your-terminal-on-ubuntu/"><![CDATA[<p><img src="./ub_zsh.png" alt="Cover image" /></p>
-
-<p>In this blog post, I will cover how to install Oh My Zsh and How to customize your terminal and make it fancy.</p>
-
-<h2 id="update-the-packages">Update the packages</h2>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
-<span class="nb">sudo </span>apt upgrade
-</code></pre></div></div>
-
-<h2 id="install-prerequisite-packages-zsh-powerline--powerline-fonts">Install prerequisite packages (ZSH, powerline &amp; powerline fonts)</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install zsh
-sudo apt-get install powerline fonts-powerline
-</code></pre></div></div>
-
-<p><img src="https://miro.medium.com/max/731/1*S8VYA_Ks7YqLYK6pFPK17Q.png" alt="" /></p>
-
-<h2 id="clone-the-oh-my-zsh-repo">Clone the Oh My Zsh Repo</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-</code></pre></div></div>
-
-<h2 id="create-a-new-zsh-configuration-file">Create a New ZSH configuration file</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-</code></pre></div></div>
-
-<h2 id="install-powerlevel9k">Install PowerLevel9k!</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-</code></pre></div></div>
-
-<h2 id="set-up-a-theme-for-your-terminal--open-zshrc-file-using-gedit-editor">Set up a theme for your Terminal — Open <code class="language-plaintext highlighter-rouge">.zshrc</code> File using gedit editor</h2>
-
-<p>And change and put these lines :</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">"powerlevel9k/powerlevel9k"</span><span class="nv">POWERLEVEL9K_DISABLE_RPROMPT</span><span class="o">=</span><span class="nb">true
-</span><span class="nv">POWERLEVEL9K_PROMPT_ON_NEWLINE</span><span class="o">=</span><span class="nb">true
-</span><span class="nv">POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX</span><span class="o">=</span>”▶ “
-<span class="nv">POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX</span><span class="o">=</span>””
-</code></pre></div></div>
-
-<p><img src="https://miro.medium.com/max/766/1*_hi0hSXi8tXqWirDCMU5nQ.png" alt="" /></p>
-
-<h2 id="change-your-default-shell">Change your Default Shell</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/zsh
-</code></pre></div></div>
-
-<p>for this command to be effective you need to restart your system.</p>
-
-<h1 id="oh-my-zsh-terminal">Oh My Zsh Terminal</h1>
-
-<p>After restarting your terminal will look like this :</p>
-
-<p><img src="https://miro.medium.com/max/724/1*gW98D-UxTS7m1IAC-pMtxw.png" alt="" /></p>
-
-<h2 id="if-you-want-syntax-highlighting">If you want Syntax Highlighting</h2>
-
-<p>Clone the ZSH Syntax Highlighting</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git “$HOME/.zsh-syntax-highlighting” — depth 1
-</code></pre></div></div>
-
-<p>Add syntax-highlighting in <code class="language-plaintext highlighter-rouge">.zshrc</code> Configuration</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo “source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh” &gt;&gt; “$HOME/.zshrc”
-</code></pre></div></div>
-
-<p>And If anything goes wrong, you can revert back to your default shell by</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /bin/bash
-</code></pre></div></div>
-
-<p>If you are a data science enthusiast and using anaconda then you need to add these lines below in zshrc file.</p>
-
-<p>Open a terminal and</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gedit .zshrc
-</code></pre></div></div>
-
-<p>add these. Make sure to change your username after home.</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\#</span> <span class="o">&gt;&gt;&gt;</span> conda initialize <span class="o">&gt;&gt;&gt;</span>
-<span class="se">\#</span> <span class="o">!!</span> Contents within this block are managed by ‘conda init’ <span class="o">!!</span>
-<span class="nv">__conda_setup</span><span class="o">=</span>”<span class="si">$(</span>‘/home/yourusername/anaconda3/bin/conda’ ‘shell.bash’ ‘hook’ 2&gt; /dev/null<span class="si">)</span>”
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
- </span><span class="nb">eval</span> “<span class="nv">$__conda_setup</span>”
-<span class="k">else
- if</span> <span class="o">[</span> <span class="nt">-f</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh” <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
- <span class="nb">.</span> “/home/yourusername/anaconda3/etc/profile.d/conda.sh”
- <span class="k">else
- </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>”/home/yourusername/anaconda3/bin:<span class="nv">$PATH</span>”
- <span class="k">fi
-fi
-</span><span class="nb">unset </span>__conda_setup
-<span class="se">\#</span> <span class="o">&lt;&lt;&lt;</span> conda initialize <span class="o">&lt;&lt;&lt;</span>
-</code></pre></div></div>
-
-<p>Mine looks like this.</p>
-
-<p><img src="https://miro.medium.com/max/768/1*CtxgScchhgnV_bVhXiz0eg.png" alt="" /></p>
-
-<p>Then do</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ./zshrc
-</code></pre></div></div>
-
-<p>There are a lot of customization available. You can check Oh my zsh and Powerlevel9k repository.</p>
-
-<p>If you have any questions, recommendations or critiques, I can be reached via <a href="https://twitter.com/thecaffeinedev">Twitter</a> or via my <a href="mailto:iprabhatdev@gmail.com">mail</a>. Feel free to reach out to me.</p>
-
-<p><strong><em>Thank You</em></strong></p>
-
-<p><strong>Acknowledgment</strong></p>
-
-<ol>
-  <li><a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh — </a></li>
-  <li><a href="https://github.com/Powerlevel9k/powerlevel9k">Powelevel9k</a></li>
-</ol>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="ubuntu" /><category term="terminal" /><summary type="html"><![CDATA[customize your terminal on Ubuntu]]></summary></entry></feed>
+<p>Thanks for reading. Did this article help you out? If it did, I hope you consider sharing it. You might help someone else out. Thank you so much!</p>]]></content><author><name>Prabhat</name><email>iprabhatdev@email.com</email></author><category term="vscode" /><summary type="html"><![CDATA[vscode on browser]]></summary></entry></feed>
