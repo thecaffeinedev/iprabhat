@@ -17,11 +17,12 @@
 <script src="/assets/js/main.js" defer="defer"></script>
 
 {%- if page.google_analytics -%}
-  <script src="/assets/js/galite.js"></script>
+  {%- include google-analytics.html -%}
+  <!-- <script src="/assets/js/galite.js"></script>
   <script>
     var galite = galite || {};
     galite.UA = "{{ site.google_analytics }}";
-  </script>
+  </script> -->
 {%- endif -%}
 {%- if page.url == '/blog/' -%}
   <script src="/assets/js/search.min.js"></script>
