@@ -7,6 +7,8 @@ enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
+enableEmoji: true
+
 
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
@@ -17,6 +19,12 @@ googleAnalyticsID: "UA-150491781-1"
 minify:
   disableXML: true
   minifyOutput: true
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
 
 params:
     env: production # to enable google analytics, opengraph, twitter-cards and schema.
@@ -34,7 +42,7 @@ params:
     ShowShareButtons: true
     ShowPostNavLinks: true
     ShowBreadCrumbs: true
-    ShowCodeCopyButtons: false
+    ShowCodeCopyButtons: true
     disableSpecial1stPost: false
     disableScrollToTop: false
     comments: false
@@ -81,7 +89,6 @@ params:
           url: "https://www.instagram.com/caffeinedev/"
         - name: youtube
           url: "https://www.youtube.com/channel/UC-756oKXdvH8GZEDF7GHIlw"
-
 
 
 
