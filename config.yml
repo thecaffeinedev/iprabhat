@@ -1,0 +1,148 @@
+baseURL: "https://iprabhat.dev/"
+languageCode: "en-us"
+title: "Prabhat"
+theme: "PaperMod"
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+
+
+googleAnalyticsID: "UA-150491781-1"
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+    env: production # to enable google analytics, opengraph, twitter-cards and schema.
+    title: Prabhat's Personal Site
+    description: "Prabhat's Blog"
+    keywords: [Blog, Portfolio, Prabhat, Caffeinedev]
+    author: Me
+    # author: ["Me", "You"] # multiple authors
+    images: ["<link or path of image for opengraph, twitter-cards>"]
+    DateFormat: "January 2, 2006"
+    defaultTheme: auto # dark, light
+    disableThemeToggle: false
+
+    ShowReadingTime: true
+    ShowShareButtons: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: false
+    disableSpecial1stPost: false
+    disableScrollToTop: false
+    comments: false
+    hidemeta: false
+    hideSummary: false
+    showtoc: false
+    tocopen: false
+
+
+    # profile-mode
+    profileMode:
+        enabled: True # needs to be explicitly set
+        title: Prabhat
+        subtitle: "Hi ! 👋 I'm a software engineer 🧑🏻‍💻 based in Hyderabad, India, who enjoys building things."
+        imageUrl: "prabhat.jpeg"
+        imageWidth: 240
+        imageHeight: 240
+        imageTitle: my image
+        buttons:
+            - name: Posts
+              url: posts
+            - name: About
+              url: about
+
+    # home-info mode
+    homeInfoParams:
+        Title: "Hi there \U0001F44B"
+        Content: Welcome to my blog
+
+    socialIcons:
+        - name: twitter
+          url: "https://twitter.com/caffeinedev"
+        - name: linkedin
+          url: "https://www.linkedin.com/in/prabhat-kumar-sahu-b9a53674/"
+        - name: github
+          url: "https://github.com/thecaffeinedev"
+        - name: stackoverflow
+          url: "https://stackoverflow.com/users/8105979/prabhat-kumar-sahu"
+        - name: medium
+          url: "https://medium.com/@caffeinedev"
+        - name: email
+          url: "mailto:iprabhatdev@gmail.com"
+        - name: instagram
+          url: "https://www.instagram.com/caffeinedev/"
+        - name: youtube
+          url: "https://www.youtube.com/channel/UC-756oKXdvH8GZEDF7GHIlw"
+
+
+
+
+    cover:
+        hidden: true # hide everywhere but not in structured data
+        hiddenInList: true # hide on list pages and home
+        hiddenInSingle: true # hide on single page
+
+    editPost:
+        URL: "https://github.com/thecaffeinedev/iprabhat/content"
+        Text: "Suggest Changes" # edit text
+        appendFilePath: true # to append file path to Edit link
+
+    # for search
+    # https://fusejs.io/api/options.html
+    fuseOpts:
+        isCaseSensitive: false
+        shouldSort: true
+        location: 0
+        distance: 1000
+        threshold: 0.4
+        minMatchCharLength: 0
+        keys: ["title", "permalink", "summary", "content"]
+menu:
+    main:
+        - identifier: about
+          name: About
+          url: /about/
+          weight: 10
+
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 20
+
+        - identifier: uses
+          name: Uses
+          url: /uses/
+          weight: 30
+
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 40
+
+
+        - identifier: bookshelf
+          name: Bookshelf
+          url: /bookshelf/
+          weight: 50
+        # - identifier: tags
+        #   name: Tags
+        #   url: /tags/
+        #   weight: 40
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+# pygmentsUseClasses: true
+# markup:
+#     highlight:
+#         # anchorLineNos: true
+#         codeFences: true
+#         guessSyntax: true
+#         lineNos: true
+#         style: monokai
