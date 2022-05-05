@@ -7,6 +7,7 @@ description: "Install and Config hugo"
 categories: [Development,Web]
 tags: [hugo,site]
 
+
 ---
 
 # Before Start
