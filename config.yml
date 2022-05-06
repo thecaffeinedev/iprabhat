@@ -35,7 +35,7 @@ params:
     # author: ["Me", "You"] # multiple authors
     images: ["<link or path of image for opengraph, twitter-cards>"]
     DateFormat: "January 2, 2006"
-    defaultTheme: auto # dark, light
+    defaultTheme: dark # dark, light
     disableThemeToggle: false
 
     ShowReadingTime: true
@@ -115,17 +115,17 @@ params:
 menu:
     main:
         - identifier: about
-          name: 🙋About
+          name: 🙋 About
           url: /about/
           weight: 1
 
         - identifier: posts
-          name: ✍️Posts
+          name: ✍️ Posts
           url: /posts/
           weight: 2
 
         - identifier: uses
-          name: 📋Uses
+          name: 📋 Uses
           url: /uses/
           weight: 3
 
@@ -134,9 +134,8 @@ menu:
         #   url: /categories/
         #   weight: 40
 
-
         - identifier: bookshelf
-          name: 📚Bookshelf
+          name: 📚 Bookshelf
           url: /bookshelf/
           weight: 4
 
