@@ -14,7 +14,7 @@ defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
 
 
-googleAnalyticsID: "UA-150491781-1"
+googleAnalytics: UA-150491781-1
 
 minify:
   disableXML: true
