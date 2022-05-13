@@ -123,7 +123,7 @@ menu:
 
         - identifier: posts
           name: ✍️ Posts
-          url: /posts/
+          url: /archives/
           weight: 2
 
         - identifier: uses
