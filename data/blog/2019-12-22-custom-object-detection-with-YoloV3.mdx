@@ -65,11 +65,11 @@ python3 main.py downloader --classes Watch Backpack Book Headphones --type_csv t
 
 With this command, 600 training images for each class will get downloaded. If you are using for the first time it will ask you to download (train-annotations-bbox or test-annotations-bbox) CSV file. Type Y, while running the command so that it would get downloaded.
 
-![](../images/blog_posts/yolov3-1.png)
+![](static/images/blog/yolov3-1.png)
 
 You need to wait for some time to finish the download.
 
-![](../images/blog_posts/yolov3-2.png)
+![](static/images/blog/yolov3-2.png)
 
 This is the folder structure :
 
@@ -178,7 +178,7 @@ After copying go to the `conversion` folder. You need to edit the `classes.txt `
 
 It looks like this:
 
-![](../images/blog_posts/yolov3-3.png)
+![](static/images/blog/yolov3-3.png)
 
 Now in conversion folder run
 
@@ -208,7 +208,7 @@ Then open `trainer.data` . It looks like this. You need to put your no. of class
 
 Mine looks like this
 
-![](../images/blog_posts/yolov3-4.png)
+![](static/images/blog/yolov3-4.png)
 
 Now you need to edit the `.cfg` file. By default each YOLO layer has 255 outputs: 85 outputs per anchor [4 box coordinates + 1 object confidence + 80 class confidences], times 3 anchors.
 
@@ -216,7 +216,7 @@ In our case we are using only four classes, then we need to edit the filter. You
 
 In our case in `yolov3.cfg` file I changed the batch size & subdivisions which is in line no. **6** and **7**. Then line no **610** (classes=4) and **603** (filters=27), then line no. **689** & **696**, lastly line no. **776** & **783**. If you are using, line no. will be different.
 
-![](../images/blog_posts/yolov3-5.png)
+![](static/images/blog/yolov3-5.png)
 
 Now we are ready to train our yolov3 model.
 
@@ -239,7 +239,7 @@ There are optional arguments are there, you can check-in `train.py` file.
 
 Also, You can **Update hyperparameters** also such as LR, LR scheduler, optimizer, augmentation settings, multi_scale settings, etc in `train.py` for your particular task. I would recommend you start with all-default settings first updating anything.
 
-![](../images/blog_posts/yolov3-6.png)
+![](static/images/blog/yolov3-6.png)
 
 To run tensorboard while training, open another terminal and run
 
@@ -248,11 +248,11 @@ To run tensorboard while training, open another terminal and run
 tensorboard --logdir=runs
 ```
 
-![](../images/blog_posts/yolov3-7.png)
+![](static/images/blog/yolov3-7.png)
 
 It took me 2 hours to train four objects with 110 epochs.
 
-![](../images/blog_posts/yolov3-8.png)
+![](static/images/blog/yolov3-8.png)
 
 If you follow the above steps, you will be able to train your own model properly.
 

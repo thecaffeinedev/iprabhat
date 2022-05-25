@@ -39,7 +39,7 @@ This gives us a clear idea where to being the project, like we need to implement
 
 Let's go to our project folder named **todo** and run the server.
 
-![](../images/blog_posts/django2-1.png)
+![](static/images/blog/django2-1.png)
 
 You can see it's giving us an warning saying _"You have 17 unapplied migration(s). "_ so let's do the migrations, to do it run
 
@@ -47,7 +47,7 @@ You can see it's giving us an warning saying _"You have 17 unapplied migration(s
 python manage.py migrate
 ```
 
-![](../images/blog_posts/django2-2.png)
+![](static/images/blog/django2-2.png)
 
 According to documentation, Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations when to run them, and the common problems you might run into.
 
@@ -80,7 +80,7 @@ Then I need you to create an HTML file called 'signupuser.html'. If you didn't u
 
 Here only I have created a folder called templates inside the todoapp, and inside the templates I have created another folder called todoapp. Then inside that I have created a file called signupuser.html.
 
-![](../images/blog_posts/django2-4.png)
+![](static/images/blog/django2-4.png)
 
 Make sure to follow the same names and same folder structure. If you still get confused, you can checkout my Github repo for code.
 
@@ -138,7 +138,7 @@ http://127.0.0.1:8000/signup/
 
 You will see the page below, if you are not able to see, you have done something wrong in the process.
 
-![](../images/blog_posts/django2-3.png)
+![](static/images/blog/django2-3.png)
 
 Now just we are simply rendering the HTML templates, for now there's nothing except the SignUp header. Later we will add design and make it look good.
 
@@ -183,7 +183,7 @@ Now let's edit signupuser.html file.
 
 And now if you run the server and go to http://127.0.0.1:8000/signup/ you will be able to see the page below.
 
-![](../images/blog_posts/django2-5.png)
+![](static/images/blog/django2-5.png)
 
 So this Django in-built UserCreationForm gives us a basic form. If you didn't get the syntax which we have used in the signupuser.html file. You can read more about it [here.](https://docs.djangoproject.com/en/3.0/ref/templates/language/)
 
@@ -204,11 +204,11 @@ Here we have added HTML form. And the method is POST. _POST_ is for writing data
 
 Now if you save the file and run the sever you will see the page below
 
-![](../images/blog_posts/django2-6.png)
+![](static/images/blog/django2-6.png)
 
 Now if you try to fill in some details in the form and if you press submit button you will get this error below. Make sure to try it out so that you understand things better.
 
-![](../images/blog_posts/django2-7.png)
+![](static/images/blog/django2-7.png)
 
 Now we got the error saying CSRF token missing. To fix this error
 
