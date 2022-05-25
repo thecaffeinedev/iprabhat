@@ -2,7 +2,6 @@ import Link from "./Link";
 import siteMetadata from "@/data/siteMetadata";
 import SocialIcon from "@/components/social-icons";
 import { FaRssSquare } from "react-icons/fa";
-// import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Footer() {
   return (
