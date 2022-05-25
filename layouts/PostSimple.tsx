@@ -1,27 +1,31 @@
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
-import siteMetadata from '@/data/siteMetadata'
-import formatDate from '@/lib/utils/formatDate'
-import Comments from '@/components/comments'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import { ReactNode } from 'react'
-import { PostFrontMatter } from 'types/PostFrontMatter'
+import Link from "@/components/Link";
+import PageTitle from "@/components/PageTitle";
+import { BlogSEO } from "@/components/SEO";
+import siteMetadata from "@/data/siteMetadata";
+import formatDate from "@/lib/utils/formatDate";
+import Comments from "@/components/comments";
+import ScrollTopAndComment from "@/components/ScrollTopAndComment";
+import { ReactNode } from "react";
+import { PostFrontMatter } from "types/PostFrontMatter";
 
 interface Props {
-  frontMatter: PostFrontMatter
-  children: ReactNode
-  next?: { slug: string; title: string }
-  prev?: { slug: string; title: string }
+  frontMatter: PostFrontMatter;
+  children: ReactNode;
+  next?: { slug: string; title: string };
+  prev?: { slug: string; title: string };
 }
 
-export default function PostLayout({ frontMatter, next, prev, children }: Props) {
-  const { slug, date, title } = frontMatter
+export default function PostLayout({
+  frontMatter,
+  next,
+  prev,
+  children,
+}: Props) {
+  const { slug, date_published, title } = frontMatter;
 
   return (
-    <SectionContainer>
-      <BlogSEO url={`${siteMetadata.siteUrl}/blog/${slug}`} {...frontMatter} />
+    <>
+      <BlogSEO url={`${siteMetadata.siteUrl}/${slug}`} {...frontMatter} />
       <ScrollTopAndComment />
       <article>
         <div>
@@ -31,7 +35,9 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
                 <div>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>{formatDate(date)}</time>
+                    <time dateTime={date_published}>
+                      {formatDate(date_published)}
+                    </time>
                   </dd>
                 </div>
               </dl>
@@ -42,10 +48,12 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
           </header>
           <div
             className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0 "
-            style={{ gridTemplateRows: 'auto 1fr' }}
+            style={{ gridTemplateRows: "auto 1fr" }}
           >
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
+              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+                {children}
+              </div>
             </div>
             <Comments frontMatter={frontMatter} />
             <footer>
@@ -53,7 +61,7 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
                 {prev && (
                   <div className="pt-4 xl:pt-8">
                     <Link
-                      href={`/blog/${prev.slug}`}
+                      href={`/${prev.slug}`}
                       className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                     >
                       &larr; {prev.title}
@@ -63,7 +71,7 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
                 {next && (
                   <div className="pt-4 xl:pt-8">
                     <Link
-                      href={`/blog/${next.slug}`}
+                      href={`/${next.slug}`}
                       className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                     >
                       {next.title} &rarr;
@@ -75,6 +83,6 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
           </div>
         </div>
       </article>
-    </SectionContainer>
-  )
+    </>
+  );
 }

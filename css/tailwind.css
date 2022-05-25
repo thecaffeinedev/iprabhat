@@ -23,3 +23,15 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+.prose img {
+  @apply rounded-2xl;
+}
+
+.prose figcaption {
+  @apply text-center;
+}
+
+.prose a {
+  word-break: break-all;
+}

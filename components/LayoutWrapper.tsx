@@ -1,30 +1,31 @@
-import siteMetadata from '@/data/siteMetadata'
-import headerNavLinks from '@/data/headerNavLinks'
-import Logo from '@/data/logo.svg'
-import Link from './Link'
-import SectionContainer from './SectionContainer'
-import Footer from './Footer'
-import MobileNav from './MobileNav'
-import ThemeSwitch from './ThemeSwitch'
-import { ReactNode } from 'react'
+import headerNavLinks from "@/data/headerNavLinks";
+import siteMetadata from "@/data/siteMetadata";
+import LogoWhite from "@/public/static/images/code-svgrepo-com2.svg";
+import Logo from "@/public/static/images/code-svgrepo-com2.svg";
+import { ReactNode } from "react";
+import Footer from "./Footer";
+import Link from "./Link";
+import MobileNav from "./MobileNav";
+import ThemeSwitch from "./ThemeSwitch";
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const LayoutWrapper = ({ children }: Props) => {
   return (
-    <SectionContainer>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-10">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Logo />
+                <div className="relative mr-3 flex w-16 items-center">
+                  <Logo className="w-full dark:hidden" />
+                  <LogoWhite className="hidden w-full dark:block" />
                 </div>
-                {typeof siteMetadata.headerTitle === 'string' ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
+                {typeof siteMetadata.headerTitle === "string" ? (
+                  <div className="hidden h-6 text-2xl font-semibold leading-none sm:block">
                     {siteMetadata.headerTitle}
                   </div>
                 ) : (
@@ -52,8 +53,8 @@ const LayoutWrapper = ({ children }: Props) => {
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
-    </SectionContainer>
-  )
-}
+    </div>
+  );
+};
 
-export default LayoutWrapper
+export default LayoutWrapper;
