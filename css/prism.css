@@ -5,6 +5,8 @@
  * https://github.com/PrismJS/prism-themes
  */
 
+/* Prabhat - for commit message style */
+
 /* Code title styles */
 .remark-code-title {
   @apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
