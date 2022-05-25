@@ -121,7 +121,7 @@ module.exports = withRemoteRefresh(
     async redirects() {
       return [
         {
-          source: "/about",
+          source: "/",
           destination: "/about",
           permanent: true,
         },
