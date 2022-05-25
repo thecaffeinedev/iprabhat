@@ -70,7 +70,7 @@ const siteMetadata = {
       // theme example: github-light, github-dark, preferred-color-scheme
       // github-dark-orange, icy-dark, dark-blue, photon-dark, boxy-light
       theme: "",
-      // theme when dark mode
+
       darkTheme: "",
     },
     disqusConfig: {
