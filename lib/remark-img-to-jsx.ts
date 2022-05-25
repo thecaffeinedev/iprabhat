@@ -46,6 +46,7 @@ export default function remarkImgToJsx() {
             ]);
 
           // Change node type from p to div to avoid nesting error
+          //commmit fix
           node.type = "div";
           node.children = [imageNode];
         }
