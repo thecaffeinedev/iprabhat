@@ -9,6 +9,8 @@ interface Props {
   frontMatter: AuthorFrontMatter;
 }
 
+// commit msg
+
 export default function AuthorLayout({ children, frontMatter }: Props) {
   const {
     name,
