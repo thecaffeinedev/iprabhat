@@ -2,7 +2,6 @@ import Card from "@/components/Card";
 import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
 import Tag from "@/components/Tag";
-import projectsData from "@/data/projectsData";
 import siteMetadata from "@/data/siteMetadata";
 import { getAllBlogFilesFrontMatter } from "@/lib/getAllBlogFilesFrontMatter";
 import formatDate from "@/lib/utils/formatDate";
