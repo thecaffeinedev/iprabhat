@@ -4,7 +4,8 @@ import { ComponentProps, useState } from "react";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
 import { PostFrontMatter } from "types/PostFrontMatter";
-import { Tags } from "pages/blog/components/Tags";
+// import { Tags } from "pages/blog/components/Tags";
+import { BsFilterLeft as FilterIcon } from "react-icons/bs";
 
 interface Props {
   posts: PostFrontMatter[];
@@ -19,8 +20,8 @@ export default function ListLayout({
   title,
   initialDisplayPosts = [],
   pagination,
-  tags,
-}: Props) {
+}: // tags,
+Props) {
   const [searchValue, setSearchValue] = useState("");
   const filteredBlogPosts = posts.filter((frontMatter) => {
     const searchContent =
@@ -63,8 +64,14 @@ export default function ListLayout({
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
+            <Link
+              href="/tags"
+              className="absolute right-10 top-2 text-gray-400 dark:text-gray-300"
+            >
+              <FilterIcon size={30} />
+            </Link>
           </div>
-          {tags && Object.keys(tags).length > 0 ? <Tags tags={tags} /> : null}
+          {/* {tags && Object.keys(tags).length > 0 ? <Tags tags={tags} /> : null} */}
         </div>
 
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
