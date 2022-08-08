@@ -10,7 +10,7 @@
 #   binary  These files are binary and should be left untouched.
 #
 # Note that binary is a macro for -text -diff.
-######################################################################
+############################################
 
 # Auto detect
 ##   Force LF line endings automatically for files detected as
