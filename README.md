@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-I would recommend checking the [Deployment Methods](https://www.netlify.com/blog/2019/05/28/deploy-in-seconds-with-netlify-cli/) page on Netlify website.
+I would recommend checking the [Deployment Methods](https://vercel.com/docs/concepts/deployments/overview) page on Vercel website.
 
 ## Credits
 
