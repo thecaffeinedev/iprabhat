@@ -196,3 +196,83 @@ export const getAuthorFileBySlug = async (slug: string) => {
     },
   };
 };
+
+export const getUsesFileBySlug = async (slug: string) => {
+  const allFiles = await getAllAuthorFilesFrontMatter();
+  const file = allFiles.find((f) => f.slug === slug);
+
+  if (!file) {
+    throw new Error(`No file found for slug: ${slug}`);
+  }
+  const filePath = path.join(root, "data", "authors", file.fileName);
+  const source = fs.readFileSync(filePath, "utf8");
+
+  // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
+  if (process.platform === "win32") {
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      root,
+      "node_modules",
+      "esbuild",
+      "esbuild.exe"
+    );
+  } else {
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      root,
+      "node_modules",
+      "esbuild",
+      "bin",
+      "esbuild"
+    );
+  }
+
+  const toc: Toc = [];
+
+  const { code, frontmatter } = await bundleMDX<AuthorFrontMatter>({
+    source,
+    // mdx imports can be automatically source from the components directory
+    cwd: path.join(root, "components"),
+    xdmOptions(options, frontmatter) {
+      // this is the recommended way to add custom remark/rehype plugins:
+      // The syntax might look weird, but it protects you in case we add/remove
+      // plugins in the future.
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkExtractFrontmatter,
+        [remarkTocHeadings, { exportRef: toc }],
+        remarkGfm,
+        remarkCodeTitles,
+        [remarkFootnotes, { inlineNotes: true }],
+        remarkMath,
+        remarkImgToJsx,
+      ];
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeAutolinkHeadings,
+        rehypeKatex,
+        [rehypeCitation, { path: path.join(root, "data") }],
+        [rehypePrismPlus, { ignoreMissing: true }],
+        rehypePresetMinify,
+      ];
+      return options;
+    },
+    esbuildOptions: (options) => {
+      options.loader = {
+        ...options.loader,
+        ".js": "jsx",
+      };
+      return options;
+    },
+  });
+
+  return {
+    mdxSource: code,
+    toc,
+    frontMatter: {
+      readingTime: readingTime(code),
+      slug: slug || null,
+      fileName: file.fileName,
+      ...frontmatter,
+    },
+  };
+};
