@@ -1,7 +1,7 @@
 import headerNavLinks from "@/data/headerNavLinks";
 import siteMetadata from "@/data/siteMetadata";
-import LogoWhite from "@/public/static/images/code-svgrepo-com2.svg";
-import Logo from "@/public/static/images/code-svgrepo-com2.svg";
+import LogoWhite from "@/public/static/images/code-1-svgrepo-com-5.svg";
+import Logo from "@/public/static/images/code-1-svgrepo-com-4.svg";
 import { ReactNode } from "react";
 import Footer from "./Footer";
 import Link from "./Link";
@@ -20,7 +20,7 @@ const LayoutWrapper = ({ children }: Props) => {
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
-                <div className="relative mr-3 flex w-16 items-center">
+                <div className="relative mr-3 flex w-9 items-center">
                   <Logo className="w-full dark:hidden" />
                   <LogoWhite className="hidden w-full dark:block" />
                 </div>
